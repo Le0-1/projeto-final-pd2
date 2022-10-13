@@ -37,10 +37,8 @@
 | origem                 | `ContaBancaria`      |
 | destino                |                      |
 
-
 | Classe: `Orcamento`||
 | :--------------------- | ----------------- |
-| **Filha:**             | **Pai:**          |
 | **Responsabilidades:** | **Colaborações:** |
 | valor                  |                   |
 | fluxo                  |                   |
