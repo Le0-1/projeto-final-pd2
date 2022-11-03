@@ -1,20 +1,19 @@
 ```mermaid
 classDiagram
 
-Conta <|-- ContaBancaria
-Conta <|-- Carteira
+Carteira <|-- ContaBancaria
 
-Conta *-- Transacao
+Carteira *-- Transacao
 ContaBancaria *-- Cartao
 
-class Conta {
+class Carteira {
     -nome: string
     -saldoInicial: double
     -saldoAtual: double
     -nome: string
     -trasacoes: list~trasacao~
 
-    +ultimastransacoes(int) vector~transacao~
+    +ultimastransacoes(int) list~transacao~
     +adicionarTransacao(transacao) void
     +removerTrasacao(trasacao) void
 }
@@ -24,10 +23,6 @@ class ContaBancaria {
 
     +adicionarCartao(cartao) void
     +removerCartao(cartao) void
-}
-
-class Carteira {
-                   
 }
 
 class Cartao {
