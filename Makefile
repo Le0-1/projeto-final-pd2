@@ -11,6 +11,8 @@ DEBUG_FLAG =
 all: $(BUILD_DIR)/$(NAME)
 
 $(BUILD_DIR)/$(NAME): \
+		$(BUILD_DIR)/Cartao.o \
+		$(BUILD_DIR)/ContaBancaria.o \
 		$(BUILD_DIR)/Menu.o \
 		$(BUILD_DIR)/WindowManager.o \
 		$(BUILD_DIR)/main.o
