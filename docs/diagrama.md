@@ -49,6 +49,7 @@ Transacao <|-- Despesa
 Transacao <|-- Tranferencia
 
 class Transacao {
+    -id: int
     -valor: double
     -descricao: string
     -data: string
