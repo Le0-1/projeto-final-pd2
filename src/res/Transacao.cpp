@@ -1,13 +1,14 @@
 #include "Transacao.hpp"
 
-int Transacao::_id = 0;
+int Transacao::contador = 0;
 
 Transacao::Transacao(double valor, std::string descricao, std::string data, std::string categoria) {
     this->_valor = valor;
     this->_descricao = descricao;
     this->_data = data;
     this->_categoria = categoria;
-    this->_id++;
+    this->contador++;
+    this->_id = contador;
 }
 
 double Transacao::GetValor() {

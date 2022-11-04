@@ -5,7 +5,8 @@
 
 class Transacao {
     private:
-        static int _id;
+        static int contador;
+        int _id;
         double _valor;
         std::string _descricao, _data, _categoria;
 
