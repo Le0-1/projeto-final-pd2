@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include <vector>
+#include <utility>
 
 #include "Transacao.hpp"
 
@@ -18,7 +18,7 @@ class Carteira {
 
         Carteira(std::string Nome);
 
-        std::map<int, Transacao> UltimasTransacoes(int quantidade);
+        std::map<int, Transacao> UltimasTransacoes(unsigned quantidade);
 
         void AdicionarTransacao(Transacao t);
 

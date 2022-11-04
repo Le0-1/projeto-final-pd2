@@ -20,13 +20,13 @@ void Carteira::RemoverTransacao(Transacao t) {
     this->transacoes.erase(t.GetID());
 }
 
-std::map<int, Transacao> Carteira::UltimasTransacoes(int quantidade) {
+std::map<int, Transacao> Carteira::UltimasTransacoes(unsigned quantidade) {
     std::map<int, Transacao> aux;
 
-    if (this->transacoes.size() < quantidade) quantidade = this->transacoes.size();
-    
-    for (int i = 0; i < quantidade; i++) {
-        aux.insert(std::pair<int, Transacao>(this->transacoes[i].GetID(), this->transacoes[i]));
+    for (auto it : this->transacoes) {
+        aux.insert(std::pair<int, Transacao>(it.first, it.second));
+        quantidade--;
+        if (quantidade <= 0) break;
     }
 
     return aux;
