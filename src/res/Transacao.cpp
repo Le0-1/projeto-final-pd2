@@ -15,6 +15,10 @@ double Transacao::GetValor() {
     return this->_valor;
 }
 
+std::string Transacao::GetData() {
+    return this->_data;
+}
+
 std::string Transacao::GetDescricao() {
     return this->_descricao;
 }
