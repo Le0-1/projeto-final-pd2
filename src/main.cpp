@@ -1,10 +1,9 @@
-#include "WindowManager.hpp"
-
-#include <iostream>
+#include "GerenciaJanela.hpp"
 
 int main(int argc, char const *argv[]) {
 
-    WindowManager wm;
-    wm.start();
+    GerenciaJanela janela;
+    janela.iniciar();
+
     return 0;
 }

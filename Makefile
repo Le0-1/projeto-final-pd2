@@ -11,10 +11,8 @@ DEBUG_FLAG =
 all: $(BUILD_DIR)/$(NAME)
 
 $(BUILD_DIR)/$(NAME): \
-		$(BUILD_DIR)/Cartao.o \
-		$(BUILD_DIR)/ContaBancaria.o \
-		$(BUILD_DIR)/Menu.o \
-		$(BUILD_DIR)/WindowManager.o \
+		$(BUILD_DIR)/Guia.o \
+		$(BUILD_DIR)/GerenciaJanela.o \
 		$(BUILD_DIR)/main.o
 	$(CC) $(CFLAGS) $(DEBUG_FLAG) $(BUILD_DIR)/*.o -o $(BUILD_DIR)/$(NAME) $(NFLAGS)
 
