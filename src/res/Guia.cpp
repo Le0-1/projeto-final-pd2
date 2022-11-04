@@ -10,7 +10,7 @@ Guia::Guia(std::vector<std::string> nomes) {
     );
 
     init_pair(COR_PRETO_CIANO, COLOR_BLACK, COLOR_CYAN);
-    setPosicaoSelecionda(POSICAO_INICIAL);
+    setPosicaoSelecionada(POSICAO_INICIAL);
     recarregar();
 }
 
@@ -19,7 +19,7 @@ Guia::~Guia() {
 }
 
 void Guia::recarregar() {
-    setPosicaoSelecionda(getPosicaoAtual());
+    setPosicaoSelecionada(getPosicaoAtual());
 }
 
 WINDOW *Guia::getJanela() {
@@ -34,8 +34,8 @@ int Guia::getPosicaoAtual() {
     return this->_posicao_atual;
 }
 
-void Guia::setPosicaoSelecionda(int posicao) {
-    this->_posicao_atual = posicao;
+void Guia::setPosicaoSelecionada(int position) {
+    this->_posicao_atual = position;
     atualizarMenu();
 }
 
@@ -51,16 +51,16 @@ void Guia::atualizarMenu() {
     int indice = 0;
     int posicao_imprimir = 0;
     
-    for (std::string nome : getNomes()) {
+    for (std::string name : getNomes()) {
         wmove(getJanela(), POSICAO_INICIAL, posicao_imprimir);
 
         if (indice == getPosicaoAtual()) {
-            imprimirTexto(getJanela(), nome, COLOR_PAIR(COR_PRETO_CIANO));
+            imprimirTexto(getJanela(), name, COLOR_PAIR(COR_PRETO_CIANO));
         } else {
-            imprimirTexto(getJanela(), nome, A_REVERSE);
+            imprimirTexto(getJanela(), name, A_REVERSE);
         }
 
-        posicao_imprimir += nome.length() + ESPACO_VAZIO;
+        posicao_imprimir += name.length() + ESPACO_VAZIO;
         indice++;
     }
 
