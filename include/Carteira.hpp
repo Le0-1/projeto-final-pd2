@@ -1,11 +1,11 @@
-#ifndef CARTEIRA
-#define CARTEIRA
+#ifndef CARTEIRA_H
+#define CARTEIRA_H
+
+#include "Transacao.hpp"
 
 #include <string>
 #include <map>
 #include <utility>
-
-#include "Transacao.hpp"
 
 class Carteira {
     private:
@@ -16,19 +16,19 @@ class Carteira {
     public:
         Carteira(double saldo_inicial, std::string nome,  double saldo_atual);
 
-        Carteira(std::string Nome);
+        Carteira(std::string nome);
 
-        std::map<int, Transacao> UltimasTransacoes(unsigned quantidade);
+        std::map<int, Transacao> ultimasTransacoes(unsigned quantidade);
 
-        void AdicionarTransacao(Transacao t);
+        void adicionarTransacao(Transacao t);
 
-        void RemoverTransacao(Transacao t);
+        void removerTransacao(Transacao t);
 
-        std::string GetNome();
+        std::string getNome();
 
-        double GetSaldoInicial();
+        double getSaldoInicial();
         
-        double GetSaldoAtual();
+        double getSaldoAtual();
 };
 
 #endif // !CARTEIRA

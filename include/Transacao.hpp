@@ -1,27 +1,28 @@
-#ifndef TRANSACAO
-#define TRANSACAO
+#ifndef TRANSACAO_H
+#define TRANSACAO_H
 
 #include <string>
 
 class Transacao {
     private:
-        static int contador;
+        static int _contador;
         int _id;
         double _valor;
         std::string _descricao, _data, _categoria;
 
     public:
-        Transacao(double valor, std::string descricao, std::string data, std::string categoria);
+        Transacao(double valor, std::string descricao, std::string data, 
+                std::string categoria);
 
-        double GetValor();
+        double getValor();
         
-        std::string GetDescricao();
+        std::string getDescricao();
 
-        std::string GetData();
+        std::string getData();
 
-        std::string GetCategoria();
+        std::string getCategoria();
 
-        int GetID();
+        int getID();
 };
 
 #endif // !TRANSACAO

@@ -12,15 +12,15 @@ Carteira::Carteira(std::string nome) {
     this->_saldo_atual = 0;
 }
 
-void Carteira::AdicionarTransacao(Transacao t) {
-    this->transacoes.insert(std::pair<int, Transacao>(t.GetID(), t));
+void Carteira::adicionarTransacao(Transacao t) {
+    this->transacoes.insert(std::pair<int, Transacao>(t.getID(), t));
 }
 
-void Carteira::RemoverTransacao(Transacao t) {
-    this->transacoes.erase(t.GetID());
+void Carteira::removerTransacao(Transacao t) {
+    this->transacoes.erase(t.getID());
 }
 
-std::map<int, Transacao> Carteira::UltimasTransacoes(unsigned quantidade) {
+std::map<int, Transacao> Carteira::ultimasTransacoes(unsigned quantidade) {
     std::map<int, Transacao> aux;
 
     for (auto it : this->transacoes) {
@@ -32,14 +32,14 @@ std::map<int, Transacao> Carteira::UltimasTransacoes(unsigned quantidade) {
     return aux;
 }
 
-std::string Carteira::GetNome() {
+std::string Carteira::getNome() {
     return this->_nome;
 }
 
-double Carteira::GetSaldoAtual() {
+double Carteira::getSaldoAtual() {
     return this->_saldo_atual;
 }
 
-double Carteira::GetSaldoInicial() {
+double Carteira::getSaldoInicial() {
     return this->_saldo_inicial;
 }
