@@ -7,7 +7,10 @@
 #define LAGURA_GUIA COLS
 #define ESPACO_VAZIO 1
 #define LINHA_COMPLETA -1
-#define COR_PRETO_CIANO 1
+
+#define PAR_COR_PRETO_CIANO 1
+#define PAR_COR_VERDE 2
+#define PAR_COR_VERMELHO 3
 
 #include <ncurses.h>
 #include <string>
