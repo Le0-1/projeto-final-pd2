@@ -3,10 +3,18 @@
 GerenciaJanela::GerenciaJanela() { 
     iniciarConfig();
     setGuiaNomes();
+    setCores();
     this->_guia = std::shared_ptr<Guia>(new Guia(getGuiaNomes()));
+    this->_janela = newwin(
+        ALTURA_ABA,
+        LAGURA_ABA,
+        POSICAO_INICIAL_Y,
+        POSICAO_INICIAL_X
+    );
 }
 
 GerenciaJanela::~GerenciaJanela() {
+    delwin(this->_janela);
     endwin();
 }
 
@@ -25,6 +33,12 @@ void GerenciaJanela::setGuiaNomes() {
     names.push_back("Transacao");
 
     this->_guia_nomes = names;
+}
+
+void GerenciaJanela::setCores() {
+    init_pair(PAR_COR_PRETO_CIANO, COR_PRETO, COR_CIANO);
+    init_pair(PAR_COR_VERDE, COR_VERDE, COR_SISTEMA);
+    init_pair(PAR_COR_VERMELHO, COR_VERMELHO, COR_SISTEMA);
 }
 
 void GerenciaJanela::iniciarConfig() {
