@@ -73,4 +73,86 @@ class Tranferencia {
     +alterarDestino(ContaBancaria) void
     +pegarDestino() ContaBancaria
 }
+
+Transacao *-- Categoria
+
+class Categoria {
+    -categoria: string
+    -subCategorai: string
+}
+
+class GerenciarJanela {
+    -janela: WINDOW*
+    -aba: vector~Aba~
+    -guia: shared_ptr~Guia~
+    -guia_nomes: vector~string~
+    
+    -getGuia() shared_ptr~Guia~
+    -iniciarConfig() void
+    -setCores() void
+    -setGuiaNomes() void
+    +iniciar() void
+}
+
+GerenciarJanela *-- Guia
+GerenciarJanela *-- Aba
+
+class Guia {
+    -janela: WINDOW
+    -nomes: vector~string~
+    -posicao_atual: int
+
+    -getJanela() WINDOW*
+    -getNomes() vector~string~
+    -atualizarMenu() void
+    -imprimir_texto(WINDOW, string, int)
+    +getPosicaoAtual() int
+    +setPosicaoSelecionada(int) void
+    +recarregar() void
+}
+
+class Aba {
+    -janela: WINDOW*
+    -posicao_escrita_x: int 
+    -posicao_escrita_y: int
+
+    -proximaPosicaoEscrita() void
+    -proximaPosicaoEscrita(int) void
+    -limparJanela() void
+    -imprimirTexto(string) void
+    -imprimirTexto(string, int) void
+    -imprimirInfo() virtual void
+    #imprimir(string) void
+    #imprimir(string, int) void
+    #imprimirln(string) void
+    #imprimirln(string, int) void
+    +mostrarInfo() void
+}
+
+Aba <|-- AbaConta
+Aba <|-- AbaCartao
+Aba <|-- AbaTransacao
+
+class AbaConta {
+    -contas: list~Carteira~
+    
+    -imprimirInfo() override void
+}
+
+class AbaCartao {
+    -contas: list~Cartao~
+    
+    -imprimirInfo() override void
+}
+
+class AbaTransacao {
+    -contas: list~Transacao~
+    
+    -imprimirInfo() override void
+}
+
+AbaConta *-- Carteira
+AbaCartao *-- Cartao
+AbaTransacao *-- Transacao
+
 ```
