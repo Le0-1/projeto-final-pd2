@@ -21,11 +21,11 @@ void Categoria::definirPrioriadeDefault(std::string categoria) {
         this->_prioridade = MEDIA;
     } else if(categoria == "supermercado") {
         this->_prioridade = MEDIA;
-    } else if(categoria == "moradia") {
+    } else if(categoria == "tecnologia") {
         this->_prioridade = MEDIA;
     } else if(categoria == "restaurante") {
         this->_prioridade = BAIXA;
-    } else if(categoria == "moradia") {
+    } else if(categoria == "lazer") {
         this->_prioridade = BAIXA;
     } else {
         this->_prioridade = BAIXA;
