@@ -4,6 +4,10 @@ Despesa::Despesa(double valor, std::string descricao, std::string data, std::str
 
 Despesa::Despesa(double valor, std::string descricao, std::string data, std::string categoria, std::shared_ptr<ContaBancaria> conta) : Transacao(valor, descricao, data, categoria), _conta(conta), _despesa_cartao_credito(false) {}
 
+std::shared_ptr<ContaBancaria> Despesa::getConta() {
+    return this->_conta;
+}
+
 void Despesa::alterarConta(std::shared_ptr<ContaBancaria> nova_conta) {
     this->_conta = nova_conta;
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <memory>
-#include <alg
+#include <algorithm>
 
 #define ALTA 3
 #define MEDIA 2
