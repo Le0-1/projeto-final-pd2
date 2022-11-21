@@ -1,3 +1,6 @@
+#ifndef CATEGORIA_H
+#define CATEGORIA_H
+
 #include <iostream>
 #include <memory>
 #include <algorithm>
@@ -30,3 +33,5 @@ class Categoria {
         void setSubCategoria(std::string sub_categoria);
         void setPrioridade(int prioridade);
 };
+
+#endif

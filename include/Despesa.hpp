@@ -1,5 +1,5 @@
 #ifndef DESPESA_H
-#define DESPESA_U
+#define DESPESA_H
 
 #include "ContaBancaria.hpp"
 #include "Transacao.hpp"
