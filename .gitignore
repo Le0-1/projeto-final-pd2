@@ -2,3 +2,5 @@
 *.code-workspace
 build/*
 !build/.gitkeep
+docs/*
+!docs/*.md

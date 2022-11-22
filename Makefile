@@ -1,12 +1,14 @@
 CC = g++
 NAME = program
-BUILD_DIR = ./build
-INCLUDE_DIR = ./include
-RES_DIR = /res
-SRC_DIR = ./src
 CFLAGS = --std=c++11 -Wall
 NFLAGS = -lncurses -ltinfo
 DEBUG_FLAG =
+
+BUILD_DIR = ./build
+DOC_DIR = ./docs
+INCLUDE_DIR = ./include
+RES_DIR = /res
+SRC_DIR = ./src
 
 all: $(BUILD_DIR)/$(NAME)
 
@@ -27,9 +29,18 @@ debug: clean var all
 var:
 	$(eval DEBUG_FLAG = -g)
 
-run:
+run: all
 	$(BUILD_DIR)/$(NAME)
 
-clean: 
+doc: clean_doc doc
+	doxygen Doxyfile
+
+clean_doc:
+	rm -rf $(DOC_DIR)/html
+	rm -rf $(DOC_DIR)/latex
+
+clean_build:
 	rm -f $(BUILD_DIR)/*.o
 	rm -f $(BUILD_DIR)/$(NAME)
+
+clean: clean-build clean-doc
