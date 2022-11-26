@@ -3,7 +3,7 @@
 
 Transferencia::Transferencia(double valor, std::string descricao, std::string data,
         std::string categoria, std::string origem, std::string destino)
-        : Transacao(valor, descricao, data, categoria) {
+        : Transacao(valor, data, categoria) {
 
     this->_origem = origem;
     this->_destino = destino;
