@@ -1,26 +1,28 @@
 #include "Carteira.hpp"
 
-Carteira::Carteira(double saldo_inicial, std::string nome, double saldo_atual) {
+Carteira::Carteira(std::string nome, double saldo_inicial) {
     this->_nome = nome;
-    this->_saldo_inicial = saldo_inicial;
-    this->_saldo_atual = saldo_atual;
+    this->_saldo_atual = saldo_inicial;
+    this->_subtipo = "Carteira";
 }
 
-Carteira::Carteira(std::string nome) {
+Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) {
     this->_nome = nome;
-    this->_saldo_inicial = 0;
-    this->_saldo_atual = 0;
+    this->_saldo_atual = saldo_inicial;
+    this->_subtipo = subtipo;
 }
 
-void Carteira::adicionarTransacao(Transacao t) {
-    this->transacoes.insert(std::pair<int, Transacao>(t.getID(), t));
+Carteira::~Carteira() { }
+
+void Carteira::adicionarTransacao(Transacao transacao) {
+    this->transacoes.insert(std::pair<int, Transacao>(transacao.getID(), transacao));
 }
 
-void Carteira::removerTransacao(Transacao t) {
-    this->transacoes.erase(t.getID());
+void Carteira::removerTransacao(int id) {
+    this->transacoes.erase(id);
 }
 
-std::map<int, Transacao> Carteira::ultimasTransacoes(unsigned quantidade) {
+std::map<int, Transacao> Carteira::ultimasTransacoes(unsigned int quantidade) {
     std::map<int, Transacao> aux;
 
     for (auto it : this->transacoes) {
@@ -40,6 +42,10 @@ double Carteira::getSaldoAtual() {
     return this->_saldo_atual;
 }
 
-double Carteira::getSaldoInicial() {
-    return this->_saldo_inicial;
+void Carteira::setSaldoAtual(double saldo) {
+    this->_saldo_atual = saldo;
+}
+
+std::string Carteira::getSubtipo() {
+    return this->_subtipo;
 }

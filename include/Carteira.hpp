@@ -5,30 +5,34 @@
 
 #include <string>
 #include <map>
-#include <utility>
 
 class Carteira {
     private:
         std::string _nome;
-        double _saldo_inicial, _saldo_atual;
+        double _saldo_atual;
         std::map<int, Transacao> transacoes;
+        std::string _subtipo;
 
     public:
-        Carteira(double saldo_inicial, std::string nome,  double saldo_atual);
+        Carteira(std::string nome, double saldo_inicial);
 
-        Carteira(std::string nome);
+        Carteira(std::string nome, double saldo_inicial, std::string subtipo);
 
-        std::map<int, Transacao> ultimasTransacoes(unsigned quantidade);
+        virtual ~Carteira();
 
-        void adicionarTransacao(Transacao t);
+        std::map<int, Transacao> ultimasTransacoes(unsigned int quantidade);
 
-        void removerTransacao(Transacao t);
+        void adicionarTransacao(Transacao transacao);
+
+        void removerTransacao(int id);
 
         std::string getNome();
 
-        double getSaldoInicial();
-        
         double getSaldoAtual();
+
+        void setSaldoAtual(double saldo);
+
+        std::string getSubtipo();
 };
 
-#endif // !CARTEIRA
+#endif 
