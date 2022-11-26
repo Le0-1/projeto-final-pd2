@@ -1,21 +1,30 @@
 #ifndef CONTABANCARIA_H
 #define CONTABANCARIA_H
 
-#include "Cartao.hpp"
+#include "Carteira.hpp"
+#include "CartaoDeCredito.hpp"
 
 #include <string>
 #include <map>
 
-class ContaBancaria {
+class ContaBancaria : public Carteira {
     private:
-    std::map<std::string, Cartao> _cartoes;
+      std::map<std::string, CartaoDeCredito> _cartoes;
 
     public:
-    ContaBancaria();
-    void adicioanarCartao(Cartao cartao);
-    void removerCartao(Cartao cartao);
-    void imprimirCartoes();
+        ContaBancaria(std::string nome, double saldo_inicial);
 
+        ~ContaBancaria();
+
+        void adicioanarCartao(CartaoDeCredito cartao);
+
+        void removerCartao(std::string nome);
+
+        std::map<std::string, CartaoDeCredito> &getCartoes();
+
+        CartaoDeCredito &getCartaoDeCredito(std::string nome);
+
+        void imprimirCartoes();
 };
 
 #endif

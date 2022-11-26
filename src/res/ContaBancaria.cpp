@@ -2,19 +2,30 @@
 
 #include <iostream>
 
-ContaBancaria::ContaBancaria() {};
+ContaBancaria::ContaBancaria(std::string nome, double saldo_inicial)
+    : Carteira(nome, saldo_inicial, "ContaBancaria") { }
 
-void ContaBancaria::adicioanarCartao(Cartao cartao) {
-    this->_cartoes.insert(std::pair<std::string, Cartao>(cartao.getNome(), cartao));
+void ContaBancaria::adicioanarCartao(CartaoDeCredito cartao) {
+    getCartoes().insert(std::pair<std::string, CartaoDeCredito>(cartao.getNome(), cartao));
 }
 
-void ContaBancaria::removerCartao(Cartao cartao) {
-    this->_cartoes.erase(cartao.getNome());
+ContaBancaria::~ContaBancaria() { }
+
+void ContaBancaria::removerCartao(std::string nome) {
+    getCartoes().erase(getCartoes().find(nome));
+}
+
+std::map<std::string, CartaoDeCredito> &ContaBancaria::getCartoes() {
+    return this->_cartoes;
+}
+
+CartaoDeCredito &ContaBancaria::getCartaoDeCredito(std::string nome) {
+    return getCartoes().find(nome)->second;
 }
 
 void ContaBancaria::imprimirCartoes() {
-    std::map<std::string, Cartao>::iterator it;
-    for(it = this->_cartoes.begin(); it != this->_cartoes.end(); ++it) {
+    std::map<std::string, CartaoDeCredito>::iterator it;
+    for (it = getCartoes().begin(); it != getCartoes().end(); ++it) {
         std::cout << it->second.getNome() << std::endl;
     }
 }
