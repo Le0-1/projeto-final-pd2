@@ -29,6 +29,8 @@ class CartaoDeCredito {
 
         double getLimite();
 
+        std::list<std::shared_ptr<Despesa>>& getListaDeDespesas();
+
         void alterarLimiteCartao(double limite);
 
         void adicionarDespesa(double valor, std::string data, std::string categoria);

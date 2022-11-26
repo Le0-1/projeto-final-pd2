@@ -26,6 +26,10 @@ double CartaoDeCredito::getLimite() {
     return this->_limite_cartao;
 }
 
+std::list<std::shared_ptr<Despesa>>& CartaoDeCredito::getListaDeDespesas() {
+    return this->_lista_de_despesas;
+}
+
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
     this->_limite_cartao = novo_limite;
 }
