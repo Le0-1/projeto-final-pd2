@@ -2,7 +2,6 @@ CC = g++
 NAME = program
 TEST_NAME = program_tests
 CFLAGS = --std=c++11 -Wall --coverage
-NFLAGS = -lncurses -ltinfo
 DEBUG_FLAG =
 
 BUILD_DIR = ./build
@@ -16,15 +15,16 @@ COVERAGE_DIR = ./coverage
 THIRD_DIR = ./third_party
 
 BUILD_FILES = \
-	$(BUILD_DIR)/Aba.o \
-	$(BUILD_DIR)/AbaConta.o \
+	$(BUILD_DIR)/GerenciaConta.o \
+	$(BUILD_DIR)/Transferencia.o \
 	$(BUILD_DIR)/Carteira.o \
-	$(BUILD_DIR)/Transacao.o \
+	$(BUILD_DIR)/ContaBancaria.o \
+	$(BUILD_DIR)/Receita.o \
 	$(BUILD_DIR)/Despesa.o \
-	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
+	$(BUILD_DIR)/Transferencia.o \
+	$(BUILD_DIR)/Transacao.o \
 	$(BUILD_DIR)/CartaoDeCredito.o \
-	$(BUILD_DIR)/Guia.o \
-	$(BUILD_DIR)/GerenciaJanela.o \
+	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
 	$(BUILD_DIR)/main.o
 
 TEST_DEPENDENCIES = \
@@ -42,13 +42,13 @@ BUILD_TEST_FILES = \
 all: $(BUILD_DIR)/$(NAME)
 
 $(BUILD_DIR)/$(NAME): $(BUILD_FILES)
-	$(CC) $(CFLAGS) $(DEBUG_FLAG) $(BUILD_DIR)/*.o -o $(BUILD_DIR)/$(NAME) $(NFLAGS)
+	$(CC) $(CFLAGS) $(DEBUG_FLAG) $(BUILD_DIR)/*.o -o $(BUILD_DIR)/$(NAME)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)$(RES_DIR)/%.cpp $(INCLUDE_DIR)/%.hpp
-	$(CC) -c $(CFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@ $(NFLAGS)
+	$(CC) -c $(CFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CC) -c $(CFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@ $(NFLAGS)
+	$(CC) -c $(CFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@
 
 debug: clean var all
 
@@ -61,13 +61,13 @@ run: all
 tests: ${TEST_DIR}$(BUILD_TEST_DIR)/${TEST_NAME}
 
 $(TEST_DIR)$(BUILD_TEST_DIR)/%.o: $(TEST_DIR)$(RES_DIR)/%.cpp
-	$(CC) -c $(CFLAGS) $< -I $(INCLUDE_DIR) -I $(THIRD_DIR) -o $@ $(NFLAGS)
+	$(CC) -c $(CFLAGS) $< -I $(INCLUDE_DIR) -I $(THIRD_DIR) -o $@
 
 $(TEST_DIR)$(BUILD_TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
-	$(CC) -c $(CFLAGS) $< -I $(INCLUDE_DIR) -I $(THIRD_DIR) -o $@ $(NFLAGS)
+	$(CC) -c $(CFLAGS) $< -I $(INCLUDE_DIR) -I $(THIRD_DIR) -o $@
 
 ${TEST_DIR}$(BUILD_TEST_DIR)/${TEST_NAME}: $(TEST_DEPENDENCIES) $(BUILD_TEST_FILES)
-	$(CC) $(CFLAGS) $(TEST_DEPENDENCIES) $(TEST_DIR)$(BUILD_TEST_DIR)/*.o -o $@ $(NFLAGS)
+	$(CC) $(CFLAGS) $(TEST_DEPENDENCIES) $(TEST_DIR)$(BUILD_TEST_DIR)/*.o -o $@
 
 mkdir_test_build:
 	mkdir -p ${TEST_DIR}$(BUILD_TEST_DIR)
