@@ -2,10 +2,8 @@
 
 int Transacao::_contador = 0;
 
-Transacao::Transacao(double valor, std::string descricao, std::string data, 
-        std::string categoria) {
+Transacao::Transacao(double valor, std::string data, std::string categoria) {
     this->_valor = valor;
-    this->_descricao = descricao;
     this->_data = data;
     this->_categoria = categoria;
     this->_contador++;
@@ -18,10 +16,6 @@ double Transacao::getValor() {
 
 std::string Transacao::getData() {
     return this->_data;
-}
-
-std::string Transacao::getDescricao() {
-    return this->_descricao;
 }
 
 std::string Transacao::getCategoria() {
