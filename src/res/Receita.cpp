@@ -1,8 +1,7 @@
 #include "Receita.hpp"
 
-Receita::Receita(std::string conta, double valor, std::string descricao, 
-    std::string data, std::string categoria) : Transacao(valor, descricao, data, 
-        categoria){
+Receita::Receita(std::string conta, double valor, std::string data,
+                 std::string categoria) : Transacao(valor, data, categoria) {
     this->_conta = conta;
 }
 

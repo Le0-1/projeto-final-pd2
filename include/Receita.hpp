@@ -10,8 +10,7 @@ class Receita : public Transacao {
         std::string _conta;
 
     public:
-        Receita(std::string conta, double valor, std::string descricao,
-                std::string data, std::string categoria);
+        Receita(std::string conta, double valor, std::string data, std::string categoria);
 
         void alterarConta(std::string conta_destino);
 
