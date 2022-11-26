@@ -11,6 +11,8 @@ GerenciaJanela::GerenciaJanela() {
         POSICAO_INICIAL_Y,
         POSICAO_INICIAL_X
     );
+    this->_abas.push_back(new AbaConta(this->_janela));
+    this->_abas.at(0)->mostrarInfo();
 }
 
 GerenciaJanela::~GerenciaJanela() {
@@ -66,12 +68,17 @@ void GerenciaJanela::iniciar() {
         switch (ch) {
             case '1':
                 getGuia()->setPosicaoSelecionada(0);
+                this->_abas.at(0)->mostrarInfo();
                 break;
             case '2':
                 getGuia()->setPosicaoSelecionada(1);
+                werase(this->_janela);
+                wrefresh(this->_janela);
                 break;
             case '3':
                 getGuia()->setPosicaoSelecionada(2);
+                werase(this->_janela);
+                wrefresh(this->_janela);
                 break;
         }
     }

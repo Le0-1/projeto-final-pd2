@@ -21,6 +21,8 @@
 #define PAR_COR_VERMELHO 3
 
 #include "Guia.hpp"
+#include "Aba.hpp"
+#include "AbaConta.hpp"
 
 #include <ncurses.h>
 #include <memory>
@@ -32,6 +34,7 @@ class GerenciaJanela {
         WINDOW* _janela;
         std::shared_ptr<Guia> _guia;
         std::vector<std::string> _guia_nomes;
+        std::vector<Aba*> _abas;
 
         std::shared_ptr<Guia> getGuia();
 
