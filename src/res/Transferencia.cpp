@@ -1,7 +1,7 @@
 #include "Transferencia.hpp"
 #include "Transacao.hpp"
 
-Transferencia::Transferencia(double valor, std::string descricao, std::string data,
+Transferencia::Transferencia(double valor, std::string data,
         std::string categoria, std::string origem, std::string destino)
         : Transacao(valor, data, categoria) {
 

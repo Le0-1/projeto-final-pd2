@@ -9,8 +9,8 @@ class Transferencia : public Transacao {
         std::string _destino;
 
     public:
-        Transferencia(double valor, std::string descricao, std::string data,
-                std::string categoria, std::string origem, std::string destino);
+        Transferencia(double valor, std::string data, std::string categoria,
+            std::string origem, std::string destino);
 
         void alterarOrigem(std::string nova_origem);
 
