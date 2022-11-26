@@ -1,20 +1,21 @@
 #ifndef RECEITA_H
 #define RECEITA_H
 
-#include "ContaBancaria.hpp"
+#include "Transacao.hpp"
 
-class Receita : public Transacao{
+#include <string>
+
+class Receita : public Transacao {
     private:
-    ContaBancaria _conta;
+        std::string _conta;
 
     public:
-    Receita(ContaBancaria conta, double valor, std::string descricao, 
-        std::string data, std::string categoria);
+        Receita(std::string conta, double valor, std::string descricao,
+                std::string data, std::string categoria);
 
-    void alterarConta(ContaBancaria conta_destino);
+        void alterarConta(std::string conta_destino);
 
-    ContaBancaria getConta();
-
+        std::string getConta();
 };
 
 #endif
