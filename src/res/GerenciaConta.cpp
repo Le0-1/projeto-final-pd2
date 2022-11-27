@@ -15,9 +15,13 @@ std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
 }
 
 void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
+
+    if (saldo_inicial < 0) {
+        throw gcexcp::SaldoInvalido(saldo_inicial, nome);
+    }
+
     std::shared_ptr<Carteira> carteira(new Carteira(nome, saldo_inicial));
-    getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome,
-        carteira));
+    getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, carteira));
 }
 
 void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {

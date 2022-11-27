@@ -8,6 +8,7 @@
 #include "Despesa.hpp"
 #include "Transferencia.hpp"
 #include "CartaoDeCredito.hpp"
+#include "GerenciaContaExcp.hpp"
 
 #include <memory>
 #include <map>
