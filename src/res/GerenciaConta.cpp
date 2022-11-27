@@ -108,7 +108,7 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
 
         CartaoDeCredito cartaoDeCredito(nome, numero, CVV, fechamento, limite_cartao);
 
-        contaBancaria->adicioanarCartao(cartaoDeCredito);
+        contaBancaria->adicionarCartao(cartaoDeCredito);
     }
 }
 void GerenciaConta::removerCartao(std::string conta, std::string cartao) {

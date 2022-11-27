@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <limits>
 
 int main(int argc, char const *argv[]) {
 
@@ -22,6 +23,13 @@ int main(int argc, char const *argv[]) {
             std::cin >> nome;
             std::cin >> saldo_inicial;
 
+            while(std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout << "Entrada Inválida. Coloque um valor: ";
+                std::cin >> saldo_inicial;
+            }
+
             try {
                 gc.adicionarCarteira(nome, saldo_inicial);
                 std::cout << "Carteira criada" << std::endl;
@@ -29,7 +37,7 @@ int main(int argc, char const *argv[]) {
 
             catch (gcexcp::SaldoInvalido& e) {
                 std::cout << e.what();
-                std::cout << "\t Carteira " << e.getNome();
+                std::cout << "\t Carteira: " << e.getNome();
                 std::cout << "\t saldo: " << e.getSaldoInicial() << std::endl;    
             }
             std::cout << "=======================================" << std::endl;
