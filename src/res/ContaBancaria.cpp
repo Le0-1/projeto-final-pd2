@@ -5,7 +5,7 @@
 ContaBancaria::ContaBancaria(std::string nome, double saldo_inicial)
     : Carteira(nome, saldo_inicial, "ContaBancaria") { }
 
-void ContaBancaria::adicioanarCartao(CartaoDeCredito cartao) {
+void ContaBancaria::adicionarCartao(CartaoDeCredito cartao) {
     getCartoes().insert(std::pair<std::string, CartaoDeCredito>(cartao.getNome(), cartao));
 }
 

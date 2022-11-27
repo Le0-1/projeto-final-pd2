@@ -16,7 +16,7 @@ class ContaBancaria : public Carteira {
 
         ~ContaBancaria();
 
-        void adicioanarCartao(CartaoDeCredito cartao);
+        void adicionarCartao(CartaoDeCredito cartao);
 
         void removerCartao(std::string nome);
 
