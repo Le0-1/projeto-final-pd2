@@ -39,7 +39,7 @@ Carteira <|-- ContaBancaria
 Carteira *-- Transacao
 
 class ContaBancaria {
-    -cartoes: map<string, CartaoDeCredito>
+    -cartoes: map~string, CartaoDeCredito~
 
     +adicianarCartao(CartaoDeCredito cartao) void
     +removerCartao(std::string nome) void 
