@@ -13,7 +13,7 @@ class CartaoDeCredito {
     private:
         std::string _nome, _numero, _CVV, _fechamento;
         double _limite_cartao;
-        std::list<std::shared_ptr<Despesa>> _lista_de_despesas;
+        std::list<std::shared_ptr<Despesa>> _lista_despesas;
 
     public:
         CartaoDeCredito(std::string nome, std::string numero, std::string CVV,
@@ -29,7 +29,7 @@ class CartaoDeCredito {
 
         double getLimite();
 
-        std::list<std::shared_ptr<Despesa>>& getListaDeDespesas();
+        std::list<std::shared_ptr<Despesa>>& getListaDespesas();
 
         void alterarLimiteCartao(double limite);
 
