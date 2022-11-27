@@ -1,41 +1,66 @@
 ```mermaid
 classDiagram
 
+class GerenciaConta {
+    -contas: map~string, shared_ptr Carteira ~
+    -transferencias: map~int, Transferencia~
+
+    +adicionarCarteira(string, double) void
+    +adicionarConta(string, double) void
+    +removerConta(string) void
+    +adicionarReceita(string, double, string,string) void
+    +adicionarDespesa(string, double, string, string) void
+    +adicionarDespesaCartao(string, string, double, string, string) void
+    +adicionarTransferencia(double, string, string, string, string) void
+    +removerReceita(string, int) void
+    +removerDespesa(string, int) void
+    +removerDespesaCartao(string, string, int) void
+    +removerTransferencia(int) void
+    +adicionarCartao(string, string, string, string, string, double) void
+    +removerCartao(string, string) void
+    +pagarFatura(string, string) void
+    +imprimirContas() void
+}
+
+GerenciaConta *-- Carteira
 Carteira <|-- ContaBancaria
 
 Carteira *-- Transacao
-ContaBancaria *-- Cartao
+ContaBancaria *-- CartaoDeCredito
 
 class Carteira {
     -nome: string
-    -saldoInicial: double
-    -saldoAtual: double
-    -nome: string
-    -trasacoes: list~trasacao~
+    -saldo_atual: double
+    -transacoes: map~int, Transacao~
+    -subtipo: string
 
-    +ultimastransacoes(int) list~transacao~
-    +adicionarTransacao(transacao) void
-    +removerTrasacao(trasacao) void
+    +ultimasTransacoes(unsigned int quantidade) map
+    +adicionarTransacao(Transacao transacao) void
+    +removerTransacao(int id) void
+    +getSaldoAtual() double
+    +setSaldoAtual(double saldo) void
 }
 
 class ContaBancaria {
-    -cartoes: Cartao
+    -cartoes: map<string, CartaoDeCredito>
 
-    +adicionarCartao(cartao) void
-    +removerCartao(cartao) void
+    +adicioanarCartao(CartaoDeCredito cartao) void
+    +removerCartao(std::string nome) void 
+    +imprimirCartoes() void
 }
 
-class Cartao {
+class CartaoDeCredito {
     -nome: string
-    -fatura: double
-    -limiteCartao: double
+    -numero: string
+    -CVV: string
     -fechamento: string
-    -despesas: list~Despesa*~
+    -limite_cartao: double
+    -lista_de_despesas list;
 
-    +alteraLimiteCartao(double) void
-    +adicionarDespesa(Despesa) void
-    +removerDespesa(Despesa) void
-    +ultimasDespesas(int) vector~Despesa~
+    +alterarLimiteCartao(double limite) void
+    +adicionarDespesa(double, string, string) void
+    +listarDespesas() void
+    +removerDespesa(int id) bool
     
 }
 
@@ -44,115 +69,31 @@ Transacao <|-- Despesa
 Transacao <|-- Tranferencia
 
 class Transacao {
+    -contador: static int
     -id: int
     -valor: double
-    -descricao: string
     -data: string
-    -categoria: Categoria
+    -categoria: string
 }
 
 class Receita {
-    -conta: ContaBancaria 
+    -conta: string 
 
-    +alterarConta(ContaBancaria) void
+    +alterarConta(string) void
 }
 
 class Despesa {
-    -despesaCartaoCredito: bool
-    -banco: ContaBancaria
+    -banco: string
 
-    +alterarConta(ContaBancaria) void
+    +alterarConta(string) void
 }
 
 class Tranferencia {
-    -origem: ContaBancaria
-    -destino: ContaBancaria
+    -origem: string
+    -destino: string
 
-    +alterarOrigem(ContaBancaria) void
-    +pegarOrigem() ContaBancaria
-    +alterarDestino(ContaBancaria) void
-    +pegarDestino() ContaBancaria
+    +alterarOrigem(string) void
+    +alterarDestino(string) void
 }
-
-Transacao *-- Categoria
-
-class Categoria {
-    -categoria: string
-    -subCategorai: string
-}
-
-class GerenciarJanela {
-    -janela: WINDOW*
-    -aba: vector~Aba~
-    -guia: shared_ptr~Guia~
-    -guia_nomes: vector~string~
-    
-    -getGuia() shared_ptr~Guia~
-    -iniciarConfig() void
-    -setCores() void
-    -setGuiaNomes() void
-    +iniciar() void
-}
-
-GerenciarJanela *-- Guia
-GerenciarJanela *-- Aba
-
-class Guia {
-    -janela: WINDOW
-    -nomes: vector~string~
-    -posicao_atual: int
-
-    -getJanela() WINDOW*
-    -getNomes() vector~string~
-    -atualizarMenu() void
-    -imprimir_texto(WINDOW, string, int)
-    +getPosicaoAtual() int
-    +setPosicaoSelecionada(int) void
-    +recarregar() void
-}
-
-class Aba {
-    -janela: WINDOW*
-    -posicao_escrita_x: int 
-    -posicao_escrita_y: int
-
-    -proximaPosicaoEscrita() void
-    -proximaPosicaoEscrita(int) void
-    -limparJanela() void
-    -imprimirTexto(string) void
-    -imprimirTexto(string, int) void
-    -imprimirInfo() virtual void
-    #imprimir(string) void
-    #imprimir(string, int) void
-    #imprimirln(string) void
-    #imprimirln(string, int) void
-    +mostrarInfo() void
-}
-
-Aba <|-- AbaConta
-Aba <|-- AbaCartao
-Aba <|-- AbaTransacao
-
-class AbaConta {
-    -contas: list~Carteira~
-    
-    -imprimirInfo() override void
-}
-
-class AbaCartao {
-    -contas: list~Cartao~
-    
-    -imprimirInfo() override void
-}
-
-class AbaTransacao {
-    -contas: list~Transacao~
-    
-    -imprimirInfo() override void
-}
-
-AbaConta *-- Carteira
-AbaCartao *-- Cartao
-AbaTransacao *-- Transacao
 
 ```
