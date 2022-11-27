@@ -128,7 +128,7 @@ void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
         CartaoDeCredito cartaoDeCredito = contaBancaria->getCartaoDeCredito(cartao);
 
         std::list<std::shared_ptr<Despesa>> listaDespesa;
-        listaDespesa = cartaoDeCredito.getListaDeDespesas();
+        listaDespesa = cartaoDeCredito.getListaDespesas();
 
         for (std::shared_ptr<Despesa> despesa : listaDespesa) {
             adicionarDespesa(conta, despesa->getValor(), despesa->getData(),

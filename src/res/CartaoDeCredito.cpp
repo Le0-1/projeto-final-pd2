@@ -26,8 +26,8 @@ double CartaoDeCredito::getLimite() {
     return this->_limite_cartao;
 }
 
-std::list<std::shared_ptr<Despesa>>& CartaoDeCredito::getListaDeDespesas() {
-    return this->_lista_de_despesas;
+std::list<std::shared_ptr<Despesa>>& CartaoDeCredito::getListaDespesas() {
+    return this->_lista_despesas;
 }
 
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
@@ -39,48 +39,45 @@ void CartaoDeCredito::adicionarDespesa(double valor, std::string data,
 
     if (this->getTotalDespesas() + valor <= this->_limite_cartao) {
         // A "conta" de uma despesa do cartao de credito eh o nome do cartao
-        this->_lista_de_despesas.push_back(std::shared_ptr<Despesa>
-                (new Despesa(valor, data, categoria, this->_nome)));
-    }
-    else {
-        throw LimiteExcedido(this->_nome, this->_numero, this->_limite_cartao);
+        _lista_despesas.emplace_back(std::make_shared<Despesa>(valor, data, categoria, _nome));
+    } else {
+        throw LimiteExcedido(_nome, _numero, _limite_cartao);
     }
 }
 
 double CartaoDeCredito::getTotalDespesas() {
-    double somaDespesas = 0;
-    std::list<std::shared_ptr<Despesa>>::iterator it;
-    for (it = this->_lista_de_despesas.begin(); it != this->_lista_de_despesas.end(); it++) {
-        somaDespesas += (*it)->getValor();
+    double soma_despesas = 0;
+    for (auto const& despesa : _lista_despesas) {
+        soma_despesas += despesa->getValor();
     }
-    return somaDespesas;
+    return soma_despesas;
 }
 
 void CartaoDeCredito::listarDespesas() {
-    std::cout << "--------------------" << std::endl;
-    std::cout << "CARTAO: " << this->_nome << std::endl;
-    std::cout << "NUMERO: " << this->_numero << std::endl;
-    std::cout << "CVV: " << this->_CVV << std::endl;
-    std::cout << "FECHAMENTO:" << this->_fechamento << std::endl;
-    std::cout << "--------------------" << std::endl;
+    std::cout << "--------------------"
+              << "\nCARTAO: " << this->_nome
+              << "\nNUMERO: " << this->_numero
+              << "\nCVV: " << this->_CVV
+              << "\nFECHAMENTO:" << this->_fechamento
+              << "\n--------------------" << std::endl;
 
-    std::list<std::shared_ptr<Despesa>>::iterator it;
-    for (it = this->_lista_de_despesas.begin(); it != this->_lista_de_despesas.end(); it++) {
-        std::cout << "ID: " << (*it)->getID() << std::endl;
-        std::cout << "DATA: " << (*it)->getData() << std::endl;
-        std::cout << "VALOR: R$ " << (*it)->getValor();
-        std::cout << "CATEGORIA: " << (*it)->getCategoria();
-        std::cout << "--------------------" << std::endl;
+    for (auto const& despesa : _lista_despesas) {
+        std::cout << "ID: " << despesa->getID()
+                  << "\nDATA: " << despesa->getData()
+                  << "\nVALOR: R$ " << despesa->getValor()
+                  << "\nCATEGORIA: " << despesa->getCategoria()
+                  << "\n--------------------" << std::endl;
     }
+
     std::cout << "VALOR PROXIMA FATURA: R$ " << this->getTotalDespesas() << std::endl;
-    std::cout << "DESPESAS REGISTRADAS: " << this->_lista_de_despesas.size() << std::endl;
+    std::cout << "DESPESAS REGISTRADAS: " << this->_lista_despesas.size() << std::endl;
 }
 
 bool CartaoDeCredito::removerDespesa(int id) {
     std::list<std::shared_ptr<Despesa>>::iterator it;
-    for (it = this->_lista_de_despesas.begin(); it != this->_lista_de_despesas.end(); it++) {
+    for (it = this->_lista_despesas.begin(); it != this->_lista_despesas.end(); it++) {
         if ((*it)->getID() == id) {
-            this->_lista_de_despesas.erase(it);
+            this->_lista_despesas.erase(it);
             return true;
         }
     }
