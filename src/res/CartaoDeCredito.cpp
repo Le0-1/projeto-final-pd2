@@ -27,7 +27,7 @@ double CartaoDeCredito::getLimite() {
 }
 
 std::list<std::shared_ptr<Despesa>>& CartaoDeCredito::getListaDespesas() {
-    return this->_lista_despesas;
+    return this->_despesas;
 }
 
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
@@ -39,7 +39,7 @@ void CartaoDeCredito::adicionarDespesa(double valor, std::string data,
 
     if (this->getTotalDespesas() + valor <= this->_limite_cartao) {
         // A "conta" de uma despesa do cartao de credito eh o nome do cartao
-        _lista_despesas.emplace_back(std::make_shared<Despesa>(valor, data, categoria, _nome));
+        _despesas.emplace_back(std::make_shared<Despesa>(valor, data, categoria, _nome));
     } else {
         throw LimiteExcedido(_nome, _numero, _limite_cartao);
     }
@@ -47,7 +47,7 @@ void CartaoDeCredito::adicionarDespesa(double valor, std::string data,
 
 double CartaoDeCredito::getTotalDespesas() {
     double soma_despesas = 0;
-    for (auto const& despesa : _lista_despesas) {
+    for (auto const& despesa : _despesas) {
         soma_despesas += despesa->getValor();
     }
     return soma_despesas;
@@ -61,7 +61,7 @@ void CartaoDeCredito::listarDespesas() {
               << "\nFECHAMENTO:" << this->_fechamento
               << "\n--------------------" << std::endl;
 
-    for (auto const& despesa : _lista_despesas) {
+    for (auto const& despesa : _despesas) {
         std::cout << "ID: " << despesa->getID()
                   << "\nDATA: " << despesa->getData()
                   << "\nVALOR: R$ " << despesa->getValor()
@@ -70,14 +70,14 @@ void CartaoDeCredito::listarDespesas() {
     }
 
     std::cout << "VALOR PROXIMA FATURA: R$ " << this->getTotalDespesas() << std::endl;
-    std::cout << "DESPESAS REGISTRADAS: " << this->_lista_despesas.size() << std::endl;
+    std::cout << "DESPESAS REGISTRADAS: " << this->_despesas.size() << std::endl;
 }
 
 bool CartaoDeCredito::removerDespesa(int id) {
     std::list<std::shared_ptr<Despesa>>::iterator it;
-    for (it = this->_lista_despesas.begin(); it != this->_lista_despesas.end(); it++) {
+    for (it = this->_despesas.begin(); it != this->_despesas.end(); it++) {
         if ((*it)->getID() == id) {
-            this->_lista_despesas.erase(it);
+            this->_despesas.erase(it);
             return true;
         }
     }

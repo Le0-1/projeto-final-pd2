@@ -15,23 +15,23 @@ Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) 
 Carteira::~Carteira() { }
 
 void Carteira::adicionarTransacao(Transacao transacao) {
-    this->transacoes.insert(std::pair<int, Transacao>(transacao.getID(), transacao));
+    this->_transacoes.insert(std::pair<int, Transacao>(transacao.getID(), transacao));
 }
 
 void Carteira::removerTransacao(int id) {
-    this->transacoes.erase(id);
+    this->_transacoes.erase(id);
 }
 
 std::map<int, Transacao> Carteira::ultimasTransacoes(unsigned int quantidade) {
-    std::map<int, Transacao> aux;
+    std::map<int, Transacao> ultimas_transacoes;
 
-    for (auto it : this->transacoes) {
-        aux.insert(std::pair<int, Transacao>(it.first, it.second));
+    for (auto const& transacao : this->_transacoes) {
+        ultimas_transacoes.insert(std::pair<int, Transacao>(transacao.first, transacao.second));
         quantidade--;
         if (quantidade <= 0) break;
     }
 
-    return aux;
+    return ultimas_transacoes;
 }
 
 std::string Carteira::getNome() {

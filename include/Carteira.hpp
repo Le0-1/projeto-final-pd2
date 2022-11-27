@@ -10,7 +10,7 @@ class Carteira {
     private:
         std::string _nome;
         double _saldo_atual;
-        std::map<int, Transacao> transacoes;
+        std::map<int, Transacao> _transacoes;
         std::string _subtipo;
 
     public:
