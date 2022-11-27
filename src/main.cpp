@@ -22,9 +22,16 @@ int main(int argc, char const *argv[]) {
             std::cin >> nome;
             std::cin >> saldo_inicial;
 
-            gc.adicionarCarteira(nome, saldo_inicial);
+            try {
+                gc.adicionarCarteira(nome, saldo_inicial);
+                std::cout << "Carteira criada" << std::endl;
+            }
 
-            std::cout << "Carteira criada" << std::endl;
+            catch (gcexcp::SaldoInvalido& e) {
+                std::cout << e.what();
+                std::cout << "\t Carteira " << e.getNome();
+                std::cout << "\t saldo: " << e.getSaldoInicial() << std::endl;    
+            }
             std::cout << "=======================================" << std::endl;
             std::cout << std::endl;
         }
