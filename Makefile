@@ -25,6 +25,7 @@ BUILD_FILES = \
 	$(BUILD_DIR)/Transacao.o \
 	$(BUILD_DIR)/CartaoDeCredito.o \
 	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
+	$(BUILD_DIR)/GerenciaContaExcp.o \
 	$(BUILD_DIR)/main.o
 
 TEST_DEPENDENCIES = \
@@ -32,7 +33,8 @@ TEST_DEPENDENCIES = \
 	$(BUILD_DIR)/Carteira.o \
 	$(BUILD_DIR)/Despesa.o \
 	$(BUILD_DIR)/CartaoDeCredito.o \
-	$(BUILD_DIR)/CartaoDeCreditoExcp.o
+	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
+	$(BUILD_DIR)/GerenciaContaExcp.o 
 
 BUILD_TEST_FILES = \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
