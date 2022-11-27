@@ -2,7 +2,7 @@
 classDiagram
 
 class GerenciaConta {
-    -contas: map~string, shared_ptr Carteira ~
+    -contas: map~string, shared_ptr~Carteira~~
     -transferencias: map~int, Transferencia~
 
     +adicionarCarteira(string, double) void
@@ -23,10 +23,6 @@ class GerenciaConta {
 }
 
 GerenciaConta *-- Carteira
-Carteira <|-- ContaBancaria
-
-Carteira *-- Transacao
-ContaBancaria *-- CartaoDeCredito
 
 class Carteira {
     -nome: string
@@ -37,17 +33,20 @@ class Carteira {
     +ultimasTransacoes(unsigned int quantidade) map
     +adicionarTransacao(Transacao transacao) void
     +removerTransacao(int id) void
-    +getSaldoAtual() double
-    +setSaldoAtual(double saldo) void
 }
+
+Carteira <|-- ContaBancaria
+Carteira *-- Transacao
 
 class ContaBancaria {
     -cartoes: map<string, CartaoDeCredito>
 
-    +adicioanarCartao(CartaoDeCredito cartao) void
+    +adicianarCartao(CartaoDeCredito cartao) void
     +removerCartao(std::string nome) void 
     +imprimirCartoes() void
 }
+
+ContaBancaria *-- CartaoDeCredito
 
 class CartaoDeCredito {
     -nome: string
@@ -55,7 +54,7 @@ class CartaoDeCredito {
     -CVV: string
     -fechamento: string
     -limite_cartao: double
-    -lista_de_despesas list;
+    -despesas : list
 
     +alterarLimiteCartao(double limite) void
     +adicionarDespesa(double, string, string) void
@@ -64,10 +63,6 @@ class CartaoDeCredito {
     
 }
 
-Transacao <|-- Receita
-Transacao <|-- Despesa
-Transacao <|-- Tranferencia
-
 class Transacao {
     -contador: static int
     -id: int
@@ -75,6 +70,10 @@ class Transacao {
     -data: string
     -categoria: string
 }
+
+Transacao <|-- Receita
+Transacao <|-- Despesa
+Transacao <|-- Transferencia
 
 class Receita {
     -conta: string 
@@ -88,7 +87,7 @@ class Despesa {
     +alterarConta(string) void
 }
 
-class Tranferencia {
+class Transferencia {
     -origem: string
     -destino: string
 
