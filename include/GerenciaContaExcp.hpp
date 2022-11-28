@@ -19,8 +19,18 @@ namespace gcexcp {
             double getSaldoInicial();
 
             std::string getNome();
+    };
 
+    class ContaNaoEncontrada : public std::exception {
+        private:
+            std::string _nome;
 
+        public:
+            ContaNaoEncontrada(std::string nome);
+
+            const char* what() const throw();
+
+            std::string getNome();
     };
 }
 

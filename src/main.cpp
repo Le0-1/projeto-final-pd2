@@ -52,11 +52,27 @@ int main(int argc, char const *argv[]) {
             double saldo_inicial;
 
             std::cin >> nome;
+
             std::cin >> saldo_inicial;
 
-            gc.adicionarConta(nome, saldo_inicial);
+            while(std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout << "Entrada Inválida. Coloque um valor: ";
+                std::cin >> saldo_inicial;
+            }
 
-            std::cout << "Conta criada" << std::endl;
+            try {
+                gc.adicionarConta(nome, saldo_inicial);
+                std::cout << "Conta criada" << std::endl;
+            }
+
+            catch (gcexcp::SaldoInvalido& e) {
+                std::cout << e.what();
+                std::cout << "\t Conta: " << e.getNome();
+                std::cout << "\t saldo: " << e.getSaldoInicial() << std::endl;
+            }
+
             std::cout << "=======================================" << std::endl;
             std::cout << std::endl;
         }
@@ -81,8 +97,16 @@ int main(int argc, char const *argv[]) {
             std::string nome;
             std::cin >> nome;
 
-            gc.removerConta(nome);
-            std::cout << "Conta removida" << std::endl;
+            try {
+                gc.removerConta(nome);
+                std::cout << "Conta removida" << std::endl;
+            }
+            
+            catch (gcexcp::ContaNaoEncontrada& e) {
+                std::cout << e.what();
+                std::cout << "\t Conta: " << e.getNome() << std::endl;
+            }
+
             std::cout << "=======================================" << std::endl;
             std::cout << std::endl;
         }

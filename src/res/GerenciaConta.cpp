@@ -15,7 +15,6 @@ std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
 }
 
 void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
-
     if (saldo_inicial < 0) {
         throw gcexcp::SaldoInvalido(saldo_inicial, nome);
     }
@@ -25,12 +24,21 @@ void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
 }
 
 void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
-    
+    if (saldo_inicial < 0) {
+        throw gcexcp::SaldoInvalido(saldo_inicial, nome);
+    }
+
     std::shared_ptr<ContaBancaria> conta = std::make_shared<ContaBancaria>(nome, saldo_inicial);
     getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));
 }
 
 void GerenciaConta::removerConta(std::string nome) {
+
+    /*A funcao 'find' de um map retorna um ponteiro para map.end se nao encontrar nada*/
+    if (this->getContas().find(nome) == this->getContas().end()) {
+        throw gcexcp::ContaNaoEncontrada(nome);
+    }
+
     getContas().erase(getContas().find(nome));
 }
 
