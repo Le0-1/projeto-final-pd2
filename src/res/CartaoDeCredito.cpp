@@ -23,6 +23,10 @@ std::string CartaoDeCredito::getNumero() {
     return this->_numero;
 }
 
+std::string CartaoDeCredito::getCVV() {
+    return this->_CVV;
+}
+
 std::string CartaoDeCredito::getFechamento() {
     return this->_fechamento;
 }
@@ -91,4 +95,30 @@ bool CartaoDeCredito::removerDespesa(int id) {
         }
     }
     return false;
+}
+
+void CartaoDeCredito::imprimirInfo() {
+    const std::string separador = "\t___________________________________";
+    Utils::printColor(Foreground::f_cyan, separador);
+
+    std::cout << "\tCartao de credito: " << getNome() << std::endl;
+    std::cout << "\tNumero " << getNumero() << ", CVV " << getCVV() << std::endl;
+    std::cout << "\tFechamento: " << getFechamento() << std::endl;
+    std::cout << "\tLimite total: R$ " << std::fixed << std::setprecision(2) << getLimite() << std::endl;
+    std::cout << "\tLimite disponivel: ";
+
+    double limite_disp_t = getLimite() - getTotalDespesas();
+    std::string limite_disp = std::to_string(limite_disp_t);
+    limite_disp = "R$ " + limite_disp.substr(0, limite_disp.find(".") + 3);
+
+    if (limite_disp_t > 0) {
+        Utils::printColor(Foreground::f_green, limite_disp);
+    } 
+    else if (limite_disp_t <= 0) {
+        Utils::printColor(Foreground::f_red, limite_disp);
+    }
+
+    std::cout << "\tQuantidade de despesas: " << getListaDespesas().size() << std::endl;
+
+    Utils::printColor(Foreground::f_cyan, separador);
 }

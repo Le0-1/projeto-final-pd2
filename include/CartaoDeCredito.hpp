@@ -3,11 +3,13 @@
 
 #include "Despesa.hpp"
 #include "CartaoDeCreditoExcp.hpp"
+#include "Utils.hpp"
 
-#include <string>
+#include <iomanip>
+#include <iostream>
 #include <list>
 #include <memory>
-#include <iostream>
+#include <string>
 
 class CartaoDeCredito {
     private:
@@ -22,6 +24,8 @@ class CartaoDeCredito {
         std::string getNome();
 
         std::string getNumero();
+
+        std::string getCVV();
 
         std::string getFechamento();
 
@@ -40,6 +44,8 @@ class CartaoDeCredito {
         // Retorna true se a despesa foi localizada e removida
         // e falso se nao foi localizada
         bool removerDespesa(int id);
+
+        void imprimirInfo();
 };
 
 #endif
