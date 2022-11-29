@@ -2,9 +2,12 @@
 #define CARTEIRA_H
 
 #include "Transacao.hpp"
+#include "Utils.hpp"
 
-#include <string>
+#include <iomanip>
+#include <iostream>
 #include <map>
+#include <string>
 
 class Carteira {
     private:
@@ -32,7 +35,11 @@ class Carteira {
 
         void setSaldoAtual(double saldo);
 
+        std::map<int, Transacao>& getTransacoes();
+
         std::string getSubtipo();
+
+        virtual void imprimirInfo();
 };
 
 #endif 
