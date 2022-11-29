@@ -1,20 +1,28 @@
 #include "GerenciaConta.hpp"
 
+#include "Utils.hpp"
+
 #include <iostream>
 #include <string>
 #include <limits>
 
 int main(int argc, char const *argv[]) {
 
+    const std::string separador = "===========================================";
+    const int corSeparador = Foreground::f_yellow;
+
     GerenciaConta gc;
 
     std::string input;
+    Utils::limparConsole();
 
     while (input != "sair") {
         std::cin >> input;
+        Utils::limparConsole();
+
         if (input == "add_carteira") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "Nova carteira" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "Nova carteira");
             std::cout << "nome, saldo inicial" << std::endl;
 
             std::string nome;
@@ -40,13 +48,13 @@ int main(int argc, char const *argv[]) {
                 std::cout << "\t Carteira: " << e.getNome();
                 std::cout << "\t saldo: " << e.getSaldoInicial() << std::endl;    
             }
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "add_conta") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "Nova conta" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "Nova conta");
             std::cout << "nome, saldo inicial" << std::endl;
             std::string nome;
             double saldo_inicial;
@@ -73,26 +81,26 @@ int main(int argc, char const *argv[]) {
                 std::cout << "\t saldo: " << e.getSaldoInicial() << std::endl;
             }
 
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "rm_carteira") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "Remover carteira" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "Remover carteira");
             std::cout << "nome" << std::endl;
             std::string nome;
             std::cin >> nome;
 
             gc.removerConta(nome);
             std::cout << "Carteira removida" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "rm_conta") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "Remover conta" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "Remover conta");
             std::cout << "nome" << std::endl;
             std::string nome;
             std::cin >> nome;
@@ -107,13 +115,13 @@ int main(int argc, char const *argv[]) {
                 std::cout << "\t Conta: " << e.getNome() << std::endl;
             }
 
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "add_receita") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "adicionar receita" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "adicionar receita");
             std::cout << "conta, valor, descricao, data, categoria" << std::endl;
 
             std::string conta;
@@ -141,13 +149,13 @@ int main(int argc, char const *argv[]) {
                 std::cout << e.what();
                 std::cout << "\t Conta: " << e.getNome() << std::endl;
             }
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "add_despesa") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "adicionar despesa" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "adicionar despesa");
             std::cout << "conta, valor, descricao, data, categoria" << std::endl;
 
             std::string conta;
@@ -163,35 +171,37 @@ int main(int argc, char const *argv[]) {
             gc.adicionarDespesa(conta, valor, data, categoria);
 
             std::cout << "Despesa adicionada" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "add_despesa_cartao") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "adicionar despesa" << std::endl;
-            std::cout << "conta, valor, descricao, data, categoria" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "adicionar despesa cartao");
+            std::cout << "conta, cartao, valor, data, categoria" << std::endl;
 
             std::string conta;
+            std::string cartao;
             double valor;
             std::string data;
             std::string categoria;
 
             std::cin >> conta;
+            std::cin >> cartao;
             std::cin >> valor;
             std::cin >> data;
             std::cin >> categoria;
 
-            gc.adicionarDespesa(conta, valor, data, categoria);
+            gc.adicionarDespesaCartao(conta, cartao, valor, data, categoria);
 
-            std::cout << "Despesa adicionada" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            std::cout << "Despesa cartao de credito adicionada" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "add_transferencia") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "adicionar transferencia" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "adicionar transferencia");
             std::cout << "valor, descricao, data, categoria, origem, destino" << std::endl;
 
             double valor;
@@ -209,13 +219,13 @@ int main(int argc, char const *argv[]) {
             gc.adicionarTransferencia(valor, data, categoria, origem, destino);
 
             std::cout << "transferencia adicionada" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "rm_receita") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "remver receita" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "remover receita");
             std::cout << "conta,id" << std::endl;
 
             std::string conta;
@@ -227,13 +237,13 @@ int main(int argc, char const *argv[]) {
             gc.removerReceita(conta, id);
 
             std::cout << "Receita removida" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "rm_despesa") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "remover despesa" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "remover despesa");
             std::cout << "conta, id" << std::endl;
 
             std::string conta;
@@ -245,13 +255,13 @@ int main(int argc, char const *argv[]) {
             gc.removerDespesa(conta, id);
 
             std::cout << "Despesa removida" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "rm_cartao_despesa") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "remover despesa cartao de credito" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "remover despesa cartao de credito");
             std::cout << "conta, cartao, id " << std::endl;
 
             std::string conta;
@@ -265,23 +275,23 @@ int main(int argc, char const *argv[]) {
             gc.removerDespesaCartao(conta, cartao, id);
 
             std::cout << "Despea cartao removida" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "rm_transferencia") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "remover transferencia" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "remover transferencia");
             std::cout << "conta, id " << std::endl;
 
             std::cout << "Transferencia removida" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
-        if (input == "add_cartao_despesa") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "adicionar cartao de credito" << std::endl;
+        if (input == "add_cartao_credito") {
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "adicionar cartao de credito");
             std::cout << "conta, nome, numero, CVV, fechamento, limite_cartao " << std::endl;
 
             std::string conta;
@@ -300,13 +310,13 @@ int main(int argc, char const *argv[]) {
 
             gc.adicionarCartao(conta, nome, numero, CVV, fechamento, limite_cartao);
             std::cout << "Cartao de credito criado" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
 
         if (input == "rm_cartao_credito") {
-            std::cout << "=======================================" << std::endl;
-            std::cout << "remover cartao de credito" << std::endl;
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "remover cartao de credito");
             std::cout << "conta, nome, numero, CVV, fechamento, limite_cartao " << std::endl;
 
             std::string conta;
@@ -318,10 +328,16 @@ int main(int argc, char const *argv[]) {
             gc.removerCartao(conta, cartao);
 
             std::cout << "Cartao de credito removido" << std::endl;
-            std::cout << "=======================================" << std::endl;
+            Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
+
+        if (input == "listar") {
+            gc.imprimirContas();
+        }
     }
-    
+
+    Utils::limparConsole();
+
     return 0;
 }
