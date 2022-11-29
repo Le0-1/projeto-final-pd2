@@ -4,6 +4,7 @@
 #include <exception>
 #include <string>
 
+
 class LimiteExcedido : public std::exception {
     private:
         std::string _nome_cartao, _numero_cartao;
@@ -12,6 +13,23 @@ class LimiteExcedido : public std::exception {
     public:
         LimiteExcedido(std::string nome_cartao, std::string numero_cartao,
                        double limite_cartao);
+
+        const char* what() const throw();
+
+        std::string getNomeCartao();
+
+        std::string getNumeroCartao();
+
+        double getLimiteCartao();
+};
+
+class LimiteInvalido : public std::exception {
+    private:
+        std::string _nome_cartao, _numero_cartao;
+        double _limite_cartao;
+
+    public:
+        LimiteInvalido(std::string nome_cartao, std::string numero_cartao, double limite_cartao);
 
         const char* what() const throw();
 

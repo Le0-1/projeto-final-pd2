@@ -7,6 +7,11 @@ CartaoDeCredito::CartaoDeCredito(std::string nome, std::string numero,
     this->_numero = numero;
     this->_CVV = CVV;
     this->_fechamento = fechamento;
+
+    if (limite_cartao < 0) {
+        throw LimiteInvalido(nome, numero, limite_cartao);
+    }
+
     this->_limite_cartao = limite_cartao;
 }
 
@@ -31,6 +36,10 @@ std::list<std::shared_ptr<Despesa>>& CartaoDeCredito::getListaDespesas() {
 }
 
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
+    if (novo_limite < 0) {
+        throw LimiteInvalido(this->_nome, this->_numero, novo_limite);
+    }
+
     this->_limite_cartao = novo_limite;
 }
 

@@ -123,12 +123,24 @@ int main(int argc, char const *argv[]) {
 
             std::cin >> conta;
             std::cin >> valor;
+
+            while(std::cin.fail() || valor <= 0) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout << "Entrada Inválida. Coloque uma Receita: ";
+                std::cin >> valor;
+            }
             std::cin >> data;
             std::cin >> categoria;
 
-            gc.adicionarReceita(conta, valor, data, categoria);
-
-            std::cout << "Receita adicionada" << std::endl;
+            try {
+                gc.adicionarReceita(conta, valor, data, categoria);
+                std::cout << "Receita adicionada" << std::endl;
+            }
+            catch (gcexcp::ContaNaoEncontrada& e) {
+                std::cout << e.what();
+                std::cout << "\t Conta: " << e.getNome() << std::endl;
+            }
             std::cout << "=======================================" << std::endl;
             std::cout << std::endl;
         }
