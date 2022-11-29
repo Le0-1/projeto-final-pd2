@@ -26,6 +26,7 @@ BUILD_FILES = \
 	$(BUILD_DIR)/CartaoDeCredito.o \
 	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
 	$(BUILD_DIR)/GerenciaContaExcp.o \
+	$(BUILD_DIR)/Utils.o \
 	$(BUILD_DIR)/main.o
 
 TEST_DEPENDENCIES = \
