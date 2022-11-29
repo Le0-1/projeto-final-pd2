@@ -68,11 +68,6 @@ void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao
                                            double valor, std::string data,
                                            std::string categoria) {
 
-    double saldo_conta = getConta(conta)->getSaldoAtual();
-    Despesa despesa(valor, data, categoria, conta);
-
-    getConta(conta)->setSaldoAtual(saldo_conta - valor);
-
     if (getConta(conta)->getSubtipo() == "ContaBancaria") {
         std::shared_ptr<ContaBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
@@ -159,10 +154,7 @@ void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
 }
 
 void GerenciaConta::imprimirContas() {
-    std::cout << "===============================================" << std::endl;
-
     for (auto const& conta : getContas()) {
-        std::cout << conta.second->getNome() << std::endl;
+        conta.second->imprimirInfo();
     }
-    std::cout << "===============================================" << std::endl;
 }
