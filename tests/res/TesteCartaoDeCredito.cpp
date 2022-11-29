@@ -10,8 +10,7 @@ TEST_CASE("Remover Despesa") {
 }
 
 TEST_CASE("Teste Construtor Cartão - Exceção Limite Negativo"){
-    CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", -10);
-    CHECK_THROWS_AS(cartao.getLimite() < 0, LimiteInvalido);
+    CHECK_THROWS_AS(CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", -10), LimiteInvalido);
 }
 
 TEST_CASE("Teste alterarLimiteCartao - Caso Base"){
