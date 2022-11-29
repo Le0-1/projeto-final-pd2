@@ -42,8 +42,10 @@ void GerenciaConta::removerConta(std::string nome) {
     getContas().erase(getContas().find(nome));
 }
 
-void GerenciaConta::adicionarReceita(std::string conta, double valor,
-                                     std::string data, std::string categoria) {
+void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data, std::string categoria) {
+    if (this->getContas().find(conta) == this->getContas().end()) {
+        throw gcexcp::ContaNaoEncontrada(conta);
+    }
 
     double saldo_conta = getConta(conta)->getSaldoAtual();
     Receita receita(conta, valor, data, categoria);
