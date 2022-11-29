@@ -2,22 +2,22 @@
 #include "CartaoDeCredito.hpp"
 
 // Se forem criadas outras transacoes antes deste teste o ID nao sera igual a 2
-TEST_CASE("Remover despesa") {
+TEST_CASE("Remover Despesa") {
     CartaoDeCredito banco1("b1", "1234556781", "001", "10", 100);
     banco1.adicionarDespesa(10, "10/11/1999", "padaria");
     banco1.adicionarDespesa(15, "10/11/1999", "padaria");
     CHECK(banco1.removerDespesa(2) == true);
 }
 
-TEST_CASE("Criar cartao") {
-    CartaoDeCredito banco1("b1", "1234556781", "001", "10", 100);
-    CHECK(banco1.getLimite() == 100);
+TEST_CASE("Teste alterarLimiteCartao - Caso Base"){
+    CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", 1);
+    cartao.alterarLimiteCartao(1000);
+    CHECK(cartao.getLimite() == 1000);
 }
 
-TEST_CASE("Alterar limite") {
-    CartaoDeCredito banco1("b1", "1234556781", "001", "10", 100);
-    banco1.alterarLimiteCartao(150);
-    CHECK(banco1.getLimite() == 150);
+TEST_CASE("Teste alterarLimiteCartao - Exceção Limite negativo"){
+    CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", 1);
+    CHECK_THROWS_AS(cartao.alterarLimiteCartao(-100), ExcecaoEntradaNegativa);
 }
 
 TEST_CASE("Soma total do valor das despesas") {
@@ -28,7 +28,7 @@ TEST_CASE("Soma total do valor das despesas") {
     CHECK(banco1.getTotalDespesas() == 26.5);
 }
 
-TEST_CASE("Excessao limite excedido") {
+TEST_CASE("Teste adicionarDespesa - Exceção Limite Excedido") {
     CartaoDeCredito banco1("b1", "1234556781", "001", "10", 10);
     CHECK_THROWS_AS(banco1.adicionarDespesa(11, "10/11/1999", "padaria"), LimiteExcedido);
 }
