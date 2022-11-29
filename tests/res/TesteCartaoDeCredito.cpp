@@ -9,6 +9,11 @@ TEST_CASE("Remover Despesa") {
     CHECK(banco1.removerDespesa(2) == true);
 }
 
+TEST_CASE("Teste Construtor Cartão - Exceção Limite Negativo"){
+    CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", -10);
+    CHECK_THROWS_AS(cartao.getLimite() < 0, LimiteInvalido);
+}
+
 TEST_CASE("Teste alterarLimiteCartao - Caso Base"){
     CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", 1);
     cartao.alterarLimiteCartao(1000);
@@ -17,7 +22,7 @@ TEST_CASE("Teste alterarLimiteCartao - Caso Base"){
 
 TEST_CASE("Teste alterarLimiteCartao - Exceção Limite negativo"){
     CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", 1);
-    CHECK_THROWS_AS(cartao.alterarLimiteCartao(-100), ExcecaoEntradaNegativa);
+    CHECK_THROWS_AS(cartao.alterarLimiteCartao(-100), LimiteInvalido);
 }
 
 TEST_CASE("Soma total do valor das despesas") {
