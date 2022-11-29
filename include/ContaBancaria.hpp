@@ -9,7 +9,7 @@
 
 class ContaBancaria : public Carteira {
     private:
-      std::map<std::string, CartaoDeCredito> _cartoes;
+        std::map<std::string, CartaoDeCredito> _cartoes;
 
     public:
         ContaBancaria(std::string nome, double saldo_inicial);
@@ -23,6 +23,8 @@ class ContaBancaria : public Carteira {
         std::map<std::string, CartaoDeCredito> &getCartoes();
 
         CartaoDeCredito &getCartaoDeCredito(std::string nome);
+
+        void imprimirInfo();
 
         void imprimirCartoes();
 };

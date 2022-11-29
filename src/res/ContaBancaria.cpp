@@ -23,9 +23,38 @@ CartaoDeCredito &ContaBancaria::getCartaoDeCredito(std::string nome) {
     return getCartoes().find(nome)->second;
 }
 
+void ContaBancaria::imprimirInfo() {
+    const std::string separador = "___________________________________________";
+    Utils::printColor(Foreground::f_yellow, separador);
+
+    std::cout << getSubtipo() << ": " << getNome() << std::endl;
+    std::cout << "Saldo atual: ";
+    std::cout << std::fixed << std::setprecision(2);
+
+    std::string saldo = std::to_string(getSaldoAtual());
+    saldo = "R$ " + saldo.substr(0, saldo.find(".") + 3);
+
+    if (getSaldoAtual() > 0) {
+        Utils::printColor(Foreground::f_green, saldo);
+    } 
+    else if (getSaldoAtual() < 0) {
+        Utils::printColor(Foreground::f_red, saldo);
+    } 
+    else {
+        std::cout << saldo << std::endl;
+    }
+
+    std::cout << "Quantidade de transacoes: " << getTransacoes().size() << std::endl;
+    std::cout << "Quantidade de cartoes: " << getCartoes().size() << std::endl;
+    imprimirCartoes();
+
+    Utils::printColor(Foreground::f_yellow, separador);
+}
+
 void ContaBancaria::imprimirCartoes() {
-    std::map<std::string, CartaoDeCredito>::iterator it;
-    for (it = getCartoes().begin(); it != getCartoes().end(); ++it) {
-        std::cout << it->second.getNome() << std::endl;
+
+    for (auto &it : getCartoes()) {
+        std::cout << std::endl;
+        it.second.imprimirInfo();
     }
 }
