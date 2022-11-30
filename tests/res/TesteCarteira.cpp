@@ -24,8 +24,3 @@ TEST_CASE("Teste setSaldoAtual - Exceção Saldo Negativo") {
     Carteira novaCarteira("nome", 1);
     CHECK_THROWS_AS(novaCarteira.setSaldoAtual(-10), SaldoInvalido);
 }
-
-
-
-
-
