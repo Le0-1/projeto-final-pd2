@@ -32,6 +32,13 @@ namespace gcexcp {
 
             std::string getNome();
     };
+
+    class PerfilVazio : public std::exception {
+        public:
+            PerfilVazio();
+
+            const char* what() const throw();
+    };
 }
 
 #endif

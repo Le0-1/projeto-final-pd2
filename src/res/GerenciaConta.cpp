@@ -42,16 +42,18 @@ void GerenciaConta::removerConta(std::string nome) {
     getContas().erase(getContas().find(nome));
 }
 
-void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data, std::string categoria) {
+void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data,             
+                                     std::string categoria) {
+
     if (this->getContas().find(conta) == this->getContas().end()) {
         throw gcexcp::ContaNaoEncontrada(conta);
+    } else {
+        double saldo_conta = getConta(conta)->getSaldoAtual();
+        Receita receita(conta, valor, data, categoria);
+
+        getConta(conta)->setSaldoAtual(saldo_conta + valor);
+        getConta(conta)->adicionarTransacao(receita);
     }
-
-    double saldo_conta = getConta(conta)->getSaldoAtual();
-    Receita receita(conta, valor, data, categoria);
-
-    getConta(conta)->setSaldoAtual(saldo_conta + valor);
-    getConta(conta)->adicionarTransacao(receita);
 }
 
 void GerenciaConta::adicionarDespesa(std::string conta, double valor,
@@ -91,11 +93,21 @@ void GerenciaConta::adicionarTransferencia(double valor, std::string data,
 }
 
 void GerenciaConta::removerReceita(std::string conta, int id) {
-    getConta(conta)->removerTransacao(id);
+
+    if (getConta(conta)->getTransacoes().find(id) == getConta(conta)->getTransacoes().end()) {
+        throw trexcp::TransacaoNaoEncontrada(id);       
+    } else {
+        getConta(conta)->removerTransacao(id);
+    }
 }
 
 void GerenciaConta::removerDespesa(std::string conta, int id) {
-    getConta(conta)->removerTransacao(id);
+
+    if (getConta(conta)->getTransacoes().find(id) == getConta(conta)->getTransacoes().end()) {
+        throw trexcp::TransacaoNaoEncontrada(id);
+    } else {
+        getConta(conta)->removerTransacao(id);
+    }
 }
 
 void GerenciaConta::removerDespesaCartao(std::string conta, std::string cartao, int id) {
@@ -154,7 +166,11 @@ void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
 }
 
 void GerenciaConta::imprimirContas() {
-    for (auto const& conta : getContas()) {
-        conta.second->imprimirInfo();
+    if(!(_contas.empty())) {
+        for (auto const& conta : _contas) {
+            conta.second->imprimirInfo();
+        }
+    } else {
+        throw gcexcp::PerfilVazio();
     }
 }
