@@ -10,8 +10,7 @@ class Despesa : public Transacao {
         std::string _conta;
 
     public:
-        Despesa(double valor, std::string data, std::string categoria,
-                std::string conta);
+        Despesa(double valor, std::string data, std::string categoria, std::string conta);
 
         std::string getConta();
 

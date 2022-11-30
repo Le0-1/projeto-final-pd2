@@ -89,11 +89,19 @@ int main(int argc, char const *argv[]) {
             Utils::printColor(corSeparador, separador);
             Utils::printColor(Efeitos::inverse, "Remover carteira");
             std::cout << "nome" << std::endl;
+            
             std::string nome;
             std::cin >> nome;
 
-            gc.removerConta(nome);
-            std::cout << "Carteira removida" << std::endl;
+            try {
+                gc.removerConta(nome);
+                std::cout << "Carteira removida" << std::endl;
+            }
+            catch (gcexcp::ContaNaoEncontrada& e) {
+                std::cout << "Carteira não encontrada";
+                std::cout << "\t Carteira: " << e.getNome() << std::endl;
+            }
+
             Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
