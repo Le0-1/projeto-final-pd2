@@ -210,7 +210,7 @@ int main(int argc, char const *argv[]) {
         if (input == "add_transferencia") {
             Utils::printColor(corSeparador, separador);
             Utils::printColor(Efeitos::inverse, "adicionar transferencia");
-            std::cout << "valor, descricao, data, categoria, origem, destino" << std::endl;
+            std::cout << "valor, data, categoria, origem, destino" << std::endl;
 
             double valor;
             std::string data;
@@ -342,6 +342,22 @@ int main(int argc, char const *argv[]) {
 
         if (input == "listar") {
             gc.imprimirContas();
+        }
+
+        if (input == "listar_transacao") {
+            Utils::printColor(corSeparador, separador);
+            Utils::printColor(Efeitos::inverse, "listar transacao");
+            std::cout << "conta tipo" << std::endl;
+
+            std::string conta;
+            std::string tipo;
+
+            std::cin >> conta;
+            std::cin >> tipo;
+
+            gc.listarTransacao(conta, tipo);
+            Utils::printColor(corSeparador, separador);
+            std::cout << std::endl;
         }
     }
 

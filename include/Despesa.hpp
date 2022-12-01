@@ -15,6 +15,8 @@ class Despesa : public Transacao {
         std::string getConta();
 
         void alterarConta(std::string nova_conta);
+
+        void imprimirInfo();
 };
 
 #endif

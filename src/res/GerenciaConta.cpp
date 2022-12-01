@@ -6,7 +6,7 @@ std::map<std::string, std::shared_ptr<Carteira>>& GerenciaConta::getContas() {
     return this->_contas;
 }
 
-std::map<int, Transferencia>& GerenciaConta::getTransferencias() {
+std::map<int, std::shared_ptr<Transferencia>>& GerenciaConta::getTransferencias() {
     return this->_transferencias;
 }
 
@@ -49,7 +49,7 @@ void GerenciaConta::adicionarReceita(std::string conta, double valor, std::strin
         throw gcexcp::ContaNaoEncontrada(conta);
     } else {
         double saldo_conta = getConta(conta)->getSaldoAtual();
-        Receita receita(conta, valor, data, categoria);
+        std::shared_ptr<Receita> receita = std::make_shared<Receita>(conta, valor, data, categoria);
 
         getConta(conta)->setSaldoAtual(saldo_conta + valor);
         getConta(conta)->adicionarTransacao(receita);
@@ -60,7 +60,7 @@ void GerenciaConta::adicionarDespesa(std::string conta, double valor,
                                      std::string data, std::string categoria) {
 
     double saldo_conta = getConta(conta)->getSaldoAtual();
-    Despesa despesa(valor, data, categoria, conta);
+    std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, conta);
 
     getConta(conta)->setSaldoAtual(saldo_conta - valor);
     getConta(conta)->adicionarTransacao(despesa);
@@ -78,12 +78,12 @@ void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao
 }
 
 void GerenciaConta::adicionarTransferencia(double valor, std::string data, 
-                                           std::string categoria, std::string origem,
-                                           std::string destino) {
+        std::string categoria, std::string origem, std::string destino) {
 
-    Transferencia transferencia(valor, data, categoria, origem, destino);
-    getTransferencias().insert(std::pair<int, Transferencia>(transferencia.getID(),
-                                                             transferencia));
+    std::shared_ptr<Transferencia> transferencia = std::make_shared<Transferencia>
+        (valor, data, categoria, origem, destino);
+    getTransferencias().insert(std::pair<int, std::shared_ptr<Transferencia>>
+        (transferencia->getID(), transferencia));
 
     double saldo_conta_origem = getConta(origem)->getSaldoAtual();
     double saldo_conta_destino = getConta(destino)->getSaldoAtual();
@@ -97,6 +97,10 @@ void GerenciaConta::removerReceita(std::string conta, int id) {
     if (getConta(conta)->getTransacoes().find(id) == getConta(conta)->getTransacoes().end()) {
         throw trexcp::TransacaoNaoEncontrada(id);       
     } else {
+        double valor = getConta(conta)->getTransacoes().find(id)->second->getValor();
+        double saldo = getConta(conta)->getSaldoAtual() - valor;
+        
+        getConta(conta)->setSaldoAtual(saldo);
         getConta(conta)->removerTransacao(id);
     }
 }
@@ -106,6 +110,10 @@ void GerenciaConta::removerDespesa(std::string conta, int id) {
     if (getConta(conta)->getTransacoes().find(id) == getConta(conta)->getTransacoes().end()) {
         throw trexcp::TransacaoNaoEncontrada(id);
     } else {
+        double valor = getConta(conta)->getTransacoes().find(id)->second->getValor();
+        double saldo = getConta(conta)->getSaldoAtual() + valor;
+        
+        getConta(conta)->setSaldoAtual(saldo);
         getConta(conta)->removerTransacao(id);
     }
 }
@@ -172,5 +180,25 @@ void GerenciaConta::imprimirContas() {
         }
     } else {
         throw gcexcp::PerfilVazio();
+    }
+}
+
+void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
+    std::shared_ptr<Carteira> cart_conta = getConta(conta);
+
+    std::cout << "ContaBancaria: " << cart_conta->getNome() << std::endl;
+
+    int i = 0;
+    for (auto const&it : getConta(conta)->getTransacoes()) {
+        if (it.second->getSubtipo() == tipo) {
+            std::cout << std::endl; 
+            it.second->imprimirInfo();
+            ++i;
+        }   
+    }
+
+    if (i == 0) {
+        std::cout << std::endl;
+        Utils::printColor(Efeitos::inverse, "nenhuma " + tipo + " encontrada");
     }
 }

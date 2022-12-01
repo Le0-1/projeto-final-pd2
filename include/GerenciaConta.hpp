@@ -17,14 +17,14 @@
 class GerenciaConta {
     private:
         std::map<std::string, std::shared_ptr<Carteira>> _contas;
-        std::map<int, Transferencia> _transferencias;
+        std::map<int, std::shared_ptr<Transferencia>> _transferencias;
 
     public:
         GerenciaConta();
 
         std::map<std::string, std::shared_ptr<Carteira>>& getContas();
 
-        std::map<int, Transferencia> &getTransferencias();
+        std::map<int, std::shared_ptr<Transferencia>> &getTransferencias();
 
         std::shared_ptr<Carteira> getConta(std::string nome);
 
@@ -62,6 +62,8 @@ class GerenciaConta {
         void pagarFatura(std::string conta, std::string cartao);
 
         void imprimirContas();
+
+        void listarTransacao(std::string conta, std::string tipo);
 };
 
 #endif

@@ -15,6 +15,8 @@ class Receita : public Transacao {
         void alterarConta(std::string conta_destino);
 
         std::string getConta();
+
+        void imprimirInfo();
 };
 
 #endif

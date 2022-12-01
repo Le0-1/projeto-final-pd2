@@ -19,6 +19,8 @@ class Transferencia : public Transacao {
         std::string getOrigem();
 
         std::string getDestino();
+
+        void imprimirInfo();
 };
 
 #endif // !TRANSFERENCIA_H
