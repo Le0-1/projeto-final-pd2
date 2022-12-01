@@ -14,19 +14,21 @@ Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) 
 
 Carteira::~Carteira() { }
 
-void Carteira::adicionarTransacao(Transacao transacao) {
-    this->_transacoes.insert(std::pair<int, Transacao>(transacao.getID(), transacao));
+void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
+    this->_transacoes.insert(std::pair<int, std::shared_ptr<Transacao>>
+        (transacao->getID(), transacao));
 }
 
 void Carteira::removerTransacao(int id) {
     this->_transacoes.erase(id);
 }
 
-std::map<int, Transacao> Carteira::ultimasTransacoes(unsigned int quantidade) {
-    std::map<int, Transacao> ultimas_transacoes;
+std::map<int, std::shared_ptr<Transacao>> Carteira::ultimasTransacoes(unsigned int quantidade) {
+    std::map<int, std::shared_ptr<Transacao>> ultimas_transacoes;
 
-    for (auto const& transacao : this->_transacoes) {
-        ultimas_transacoes.insert(std::pair<int, Transacao>(transacao.first, transacao.second));
+    for (auto &transacao : getTransacoes()) {
+        ultimas_transacoes.insert(std::pair<int, std::shared_ptr<Transacao>>
+            (transacao.first, transacao.second));
         quantidade--;
         if (quantidade <= 0) break;
     }
@@ -46,7 +48,7 @@ void Carteira::setSaldoAtual(double saldo) {
     this->_saldo_atual = saldo;
 }
 
-std::map<int, Transacao>& Carteira::getTransacoes() {
+std::map<int, std::shared_ptr<Transacao>>& Carteira::getTransacoes() {
     return this->_transacoes;
 }
 

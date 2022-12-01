@@ -8,12 +8,13 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <memory>
 
 class Carteira {
     private:
         std::string _nome;
         double _saldo_atual;
-        std::map<int, Transacao> _transacoes;
+        std::map<int, std::shared_ptr<Transacao>> _transacoes;
         std::string _subtipo;
 
     public:
@@ -23,9 +24,9 @@ class Carteira {
 
         virtual ~Carteira();
 
-        std::map<int, Transacao> ultimasTransacoes(unsigned int quantidade);
+        std::map<int, std::shared_ptr<Transacao>> ultimasTransacoes(unsigned int quantidade);
 
-        void adicionarTransacao(Transacao transacao);
+        void adicionarTransacao(std::shared_ptr<Transacao> transacao);
 
         void removerTransacao(int id);
 
@@ -35,7 +36,7 @@ class Carteira {
 
         void setSaldoAtual(double saldo);
 
-        std::map<int, Transacao>& getTransacoes();
+        std::map<int, std::shared_ptr<Transacao>>& getTransacoes();
 
         std::string getSubtipo();
 

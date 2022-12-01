@@ -1,5 +1,7 @@
 #include "doctest.h"
 #include "Carteira.hpp"
+#include "Receita.hpp"
+#include "GerenciaContaExcp.hpp"
 
 TEST_CASE("Teste Construtor Carteira - Exceção Saldo Negativo"){
     CHECK_THROWS_AS(Carteira novaCarteira("nome", -10), SaldoInvalido);
@@ -7,8 +9,12 @@ TEST_CASE("Teste Construtor Carteira - Exceção Saldo Negativo"){
 
 TEST_CASE("Teste getSaldoAtual") {
     Carteira novaCarteira("nome", 1);
-    Transacao deposito1(100, "data", "categoria");
-    Transacao deposito2(1000, "data", "categoria");
+    
+    std::shared_ptr<Receita> deposito1 = 
+        std::make_shared<Receita>(novaCarteira.getNome(), 100, "data", "categoria");
+    std::shared_ptr<Receita> deposito2 = 
+        std::make_shared<Receita>(novaCarteira.getNome(), 1000, "data", "categoria");
+
     novaCarteira.adicionarTransacao(deposito1);
     novaCarteira.adicionarTransacao(deposito2);
     CHECK(novaCarteira.getSaldoAtual() == 1101);

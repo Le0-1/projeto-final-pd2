@@ -37,7 +37,8 @@ TEST_DEPENDENCIES = \
 	$(BUILD_DIR)/CartaoDeCredito.o \
 	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
 	$(BUILD_DIR)/GerenciaContaExcp.o \
-	$(BUILD_DIR)/TransacaoExcp.o
+	$(BUILD_DIR)/TransacaoExcp.o \
+	$(BUILD_DIR)/Utils.o 
 
 BUILD_TEST_FILES = \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
