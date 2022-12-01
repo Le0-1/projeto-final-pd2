@@ -34,6 +34,7 @@ TEST_DEPENDENCIES = \
 	$(BUILD_DIR)/Transacao.o \
 	$(BUILD_DIR)/Carteira.o \
 	$(BUILD_DIR)/Despesa.o \
+	$(BUILD_DIR)/Receita.o \
 	$(BUILD_DIR)/CartaoDeCredito.o \
 	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
 	$(BUILD_DIR)/GerenciaContaExcp.o \
@@ -64,7 +65,7 @@ var:
 run: all
 	$(BUILD_DIR)/$(NAME)
 
-tests: ${TEST_DIR}$(BUILD_TEST_DIR)/${TEST_NAME}
+tests: mkdir_test_build ${TEST_DIR}$(BUILD_TEST_DIR)/${TEST_NAME}
 
 $(TEST_DIR)$(BUILD_TEST_DIR)/%.o: $(TEST_DIR)$(RES_DIR)/%.cpp
 	$(CC) -c $(CFLAGS) $< -I $(INCLUDE_DIR) -I $(THIRD_DIR) -o $@
