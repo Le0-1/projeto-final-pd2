@@ -123,7 +123,12 @@ void GerenciaConta::removerReceita(std::string conta, int id) {
 
     if (getConta(conta)->getTransacoes().find(id) == getConta(conta)->getTransacoes().end()) {
         throw trsexcp::TransacaoNaoEncontrada(id);       
-    } 
+    }
+
+    else if (getConta(conta)->getTransacoes().find(id)->second->getSubtipo() == "despesa") {
+        throw trsexcp::TipoTransacaoInvalido("despesa");
+    }
+ 
     else {
         getConta(conta)->removerTransacao(id);
     }
