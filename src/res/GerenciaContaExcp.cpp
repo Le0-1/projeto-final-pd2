@@ -46,7 +46,7 @@ gcexcp::ContaJaExiste::ContaJaExiste(std::string nome) {
 }
 
 const char* gcexcp::ContaJaExiste::what() const throw() {
-    return "Ja existem contas cadastradas com esse nome";
+    return "Já existem contas cadastradas com esse nome";
 }
 
 std::string gcexcp::ContaJaExiste::getNome() {
@@ -70,4 +70,22 @@ std::string gcexcp::ContaNaoPermiteCartao::getNomeConta() {
 
 std::string gcexcp::ContaNaoPermiteCartao::getSubtipoConta() {
     return this->_subtipo_conta;
+}
+
+// Metodos para SaldoInsuficiente
+gcexcp::SaldoInsuficiente::SaldoInsuficiente(double saldo, double despesa) {
+    this->_saldo = saldo;
+    this->_despesa = despesa;
+}
+
+const char * gcexcp::SaldoInsuficiente::what() const throw() {
+    return "Saldo insuficiente";
+}
+
+double gcexcp::SaldoInsuficiente::getSaldo() {
+    return this->_saldo;
+}
+
+double gcexcp::SaldoInsuficiente::getDespesa() {
+    return this->_despesa;
 }

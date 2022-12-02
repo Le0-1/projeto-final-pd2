@@ -220,6 +220,11 @@ int main(int argc, char const *argv[]) {
                               << "\t Conta: " << e.getNome()
                               << std::endl;
                 }
+                catch (gcexcp::SaldoInsuficiente &e) {
+                    std::cout << e.what()
+                              << "\t Diferença: " << e.getSaldo() - e.getDespesa()
+                              << std::endl;
+                }
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;

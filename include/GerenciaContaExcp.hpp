@@ -65,6 +65,20 @@ namespace gcexcp {
 
             std::string getSubtipoConta();
     };
+
+    class SaldoInsuficiente : public std::exception {
+        public:
+            double _saldo, _despesa;
+
+        public:
+            SaldoInsuficiente(double saldo, double despesa);
+
+            const char * what() const throw();
+
+            double getSaldo();
+
+            double getDespesa();
+    };
 }
 
 #endif

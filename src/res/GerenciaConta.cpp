@@ -69,8 +69,13 @@ void GerenciaConta::adicionarReceita(std::string conta, double valor, std::strin
 }
 
 void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::string data, std::string categoria) {
-    std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, conta);
-    getConta(conta)->adicionarTransacao(despesa);
+    if(valor <= getConta(conta)->getSaldoAtual()) {
+        std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, conta);
+        getConta(conta)->adicionarTransacao(despesa);
+    } 
+    else {
+        throw gcexcp::SaldoInsuficiente(getConta(conta)->getSaldoAtual(), valor);
+    }
 }
 
 void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao, double valor, std::string data, std::string categoria) {
@@ -104,7 +109,8 @@ void GerenciaConta::removerReceita(std::string conta, int id) {
 
     if (getConta(conta)->getTransacoes().find(id) == getConta(conta)->getTransacoes().end()) {
         throw trexcp::TransacaoNaoEncontrada(id);       
-    } else {
+    } 
+    else {
         getConta(conta)->removerTransacao(id);
     }
 }
@@ -113,7 +119,8 @@ void GerenciaConta::removerDespesa(std::string conta, int id) {
 
     if (getConta(conta)->getTransacoes().find(id) == getConta(conta)->getTransacoes().end()) {
         throw trexcp::TransacaoNaoEncontrada(id);
-    } else {
+    } 
+    else {
         getConta(conta)->removerTransacao(id);
     }
 }
@@ -181,10 +188,11 @@ void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
 
 void GerenciaConta::imprimirContas() {
     if(!(_contas.empty())) {
-        for (auto const& conta : _contas) {
+        for (auto const& conta : getContas()) {
             conta.second->imprimirInfo();
         }
-    } else {
+    } 
+    else {
         throw gcexcp::PerfilVazio();
     }
 }
