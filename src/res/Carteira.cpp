@@ -18,11 +18,31 @@ Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) 
 Carteira::~Carteira() { }
 
 void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
+    double valor = transacao->getValor();
+
+    if (transacao->getSubtipo() == "receita") {
+        setSaldoAtual(getSaldoAtual() + valor); 
+    }
+    else if (transacao->getSubtipo() == "despesa") {
+        setSaldoAtual(getSaldoAtual() - valor);
+    }
+    
     this->_transacoes.insert(std::pair<int, std::shared_ptr<Transacao>>
         (transacao->getID(), transacao));
 }
 
 void Carteira::removerTransacao(int id) {
+    std::shared_ptr<Transacao> transacao = getTransacoes().find(id)->second;
+
+    double valor = transacao->getValor();
+
+    if (transacao->getSubtipo() == "receita") {
+        setSaldoAtual(getSaldoAtual() - valor); 
+    }
+    else if (transacao->getSubtipo() == "despesa") {
+        setSaldoAtual(getSaldoAtual() + valor);
+    }
+
     this->_transacoes.erase(id);
 }
 
