@@ -98,7 +98,14 @@ void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao
 void GerenciaConta::adicionarTransferencia(double valor, std::string data, std::string categoria,   
                                            std::string origem, std::string destino) {
 
-    std::string valid_date = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$";
+    //regex mais simples = ^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$
+
+    const std::string valid_date = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)"
+                                  "(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)"
+                                  "?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?"
+                                  "(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|"
+                                  "[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)"
+                                  "(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
 
     if (std::regex_match(data, std::regex(valid_date))) {
 
@@ -177,7 +184,8 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
 
         if (std::regex_match(numero, std::regex("^[0-9]{16}$"))) {
             if (std::regex_match(CVV, std::regex("^[0-9]{3}$"))) {
-                if(std::regex_match(fechamento, std::regex("^([1-9]|[12][0-9]|3[01])$"))) {
+                if(std::regex_match(fechamento, std::regex("^(([0]?[1-9])|([1-2][0-9])|"
+                                                           "(3[01]))$"))) {
 
                     std::shared_ptr<ContaBancaria> conta_bancaria;
                     conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
