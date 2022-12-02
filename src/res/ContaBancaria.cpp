@@ -12,7 +12,9 @@ void ContaBancaria::adicionarCartao(CartaoDeCredito cartao) {
 ContaBancaria::~ContaBancaria() { }
 
 void ContaBancaria::removerCartao(std::string nome) {
-    //TODO SE NAO BATER COM NENHUM NOME
+    if (this->_cartoes.find(nome) == this->_cartoes.end()){
+        throw cdcexcp::CartaoNaoEncontrado(nome);
+    }
     getCartoes().erase(getCartoes().find(nome));
 }
 

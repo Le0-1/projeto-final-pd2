@@ -59,13 +59,16 @@ void GerenciaConta::removerConta(std::string nome) {
 }
 
 void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data, std::string categoria) {
+    if (this->getContas().find(conta) == this->getContas().end()) {
+        throw gcexcp::ContaNaoEncontrada(conta);
+    }
+    if (valor < 0) throw gcexcp::ValorInvalido(valor, conta);
 
     double saldo_conta = getConta(conta)->getSaldoAtual();
     std::shared_ptr<Receita> receita = std::make_shared<Receita>(conta, valor, data, categoria);
 
     getConta(conta)->setSaldoAtual(saldo_conta + valor);
     getConta(conta)->adicionarTransacao(receita);
-
 }
 
 void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::string data, std::string categoria) {
