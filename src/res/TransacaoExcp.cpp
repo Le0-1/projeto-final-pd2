@@ -23,5 +23,5 @@ std::string trsexcp::TipoTransacaoInvalido::getTipo() {
 }
 
 const char* trsexcp::TipoTransacaoInvalido::what() const throw() {
-    return "O tipo da transacao nao existe";
+    return "O tipo da transacao é inválida";
 }
