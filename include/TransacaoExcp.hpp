@@ -3,7 +3,7 @@
 
 #include <exception>
 
-namespace trexcp {
+namespace trsexcp {
 
     class TransacaoNaoEncontrada : public std::exception {
         private:

@@ -1,15 +1,15 @@
 #include "TransacaoExcp.hpp"
 
 /*Métodos para TransacaoNaoEncontrada*/
-trexcp::TransacaoNaoEncontrada::TransacaoNaoEncontrada(int id) {
+trsexcp::TransacaoNaoEncontrada::TransacaoNaoEncontrada(int id) {
     this->_id = id;
 }
 
-const char* trexcp::TransacaoNaoEncontrada::what() const throw() {
+const char* trsexcp::TransacaoNaoEncontrada::what() const throw() {
     return "Transação não encontrada";
 }
 
-int trexcp::TransacaoNaoEncontrada::getID() {
+int trsexcp::TransacaoNaoEncontrada::getID() {
     return this->_id;
 }
 

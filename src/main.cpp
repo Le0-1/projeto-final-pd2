@@ -274,10 +274,26 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(Efeitos::inverse, "adicionar transferencia");
                 std::cout << "valor, data, categoria, origem, destino" << std::endl;
 
-                std::cin >> valor_transacao >> data >> categoria >> origem >> destino;
+                std::cin >> valor_transacao;
 
-                gc.adicionarTransferencia(valor_transacao, data, categoria, origem, destino);
-                std::cout << "transferencia adicionada" << std::endl;
+                while(std::cin.fail() || valor_transacao <= 0) {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                    std::cout << "Entrada Inválida. Coloque o valor da Transação: ";
+                    std::cin >> valor_transacao;
+                }
+
+                std::cin >> data >> categoria >> origem >> destino;
+
+                try {
+                    gc.adicionarTransferencia(valor_transacao, data, categoria, origem, destino);
+                    std::cout << "transferencia adicionada" << std::endl;
+                } 
+                catch(trfexcp::DataInvalida& e){
+                    std::cout << e.what()
+                              << "\t Data: " << e.getData()
+                              << std::endl;
+                }
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;

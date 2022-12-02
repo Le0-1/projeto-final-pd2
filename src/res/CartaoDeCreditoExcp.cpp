@@ -104,5 +104,5 @@ std::string cdcexcp::FechamentoInvalido::getFechamento() {
 }
 
 const char* cdcexcp::FechamentoInvalido::what() const throw() {
-    return "Fechamento do cartão não está no formato MM/DD/AAAA ou data é inválida";
+    return "Fechamento do cartão não está entre os dias 1 e 31";
 }
