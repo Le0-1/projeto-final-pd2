@@ -54,6 +54,43 @@ namespace cdcexcp {
 
             std::string getNomeCartao();
     };
+    
+    class NumeroInvalido : public std::exception {
+        private:
+            std::string _numero;
+
+        public:
+            NumeroInvalido(std::string numero);
+
+            const char* what() const throw();
+
+            std::string getNumero();
+    };
+
+    class CVVInvalido : public std::exception {
+        private:
+            std::string _CVV;
+
+        public:
+            CVVInvalido(std::string CVV);
+
+            const char* what() const throw();
+
+            std::string getCVV();
+    };
+
+    class FechamentoInvalido : public std::exception {
+        private:
+            std::string _fechamento;
+
+        public:
+            FechamentoInvalido(std::string fechamento);
+
+            const char* what() const throw();
+
+            std::string getFechamento();
+    };
+
 }
 
 #endif // !CARTAO_DE_CREDITO_EXCP_H

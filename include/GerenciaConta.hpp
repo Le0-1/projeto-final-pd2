@@ -13,6 +13,7 @@
 
 #include <memory>
 #include <map>
+#include <regex>
 
 class GerenciaConta {
     private:

@@ -67,3 +67,42 @@ std::string cdcexcp::CartaoNaoEncontrado::getNomeCartao() {
 const char* cdcexcp::CartaoNaoEncontrado::what() const throw() {
     return "Cartão não encontrado";
 }
+
+/*Métodos Exceção NumeroInvalido*/
+cdcexcp::NumeroInvalido::NumeroInvalido(std::string numero) {
+    this->_numero = numero;
+}
+
+std::string cdcexcp::NumeroInvalido::getNumero() {
+    return this->_numero;
+}
+
+const char* cdcexcp::NumeroInvalido::what() const throw() {
+    return "Número do cartão não tem 16 caracteres numéricos exatos";
+}
+
+/*Métodos Exceção CVVInvalido*/
+cdcexcp::CVVInvalido::CVVInvalido(std::string CVV) {
+    this->_CVV = CVV;
+}
+
+std::string cdcexcp::CVVInvalido::getCVV() {
+    return this->_CVV;
+}
+
+const char* cdcexcp::CVVInvalido::what() const throw() {
+    return "CVV do cartão não tem 3 caracteres numéricos exatos";
+}
+
+/*Métodos Exceção FechamentoInvalido*/
+cdcexcp::FechamentoInvalido::FechamentoInvalido(std::string fechamento) {
+    this->_fechamento = fechamento;
+}
+
+std::string cdcexcp::FechamentoInvalido::getFechamento() {
+    return this->_fechamento;
+}
+
+const char* cdcexcp::FechamentoInvalido::what() const throw() {
+    return "Fechamento do cartão não está no formato MM/DD/AAAA ou data é inválida";
+}

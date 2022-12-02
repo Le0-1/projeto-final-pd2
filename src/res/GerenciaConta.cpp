@@ -142,15 +142,31 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
                                     std::string numero, std::string CVV,
                                     std::string fechamento, double limite_cartao) {
 
+    static std::string valid_date;
+    valid_date = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$";
+
     if (getConta(conta)->getSubtipo() == "ContaBancaria") {
+        if (std::regex_match(numero, std::regex("^[0-9]{16}$"))) {
+            if (std::regex_match(CVV, std::regex("^[0-9]{3}$"))) {
+                if(std::regex_match(fechamento, std::regex(valid_date))) {
+                    //continua o método adicionarCartao e cria um cartao
+                } else {
+                    throw cdcexcp::FechamentoInvalido(fechamento);
+                }
+            } else {
+                throw cdcexcp::CVVInvalido(CVV);
+            }
+        } else {
+            throw cdcexcp::NumeroInvalido(numero);
+        }
+
         std::shared_ptr<ContaBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
 
         CartaoDeCredito cartao_de_credito(nome, numero, CVV, fechamento, limite_cartao);
 
         conta_bancaria->adicionarCartao(cartao_de_credito);
-    }
-    else {
+    } else {
         throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
     }
 }

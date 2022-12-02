@@ -363,6 +363,24 @@ int main(int argc, char const *argv[]) {
                               << "\t Limite digitado: " << e.getLimiteCartao()
                               << std::endl;
                 }
+                catch (cdcexcp::NumeroInvalido& e) {
+                    std::cout << e.what()
+                              << std::endl
+                              << "\t Número digitado: " << e.getNumero()
+                              << std::endl;
+                }
+                catch (cdcexcp::CVVInvalido& e) {
+                    std::cout << e.what()
+                              << std::endl
+                              << "\t CVV digitado: " << e.getCVV()
+                              << std::endl;
+                }
+                catch (cdcexcp::FechamentoInvalido& e) {
+                    std::cout << e.what()
+                              << std::endl
+                              << "\t Fechamento digitado: " << e.getFechamento()
+                              << std::endl;
+                }
                 catch (gcexcp::ContaNaoPermiteCartao &e) {
                     std::cout << e.what()
                               << "\t Conta: " << e.getNomeConta()
