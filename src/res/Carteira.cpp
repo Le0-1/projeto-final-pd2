@@ -46,17 +46,12 @@ void Carteira::removerTransacao(int id) {
     this->_transacoes.erase(id);
 }
 
-std::map<int, std::shared_ptr<Transacao>> Carteira::ultimasTransacoes(unsigned int quantidade) {
-    std::map<int, std::shared_ptr<Transacao>> ultimas_transacoes;
-
-    for (auto &transacao : getTransacoes()) {
-        ultimas_transacoes.insert(std::pair<int, std::shared_ptr<Transacao>>
-            (transacao.first, transacao.second));
-        quantidade--;
-        if (quantidade <= 0) break;
+void Carteira::ultimasTransacoes(unsigned int quantidade) {
+    auto it = getTransacoes().rbegin();
+    for (unsigned int i = 0; i < quantidade && i < getTransacoes().size(); ++i) {
+        it->second->imprimirInfo();
+        ++it;
     }
-
-    return ultimas_transacoes;
 }
 
 std::string Carteira::getNome() {
@@ -104,6 +99,8 @@ void Carteira::imprimirInfo() {
     }
 
     std::cout << "Quantidade de transacoes: " << getTransacoes().size() << std::endl;
+
+    ultimasTransacoes(3);
 
     Utils::printColor(Foreground::f_yellow, separador);
 }

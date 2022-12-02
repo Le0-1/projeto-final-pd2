@@ -25,7 +25,7 @@ class Carteira {
 
         virtual ~Carteira();
 
-        std::map<int, std::shared_ptr<Transacao>> ultimasTransacoes(unsigned int quantidade);
+        void ultimasTransacoes(unsigned int quantidade);
 
         void adicionarTransacao(std::shared_ptr<Transacao> transacao);
 
