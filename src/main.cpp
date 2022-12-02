@@ -130,7 +130,7 @@ int main(int argc, char const *argv[]) {
         if (input == "add_receita") {
             Utils::printColor(corSeparador, separador);
             Utils::printColor(Efeitos::inverse, "adicionar receita");
-            std::cout << "conta, valor, descricao, data, categoria" << std::endl;
+            std::cout << "conta, valor, data, categoria" << std::endl;
 
             std::string conta;
             double valor;
@@ -164,7 +164,7 @@ int main(int argc, char const *argv[]) {
         if (input == "add_despesa") {
             Utils::printColor(corSeparador, separador);
             Utils::printColor(Efeitos::inverse, "adicionar despesa");
-            std::cout << "conta, valor, descricao, data, categoria" << std::endl;
+            std::cout << "conta, valor, data, categoria" << std::endl;
 
             std::string conta;
             double valor;
@@ -173,12 +173,25 @@ int main(int argc, char const *argv[]) {
 
             std::cin >> conta;
             std::cin >> valor;
+
+            while(std::cin.fail() || valor <= 0) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout << "Entrada Inválida. Coloque uma Despesa: ";
+                std::cin >> valor;
+            }
+
             std::cin >> data;
             std::cin >> categoria;
 
-            gc.adicionarDespesa(conta, valor, data, categoria);
-
-            std::cout << "Despesa adicionada" << std::endl;
+            try {
+                gc.adicionarDespesa(conta, valor, data, categoria);
+                std::cout << "Despesa adicionada" << std::endl;
+            }
+            catch (gcexcp::ContaNaoEncontrada& e) {
+                std::cout << e.what();
+                std::cout << "\t Conta: " << e.getNome() << std::endl;
+            }
             Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
@@ -186,7 +199,7 @@ int main(int argc, char const *argv[]) {
         if (input == "add_despesa_cartao") {
             Utils::printColor(corSeparador, separador);
             Utils::printColor(Efeitos::inverse, "adicionar despesa cartao");
-            std::cout << "conta, cartao, valor, data, categoria" << std::endl;
+            std::cout << "conta, cartao, data, categoria, valor" << std::endl;
 
             std::string conta;
             std::string cartao;
@@ -195,14 +208,35 @@ int main(int argc, char const *argv[]) {
             std::string categoria;
 
             std::cin >> conta;
-            std::cin >> cartao;
-            std::cin >> valor;
+            std::cin >> cartao; 
             std::cin >> data;
             std::cin >> categoria;
+            std::cin >> valor;
 
-            gc.adicionarDespesaCartao(conta, cartao, valor, data, categoria);
+            while(std::cin.fail() || valor <= 0) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout << "Entrada Inválida. Coloque uma Despesa: ";
+                std::cin >> valor;
+            }
 
-            std::cout << "Despesa cartao de credito adicionada" << std::endl;
+            try {
+                gc.adicionarDespesaCartao(conta, cartao, valor, data, categoria);
+                std::cout << "Despesa cartao de credito adicionada" << std::endl;
+            }
+            catch (gcexcp::ContaNaoEncontrada& e) {
+                std::cout << e.what();
+                std::cout << "\t Conta: " << e.getNome() << std::endl;
+            }
+            catch (cdcexcp::CartaoNaoEncontrado& e) {
+                std::cout << e.what();
+                std::cout << "\t Cartao: " << e.getNomeCartao() << std::endl;
+            }
+            catch (cdcexcp::LimiteExcedido& e) {
+                std::cout << e.what();
+                std::cout << "\t Limite restante do cartão " << e.getNomeCartao(); 
+                std::cout << " é:"; // TO-DO LIMITE RESTANTE
+            }
             Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
@@ -316,8 +350,25 @@ int main(int argc, char const *argv[]) {
             std::cin >> fechamento;
             std::cin >> limite_cartao;
 
+            while(std::cin.fail() || limite_cartao <= 0) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                std::cout << "Entrada Inválida. Coloque um Limite maior que zero: ";
+                std::cin >> limite_cartao;
+            }
+
+            try {
             gc.adicionarCartao(conta, nome, numero, CVV, fechamento, limite_cartao);
             std::cout << "Cartao de credito criado" << std::endl;
+            }
+            catch (gcexcp::ContaNaoEncontrada& e) {
+                std::cout << e.what();
+                std::cout << "\t Conta: " << e.getNome() << std::endl;
+            }
+            catch (cdcexcp::LimiteInvalido& e) {
+                std::cout << e.what() << std::endl;
+                std::cout << "\t Limite digitado: " << e.getLimiteCartao() << std::endl;
+            }
             Utils::printColor(corSeparador, separador);
             std::cout << std::endl;
         }
