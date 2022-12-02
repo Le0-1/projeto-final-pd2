@@ -4,7 +4,7 @@
 #include "GerenciaContaExcp.hpp"
 
 TEST_CASE("Teste Construtor Carteira - Exceção Saldo Negativo"){
-    CHECK_THROWS_AS(Carteira novaCarteira("nome", -10), SaldoInvalido);
+    CHECK_THROWS_AS(Carteira novaCarteira("nome", -10), gcexcp::SaldoInvalido);
 }
 
 TEST_CASE("Teste getSaldoAtual") {
@@ -28,5 +28,5 @@ TEST_CASE("Teste setSaldoAtual - Caso Base") {
 
 TEST_CASE("Teste setSaldoAtual - Exceção Saldo Negativo") {
     Carteira novaCarteira("nome", 1);
-    CHECK_THROWS_AS(novaCarteira.setSaldoAtual(-10), SaldoInvalido);
+    CHECK_THROWS_AS(novaCarteira.setSaldoAtual(-10), gcexcp::SaldoInvalido);
 }

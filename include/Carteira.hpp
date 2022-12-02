@@ -3,6 +3,7 @@
 
 #include "Transacao.hpp"
 #include "Utils.hpp"
+#include "GerenciaContaExcp.hpp"
 
 #include <iomanip>
 #include <iostream>

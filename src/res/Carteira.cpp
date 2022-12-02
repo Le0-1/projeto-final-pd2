@@ -1,12 +1,15 @@
 #include "Carteira.hpp"
+#include "GerenciaContaExcp.hpp"
 
 Carteira::Carteira(std::string nome, double saldo_inicial) {
+    if (saldo_inicial < 0) throw gcexcp::SaldoInvalido(saldo_inicial, nome);
     this->_nome = nome;
     this->_saldo_atual = saldo_inicial;
     this->_subtipo = "Carteira";
 }
 
 Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) {
+    if (saldo_inicial < 0) throw gcexcp::SaldoInvalido(saldo_inicial, nome);
     this->_nome = nome;
     this->_saldo_atual = saldo_inicial;
     this->_subtipo = subtipo;
@@ -45,6 +48,7 @@ double Carteira::getSaldoAtual() {
 }
 
 void Carteira::setSaldoAtual(double saldo) {
+    if (saldo < 0) throw gcexcp::SaldoInvalido(saldo, this->getNome());
     this->_saldo_atual = saldo;
 }
 
