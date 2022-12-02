@@ -9,11 +9,11 @@ namespace cdcexcp {
     class LimiteExcedido : public std::exception {
         private:
             std::string _nome_cartao, _numero_cartao;
-            double _limite_cartao;
+            double _limite_cartao, _soma_despesas_atuais;
 
         public:
             LimiteExcedido(std::string nome_cartao, std::string numero_cartao,
-                        double limite_cartao);
+                           double limite_cartao, double soma_despesas_atuais);
 
             const char* what() const throw();
 
@@ -22,6 +22,8 @@ namespace cdcexcp {
             std::string getNumeroCartao();
 
             double getLimiteCartao();
+
+            double getSomaDespesasAtuais;
     };
 
     class LimiteInvalido : public std::exception {

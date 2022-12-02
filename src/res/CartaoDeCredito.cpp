@@ -3,15 +3,14 @@
 CartaoDeCredito::CartaoDeCredito(std::string nome, std::string numero,
                                  std::string CVV, std::string fechamento,
                                  double limite_cartao) {
-    this->_nome = nome;
-    this->_numero = numero;
-    this->_CVV = CVV;
-    this->_fechamento = fechamento;
-
     if (limite_cartao < 0) {
         throw cdcexcp::LimiteInvalido(nome, numero, limite_cartao);
     }
 
+    this->_nome = nome;
+    this->_numero = numero;
+    this->_CVV = CVV;
+    this->_fechamento = fechamento;
     this->_limite_cartao = limite_cartao;
 }
 
@@ -55,7 +54,8 @@ void CartaoDeCredito::adicionarDespesa(double valor, std::string data, std::stri
     } 
     
     else {
-        throw cdcexcp::LimiteExcedido(_nome, _numero, _limite_cartao);
+        throw cdcexcp::LimiteExcedido(this->_nome, this->_numero, this->_limite_cartao,
+                                      this->getTotalDespesas());
     }
 }
 

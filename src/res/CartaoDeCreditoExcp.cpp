@@ -2,10 +2,14 @@
 
 /*Métodos LimiteExcedido*/
 
-cdcexcp::LimiteExcedido::LimiteExcedido(std::string nome_cartao, std::string numero_cartao, double limite_cartao) {
+cdcexcp::LimiteExcedido::LimiteExcedido(std::string nome_cartao,
+                                        std::string numero_cartao,
+                                        double limite_cartao,
+                                        double soma_despesas_atuais) {
     this->_nome_cartao = nome_cartao;
     this->_numero_cartao = numero_cartao;
     this->_limite_cartao = limite_cartao;
+    this->_soma_despesas_atuais = soma_despesas_atuais;
 }
 
 const char* cdcexcp::LimiteExcedido::what() const throw() {
@@ -26,7 +30,9 @@ double cdcexcp::LimiteExcedido::getLimiteCartao() {
 
 /*Métodos Exceção LimiteInvalido*/
 
-cdcexcp::LimiteInvalido::LimiteInvalido(std::string nome_cartao, std::string numero_cartao, double limite_cartao) {
+cdcexcp::LimiteInvalido::LimiteInvalido(std::string nome_cartao,
+                                        std::string numero_cartao,
+                                        double limite_cartao) {
     this->_nome_cartao = nome_cartao;
     this->_numero_cartao = numero_cartao;
     this->_limite_cartao = limite_cartao;
