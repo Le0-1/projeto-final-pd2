@@ -51,6 +51,20 @@ namespace gcexcp {
 
             std::string getNome();
     };
+
+    class ContaNaoPermiteCartao : public std::exception {
+        public:
+            std::string _nome_conta, _subtipo_conta;
+
+        public:
+            ContaNaoPermiteCartao(std::string nome_conta, std::string tipo_conta);
+
+            const char * what() const throw();
+
+            std::string getNomeConta();
+
+            std::string getSubtipoConta();
+    };
 }
 
 #endif

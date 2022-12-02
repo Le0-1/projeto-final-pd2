@@ -1,5 +1,4 @@
 #include "GerenciaConta.hpp"
-#include "GerenciaContaExcp.hpp"
 
 GerenciaConta::GerenciaConta() { }
 
@@ -86,7 +85,9 @@ void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao
         conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
         conta_bancaria->getCartaoDeCredito(cartao).adicionarDespesa(valor, data, categoria);
     }
-    //SE NAO É CONTA BANCÁRIA?? TO-DO
+    else {
+        throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
+    }
 }
 
 void GerenciaConta::adicionarTransferencia(double valor, std::string data, 
@@ -155,6 +156,9 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
 
         conta_bancaria->adicionarCartao(cartao_de_credito);
     }
+    else {
+        throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
+    }
 }
 void GerenciaConta::removerCartao(std::string conta, std::string cartao) {
 
@@ -163,6 +167,9 @@ void GerenciaConta::removerCartao(std::string conta, std::string cartao) {
         conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
 
         conta_bancaria->removerCartao(cartao);
+    }
+    else {
+        throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
     }
 }
 

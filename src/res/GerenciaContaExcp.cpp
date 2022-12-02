@@ -53,3 +53,21 @@ std::string gcexcp::ContaJaExiste::getNome() {
     return this->_nome;
 }
 
+// Metodos para ContaNaoPermiteCartao
+
+gcexcp::ContaNaoPermiteCartao::ContaNaoPermiteCartao(std::string nome, std::string subtipo) {
+    this->_nome_conta = nome;
+    this->_subtipo_conta = subtipo;
+}
+
+const char* gcexcp::ContaNaoPermiteCartao::what() const throw() {
+    return "A conta selecionada nao permite cartao de credito";
+}
+
+std::string gcexcp::ContaNaoPermiteCartao::getNomeConta() {
+    return this->_nome_conta;
+}
+
+std::string gcexcp::ContaNaoPermiteCartao::getSubtipoConta() {
+    return this->_subtipo_conta;
+}

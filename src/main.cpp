@@ -44,7 +44,7 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(corSeparador, separador);
                 break;
 
-            case 1: // Adicionar conta
+            case 1: // Adicionar carteira
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "Nova carteira");
                 std::cout << "nome, saldo inicial" << std::endl;
@@ -158,14 +158,16 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(Efeitos::inverse, "adicionar receita");
                 std::cout << "conta, valor, data, categoria" << std::endl;
 
-                while(std::cin.fail() || valor_transacao <= 0) {
+                std::cin >> conta;
+
+                while (std::cin.fail() || valor_transacao <= 0) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
                     std::cout << "Entrada Inválida. Coloque uma Receita: ";
                     std::cin >> valor_transacao;
                 }
-                std::cin >> data;
-                std::cin >> categoria;
+
+                std::cin >> data >> categoria;
 
                 try {
                     gc.adicionarReceita(conta, valor_transacao, data, categoria);
@@ -174,6 +176,17 @@ int main(int argc, char const *argv[]) {
                 catch (gcexcp::ContaNaoEncontrada& e) {
                     std::cout << e.what()
                               << "\t Conta: " << e.getNome()
+                              << std::endl;
+                }
+                catch (gcexcp::ValorInvalido &e) {
+                    std::cout << e.what()
+                              << "\t Valor: " << e.getValor()
+                              << std::endl;
+                }
+                catch (gcexcp::ContaNaoPermiteCartao &e) {
+                    std::cout << e.what()
+                              << "\t Conta: " << e.getNomeConta()
+                              << "\t Subtipo: " << e.getSubtipoConta()
                               << std::endl;
                 }
 
@@ -345,6 +358,12 @@ int main(int argc, char const *argv[]) {
                               << "\t Limite digitado: " << e.getLimiteCartao()
                               << std::endl;
                 }
+                catch (gcexcp::ContaNaoPermiteCartao &e) {
+                    std::cout << e.what()
+                              << "\t Conta: " << e.getNomeConta()
+                              << "\t Subtipo: " << e.getSubtipoConta()
+                              << std::endl;
+                }
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
@@ -353,13 +372,30 @@ int main(int argc, char const *argv[]) {
             case 14: // Remover cartao de credito
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "remover cartao de credito");
-                std::cout << "conta, nome, numero, CVV, fechamento, limite_cartao " << std::endl;
+                std::cout << "conta, nome" << std::endl;
 
                 std::cin >> conta >> cartao;
 
-                gc.removerCartao(conta, cartao);
-
-                std::cout << "Cartao de credito removido" << std::endl;
+                try {
+                    gc.removerCartao(conta, cartao);
+                    std::cout << "Cartao de credito removido" << std::endl;
+                }
+                catch (gcexcp::ContaNaoEncontrada &e) {
+                    std::cout << e.what()
+                              << "\t Conta: " << e.getNome()
+                              << std::endl;
+                }
+                catch (cdcexcp::CartaoNaoEncontrado &e) {
+                    std::cout << e.what()
+                              << "\t Cartao: " << e.getNomeCartao()
+                              << std::endl;
+                }
+                catch (gcexcp::ContaNaoPermiteCartao &e) {
+                    std::cout << e.what()
+                              << "\t Conta: " << e.getNomeConta()
+                              << "\t Subtipo: " << e.getSubtipoConta()
+                              << std::endl;
+                }
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
                 break;
