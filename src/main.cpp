@@ -424,7 +424,13 @@ int main(int argc, char const *argv[]) {
                 break;
 
             case 15: // Listar constas
-                gc.imprimirContas();
+                try {
+                    gc.imprimirContas();
+                }
+                catch (gcexcp::PerfilVazio &e) {
+                    std::cout << e.what() << std::endl;
+                }
+                Utils::printColor(corSeparador, separador);
                 break;
 
             case 16: // Listar transacoes
@@ -434,7 +440,14 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> conta >> tipo;
 
-                gc.listarTransacao(conta, tipo);
+                try {
+                    gc.listarTransacao(conta, tipo);
+                }
+                catch (gcexcp::ContaNaoEncontrada &e) {
+                    std::cout << e.what()
+                              << "\t Conta: " << e.getNome()
+                              << std::endl;
+                }
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
                 break;
