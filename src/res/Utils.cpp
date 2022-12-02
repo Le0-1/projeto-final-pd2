@@ -18,6 +18,14 @@ void Utils::printColor(int color, std::string texto) {
               << std::endl;
 }
 
+void Utils::printColorNoLine(int color, std::string texto) {
+    std::cout << "\033["
+              << "1;"
+              << color << 'm'
+              << texto
+              << "\033[0m";
+}
+
 void Utils::limparConsole() {
     std::cout << u8"\033[2J\033[1;1H";
 }
