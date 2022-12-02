@@ -158,12 +158,12 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(Efeitos::inverse, "adicionar receita");
                 std::cout << "conta, valor, data, categoria" << std::endl;
 
-                std::cin >> conta;
+                std::cin >> conta >> valor_transacao;
 
                 while (std::cin.fail() || valor_transacao <= 0) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque uma Receita: ";
+                    std::cout << "Entrada Inválida. Coloque um valor valido, data, categoria: ";
                     std::cin >> valor_transacao;
                 }
 
@@ -440,7 +440,13 @@ int main(int argc, char const *argv[]) {
                 break;
 
             case 15: // Listar constas
-                gc.imprimirContas();
+                try {
+                    gc.imprimirContas();
+                }
+                catch (gcexcp::PerfilVazio &e) {
+                    std::cout << e.what() << std::endl;
+                }
+                Utils::printColor(corSeparador, separador);
                 break;
 
             case 16: // Listar transacoes
@@ -450,7 +456,14 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> conta >> tipo;
 
-                gc.listarTransacao(conta, tipo);
+                try {
+                    gc.listarTransacao(conta, tipo);
+                }
+                catch (gcexcp::ContaNaoEncontrada &e) {
+                    std::cout << e.what()
+                              << "\t Conta: " << e.getNome()
+                              << std::endl;
+                }
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
                 break;
