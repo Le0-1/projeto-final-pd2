@@ -9,7 +9,7 @@ CartaoDeCredito::CartaoDeCredito(std::string nome, std::string numero,
     this->_fechamento = fechamento;
 
     if (limite_cartao < 0) {
-        throw LimiteInvalido(nome, numero, limite_cartao);
+        throw cdcexcp::LimiteInvalido(nome, numero, limite_cartao);
     }
 
     this->_limite_cartao = limite_cartao;
@@ -41,20 +41,21 @@ std::list<std::shared_ptr<Despesa>>& CartaoDeCredito::getListaDespesas() {
 
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
     if (novo_limite < 0) {
-        throw LimiteInvalido(this->_nome, this->_numero, novo_limite);
+        throw cdcexcp::LimiteInvalido(this->_nome, this->_numero, novo_limite);
     }
 
     this->_limite_cartao = novo_limite;
 }
 
-void CartaoDeCredito::adicionarDespesa(double valor, std::string data,
-                                       std::string categoria) {
+void CartaoDeCredito::adicionarDespesa(double valor, std::string data, std::string categoria) {
 
     if (this->getTotalDespesas() + valor <= this->_limite_cartao) {
         // A "conta" de uma despesa do cartao de credito eh o nome do cartao
         _despesas.emplace_back(std::make_shared<Despesa>(valor, data, categoria, _nome));
-    } else {
-        throw LimiteExcedido(_nome, _numero, _limite_cartao);
+    } 
+    
+    else {
+        throw cdcexcp::LimiteExcedido(_nome, _numero, _limite_cartao);
     }
 }
 
