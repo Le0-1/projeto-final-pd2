@@ -1,4 +1,5 @@
 #include "GerenciaConta.hpp"
+#include "GerenciaContaExcp.hpp"
 
 GerenciaConta::GerenciaConta() { }
 
@@ -25,8 +26,13 @@ void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
         throw gcexcp::SaldoInvalido(saldo_inicial, nome);
     }
 
-    std::shared_ptr<Carteira> carteira = std::make_shared<Carteira>(nome, saldo_inicial);
-    getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, carteira));
+    if (getContas().find(nome) == getContas().end()) {
+        std::shared_ptr<Carteira> carteira = std::make_shared<Carteira>(nome, saldo_inicial);
+        getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, carteira));
+    }
+    else {
+        throw gcexcp::ContaJaExiste(nome);
+    }
 }
 
 void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
@@ -34,8 +40,14 @@ void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
         throw gcexcp::SaldoInvalido(saldo_inicial, nome);
     }
 
-    std::shared_ptr<ContaBancaria> conta = std::make_shared<ContaBancaria>(nome, saldo_inicial);
-    getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));
+    if (getContas().find(nome) == getContas().end()) {
+        std::shared_ptr<ContaBancaria> conta = std::make_shared<ContaBancaria>(nome, saldo_inicial);
+        getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));
+    }
+    else {
+        throw gcexcp::ContaJaExiste(nome);
+    }
+
 }
 
 void GerenciaConta::removerConta(std::string nome) {

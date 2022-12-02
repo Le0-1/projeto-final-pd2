@@ -1,5 +1,4 @@
 #include "GerenciaConta.hpp"
-
 #include "Utils.hpp"
 
 #include <iostream>
@@ -69,6 +68,11 @@ int main(int argc, char const *argv[]) {
                               << "\t saldo: " << e.getSaldoInicial()
                               << std::endl;
                 }
+                catch (gcexcp::ContaJaExiste &e) {
+                     std::cout << e.what()
+                               << "\t Nome: " << e.getNome()
+                               << std::endl;
+                }
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
@@ -96,6 +100,11 @@ int main(int argc, char const *argv[]) {
                     std::cout << e.what()
                               << "\t Conta: " << e.getNome()
                               << "\t saldo: " << e.getSaldoInicial()
+                              << std::endl;
+                }
+                catch (gcexcp::ContaJaExiste &e) {
+                    std::cout << e.what()
+                              << "\t Nome: " << e.getNome()
                               << std::endl;
                 }
 

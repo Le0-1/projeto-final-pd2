@@ -39,6 +39,18 @@ namespace gcexcp {
 
             const char* what() const throw();
     };
+
+    class ContaJaExiste : public std::exception {
+        public:
+            std::string _nome;
+
+        public:
+            ContaJaExiste(std::string nome);
+
+            const char* what() const throw();
+
+            std::string getNome();
+    };
 }
 
 #endif
