@@ -1,4 +1,9 @@
 #include "GerenciaConta.hpp"
+#include "GerenciaContaExcp.hpp"
+#include "TransacaoExcp.hpp"
+#include <algorithm>
+#include <cctype>
+#include <memory>
 
 GerenciaConta::GerenciaConta() { }
 
@@ -144,6 +149,23 @@ void GerenciaConta::removerDespesaCartao(std::string conta, std::string cartao, 
 }
 
 void GerenciaConta::removerTransferencia(int id) {
+    if (this->_transferencias.find(id) == this->_transferencias.end()) {
+        throw trsexcp::TransacaoNaoEncontrada(id);
+    }
+
+    std::shared_ptr<Transferencia> tr = this->_transferencias.find(id)->second;
+    std::shared_ptr<Carteira> conta_origem = this->getConta(tr->getOrigem());
+    std::shared_ptr<Carteira> conta_destino = this->getConta(tr->getDestino());
+    
+    // Eh necessario verificar se ha saldo suficiente na conta de destino,
+    // caso contrario a conta poderia ficar com saldo negativo
+    if (conta_destino->getSaldoAtual() < tr->getValor()) {
+        throw gcexcp::SaldoInsuficiente(conta_destino->getSaldoAtual(), tr->getValor());
+    }
+
+    conta_origem->setSaldoAtual(conta_origem->getSaldoAtual() + tr->getValor());
+    conta_destino->setSaldoAtual(conta_origem->getSaldoAtual() - tr->getValor());
+
     getTransferencias().erase(getTransferencias().find(id));
 }
 
@@ -177,6 +199,7 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
         throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
     }
 }
+
 void GerenciaConta::removerCartao(std::string conta, std::string cartao) {
 
     if (getConta(conta)->getSubtipo() == "ContaBancaria") {
@@ -221,21 +244,27 @@ void GerenciaConta::imprimirContas() {
 }
 
 void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
-    std::shared_ptr<Carteira> cart_conta = getConta(conta);
+    std::transform(tipo.begin(), tipo.end(), tipo.begin(), ::tolower);
+    if (tipo == "despesa" or tipo == "receita") {
+        std::shared_ptr<Carteira> cart_conta = getConta(conta);
 
-    std::cout << "ContaBancaria: " << cart_conta->getNome() << std::endl;
+        std::cout << "ContaBancaria: " << cart_conta->getNome() << std::endl;
 
-    int i = 0;
-    for (auto const&it : getConta(conta)->getTransacoes()) {
-        if (it.second->getSubtipo() == tipo) {
-            std::cout << std::endl; 
-            it.second->imprimirInfo();
-            ++i;
-        }   
+        int i = 0;
+        for (auto const&it : getConta(conta)->getTransacoes()) {
+            if (it.second->getSubtipo() == tipo) {
+                std::cout << std::endl; 
+                it.second->imprimirInfo();
+                ++i;
+            }   
+        }
+
+        if (i == 0) {
+            std::cout << std::endl;
+            Utils::printColor(Efeitos::inverse, "nenhuma " + tipo + " encontrada");
+        }
     }
-
-    if (i == 0) {
-        std::cout << std::endl;
-        Utils::printColor(Efeitos::inverse, "nenhuma " + tipo + " encontrada");
+    else {
+        throw trsexcp::TipoTransacaoInvalido(tipo);
     }
 }

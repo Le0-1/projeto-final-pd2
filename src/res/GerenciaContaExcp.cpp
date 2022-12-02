@@ -78,8 +78,8 @@ gcexcp::SaldoInsuficiente::SaldoInsuficiente(double saldo, double despesa) {
     this->_despesa = despesa;
 }
 
-const char * gcexcp::SaldoInsuficiente::what() const throw() {
-    return "Saldo insuficiente";
+const char* gcexcp::SaldoInsuficiente::what() const throw() {
+    return "Saldo insuficiente para realizar a transacao";
 }
 
 double gcexcp::SaldoInsuficiente::getSaldo() {
