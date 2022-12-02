@@ -1,22 +1,22 @@
 #include "GerenciaContaExcp.hpp"
 
-/*Métodos para SaldoInvalido*/
+/*Métodos para ValorInvalido*/
 
-gcexcp::SaldoInvalido::SaldoInvalido(double saldo_inicial, std::string nome) {
-    this->_saldo_inicial = saldo_inicial;
+gcexcp::ValorInvalido::ValorInvalido(double valor, std::string nome) {
+    this->_valor = valor;
     this->_nome = nome;
 }
 
-std::string  gcexcp::SaldoInvalido::getNome() {
+std::string  gcexcp::ValorInvalido::getNome() {
     return this->_nome;
 }
 
-double gcexcp::SaldoInvalido::getSaldoInicial() {
-    return this->_saldo_inicial;
+double gcexcp::ValorInvalido::getValor() {
+    return this->_valor;
 }
 
-const char* gcexcp::SaldoInvalido::what() const throw() {
-    return "Saldo Invalido";
+const char* gcexcp::ValorInvalido::what() const throw() {
+    return "Valor Invalido";
 }
 
 /*Métodos para ContaNaoEncontrada*/

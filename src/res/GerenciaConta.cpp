@@ -23,7 +23,7 @@ std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
 
 void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
     if (saldo_inicial < 0) {
-        throw gcexcp::SaldoInvalido(saldo_inicial, nome);
+        throw gcexcp::ValorInvalido(saldo_inicial, nome);
     }
 
     if (getContas().find(nome) == getContas().end()) {
@@ -37,7 +37,7 @@ void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
 
 void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
     if (saldo_inicial < 0) {
-        throw gcexcp::SaldoInvalido(saldo_inicial, nome);
+        throw gcexcp::ValorInvalido(saldo_inicial, nome);
     }
 
     if (getContas().find(nome) == getContas().end()) {
@@ -47,7 +47,6 @@ void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
     else {
         throw gcexcp::ContaJaExiste(nome);
     }
-
 }
 
 void GerenciaConta::removerConta(std::string nome) {

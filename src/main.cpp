@@ -62,10 +62,10 @@ int main(int argc, char const *argv[]) {
                     gc.adicionarCarteira(nome, saldo_inicial);
                     std::cout << "Carteira criada" << std::endl;
                 }
-                catch (gcexcp::SaldoInvalido& e) {
+                catch (gcexcp::ValorInvalido& e) {
                     std::cout << e.what()
                               << "\t Carteira: " << e.getNome()
-                              << "\t saldo: " << e.getSaldoInicial()
+                              << "\t saldo: " << e.getValor()
                               << std::endl;
                 }
                 catch (gcexcp::ContaJaExiste &e) {
@@ -96,10 +96,10 @@ int main(int argc, char const *argv[]) {
                     gc.adicionarConta(nome, saldo_inicial);
                     std::cout << "Conta criada" << std::endl;
                 }
-                catch (gcexcp::SaldoInvalido& e) {
+                catch (gcexcp::ValorInvalido& e) {
                     std::cout << e.what()
                               << "\t Conta: " << e.getNome()
-                              << "\t saldo: " << e.getSaldoInicial()
+                              << "\t saldo: " << e.getValor()
                               << std::endl;
                 }
                 catch (gcexcp::ContaJaExiste &e) {

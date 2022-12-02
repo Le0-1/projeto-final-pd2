@@ -6,17 +6,17 @@
 
 namespace gcexcp {
 
-    class SaldoInvalido : public std::exception {
+    class ValorInvalido : public std::exception {
         private:
-            double _saldo_inicial;
+            double _valor;
             std::string _nome;
 
         public:
-            SaldoInvalido(double saldo_inicial, std::string nome);
+            ValorInvalido(double valor, std::string nome);
 
             const char* what() const throw();
 
-            double getSaldoInicial();
+            double getValor();
 
             std::string getNome();
     };
