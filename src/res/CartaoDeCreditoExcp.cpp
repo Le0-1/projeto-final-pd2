@@ -2,50 +2,62 @@
 
 /*Métodos LimiteExcedido*/
 
-LimiteExcedido::LimiteExcedido(std::string nome_cartao, std::string numero_cartao,
-                               double limite_cartao) {
+cdcexcp::LimiteExcedido::LimiteExcedido(std::string nome_cartao, std::string numero_cartao, double limite_cartao) {
     this->_nome_cartao = nome_cartao;
     this->_numero_cartao = numero_cartao;
     this->_limite_cartao = limite_cartao;
 }
 
-const char* LimiteExcedido::what() const throw() {
+const char* cdcexcp::LimiteExcedido::what() const throw() {
     return "Limite do cartao excedido";
 }
 
-std::string LimiteExcedido::getNomeCartao() {
+std::string cdcexcp::LimiteExcedido::getNomeCartao() {
     return this->_nome_cartao;
 }
 
-std::string LimiteExcedido::getNumeroCartao() {
+std::string cdcexcp::LimiteExcedido::getNumeroCartao() {
     return this->_numero_cartao;
 }
 
-double LimiteExcedido::getLimiteCartao() {
+double cdcexcp::LimiteExcedido::getLimiteCartao() {
     return this->_limite_cartao;
 }
 
 /*Métodos Exceção LimiteInvalido*/
 
-LimiteInvalido::LimiteInvalido(std::string nome_cartao, std::string numero_cartao, double limite_cartao) {
+cdcexcp::LimiteInvalido::LimiteInvalido(std::string nome_cartao, std::string numero_cartao, double limite_cartao) {
     this->_nome_cartao = nome_cartao;
     this->_numero_cartao = numero_cartao;
     this->_limite_cartao = limite_cartao;
 }
 
-std::string LimiteInvalido::getNomeCartao() {
+std::string cdcexcp::LimiteInvalido::getNomeCartao() {
     return this->_nome_cartao;
 }
 
-std::string LimiteInvalido::getNumeroCartao() {
+std::string cdcexcp::LimiteInvalido::getNumeroCartao() {
     return this->_numero_cartao;
 }
 
-double LimiteInvalido::getLimiteCartao() {
+double cdcexcp::LimiteInvalido::getLimiteCartao() {
     return this->_limite_cartao;
 }
 
-const char* LimiteInvalido::what() const throw() {
+const char* cdcexcp::LimiteInvalido::what() const throw() {
     return "Limite inválido";
 }
 
+/*Métodos Exceção CartaoNaoEncontrado*/
+
+cdcexcp::CartaoNaoEncontrado::CartaoNaoEncontrado(std::string nome_cartao) {
+    this->_nome_cartao = nome_cartao;
+}
+
+std::string cdcexcp::CartaoNaoEncontrado::getNomeCartao() {
+    return this->_nome_cartao;
+}
+
+const char* cdcexcp::CartaoNaoEncontrado::what() const throw() {
+    return "Cartão não encontrado";
+}

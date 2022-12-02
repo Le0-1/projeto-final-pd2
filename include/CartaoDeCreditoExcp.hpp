@@ -4,40 +4,54 @@
 #include <exception>
 #include <string>
 
+namespace cdcexcp {
 
-class LimiteExcedido : public std::exception {
-    private:
-        std::string _nome_cartao, _numero_cartao;
-        double _limite_cartao;
+    class LimiteExcedido : public std::exception {
+        private:
+            std::string _nome_cartao, _numero_cartao;
+            double _limite_cartao;
 
-    public:
-        LimiteExcedido(std::string nome_cartao, std::string numero_cartao,
-                       double limite_cartao);
+        public:
+            LimiteExcedido(std::string nome_cartao, std::string numero_cartao,
+                        double limite_cartao);
 
-        const char* what() const throw();
+            const char* what() const throw();
 
-        std::string getNomeCartao();
+            std::string getNomeCartao();
 
-        std::string getNumeroCartao();
+            std::string getNumeroCartao();
 
-        double getLimiteCartao();
-};
+            double getLimiteCartao();
+    };
 
-class LimiteInvalido : public std::exception {
-    private:
-        std::string _nome_cartao, _numero_cartao;
-        double _limite_cartao;
+    class LimiteInvalido : public std::exception {
+        private:
+            std::string _nome_cartao, _numero_cartao;
+            double _limite_cartao;
 
-    public:
-        LimiteInvalido(std::string nome_cartao, std::string numero_cartao, double limite_cartao);
+        public:
+            LimiteInvalido(std::string nome_cartao, std::string numero_cartao, double limite_cartao);
 
-        const char* what() const throw();
+            const char* what() const throw();
 
-        std::string getNomeCartao();
+            std::string getNomeCartao();
 
-        std::string getNumeroCartao();
+            std::string getNumeroCartao();
 
-        double getLimiteCartao();
-};
+            double getLimiteCartao();
+    };
+
+    class CartaoNaoEncontrado : public std::exception {
+        private:
+            std::string _nome_cartao;
+
+        public:
+            CartaoNaoEncontrado(std::string nome_cartao);
+
+            const char* what() const throw();
+
+            std::string getNomeCartao();
+    };
+}
 
 #endif // !CARTAO_DE_CREDITO_EXCP_H
