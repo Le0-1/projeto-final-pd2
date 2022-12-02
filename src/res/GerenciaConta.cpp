@@ -11,7 +11,13 @@ std::map<int, std::shared_ptr<Transferencia>>& GerenciaConta::getTransferencias(
 }
 
 std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
-    return getContas().find(nome)->second;
+    if (getContas().find(nome) == getContas().end()) {
+        throw gcexcp::ContaNaoEncontrada(nome);
+    }
+
+    else {
+        return getContas().find(nome)->second;
+    }
 }
 
 void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
@@ -42,39 +48,34 @@ void GerenciaConta::removerConta(std::string nome) {
     getContas().erase(getContas().find(nome));
 }
 
-void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data,             
-                                     std::string categoria) {
+void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data, std::string categoria) {
 
-    if (this->getContas().find(conta) == this->getContas().end()) {
-        throw gcexcp::ContaNaoEncontrada(conta);
-    } else {
-        double saldo_conta = getConta(conta)->getSaldoAtual();
-        std::shared_ptr<Receita> receita = std::make_shared<Receita>(conta, valor, data, categoria);
+    double saldo_conta = getConta(conta)->getSaldoAtual();
+    std::shared_ptr<Receita> receita = std::make_shared<Receita>(conta, valor, data, categoria);
 
-        getConta(conta)->setSaldoAtual(saldo_conta + valor);
-        getConta(conta)->adicionarTransacao(receita);
-    }
+    getConta(conta)->setSaldoAtual(saldo_conta + valor);
+    getConta(conta)->adicionarTransacao(receita);
+
 }
 
-void GerenciaConta::adicionarDespesa(std::string conta, double valor,
-                                     std::string data, std::string categoria) {
+void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::string data, std::string categoria) {
 
     double saldo_conta = getConta(conta)->getSaldoAtual();
     std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, conta);
 
     getConta(conta)->setSaldoAtual(saldo_conta - valor);
     getConta(conta)->adicionarTransacao(despesa);
+     
 }
 
-void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao,
-                                           double valor, std::string data,
-                                           std::string categoria) {
+void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao, double valor, std::string data, std::string categoria) {
 
     if (getConta(conta)->getSubtipo() == "ContaBancaria") {
         std::shared_ptr<ContaBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
         conta_bancaria->getCartaoDeCredito(cartao).adicionarDespesa(valor, data, categoria);
     }
+    //SE NAO É CONTA BANCÁRIA?? TO-DO
 }
 
 void GerenciaConta::adicionarTransferencia(double valor, std::string data, 
