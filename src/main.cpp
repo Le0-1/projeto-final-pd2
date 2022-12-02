@@ -158,12 +158,12 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(Efeitos::inverse, "adicionar receita");
                 std::cout << "conta, valor, data, categoria" << std::endl;
 
-                std::cin >> conta;
+                std::cin >> conta >> valor_transacao;
 
                 while (std::cin.fail() || valor_transacao <= 0) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque uma Receita: ";
+                    std::cout << "Entrada Inválida. Coloque um valor valido, data, categoria: ";
                     std::cin >> valor_transacao;
                 }
 
