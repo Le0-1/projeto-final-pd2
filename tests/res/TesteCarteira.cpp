@@ -30,3 +30,11 @@ TEST_CASE("Teste setSaldoAtual - Exceção Saldo Negativo") {
     Carteira novaCarteira("nome", 1);
     CHECK_THROWS_AS(novaCarteira.setSaldoAtual(-10), gcexcp::ValorInvalido);
 }
+
+TEST_CASE("Teste adicionarTransacao - Caso Base Receita") {
+    Carteira novaCarteira("nome", 1000);
+    Receita novaReceita("Conta", 100, "data", "receita");
+    std::shared_ptr<Transacao> Receita = std::make_shared<Transacao>(novaReceita);
+    novaCarteira.adicionarTransacao(Receita);
+    CHECK(novaCarteira.getSaldoAtual() == 1100);
+}
