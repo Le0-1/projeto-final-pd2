@@ -34,7 +34,7 @@ TEST_CASE("Teste setSaldoAtual - Exceção Saldo Negativo") {
 
 TEST_CASE("Teste adicionarTransacao - Caso Base Receita") {
     Carteira novaCarteira("nome", 1000);
-    Receita novaReceita("Conta", 100, "data", "receita");
+    Receita novaReceita("nome", 100, "data", "receita");
     std::shared_ptr<Transacao> receita = std::make_shared<Transacao>(novaReceita);
     novaCarteira.adicionarTransacao(receita);
     CHECK(novaCarteira.getSaldoAtual() == 1100);
@@ -42,7 +42,7 @@ TEST_CASE("Teste adicionarTransacao - Caso Base Receita") {
 
 TEST_CASE("Teste adicionarTransacao - Caso Base Despesa") {
     Carteira novaCarteira("nome", 1000);
-    Despesa novaDespesa(100, "data", "despesa", "conta");
+    Despesa novaDespesa(100, "data", "despesa", "nome");
     std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
     novaCarteira.adicionarTransacao(despesa);
     CHECK(novaCarteira.getSaldoAtual() == 900);
@@ -50,8 +50,16 @@ TEST_CASE("Teste adicionarTransacao - Caso Base Despesa") {
 
 TEST_CASE("Teste adicionarTransacao - Excecao Despesa Superior ao Saldo") {
     Carteira novaCarteira("nome", 1000);
-    Despesa novaDespesa(1100, "data", "despesa", "conta");
+    Despesa novaDespesa(1100, "data", "despesa", "nome");
     std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
     CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), gcexcp::SaldoInsuficiente);
 }
+
+TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(100, "data", "despesa", "conta_fantasma");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), gcexcp::ContaNaoEncontrada);
+}
+
 
