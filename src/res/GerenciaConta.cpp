@@ -26,27 +26,21 @@ std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
 }
 
 void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
-    if (saldo_inicial < 0) {
-        throw gcexcp::ValorInvalido(saldo_inicial, nome);
-    }
 
     if (getContas().find(nome) == getContas().end()) {
         std::shared_ptr<Carteira> carteira = std::make_shared<Carteira>(nome, saldo_inicial);
-        getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, carteira));
+        this->_contas.insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, carteira));
     }
+
     else {
         throw gcexcp::ContaJaExiste(nome);
     }
 }
 
 void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
-    if (saldo_inicial < 0) {
-        throw gcexcp::ValorInvalido(saldo_inicial, nome);
-    }
-
     if (getContas().find(nome) == getContas().end()) {
         std::shared_ptr<ContaBancaria> conta = std::make_shared<ContaBancaria>(nome, saldo_inicial);
-        getContas().insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));
+        this->_contas.insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));
     }
     else {
         throw gcexcp::ContaJaExiste(nome);
@@ -60,15 +54,10 @@ void GerenciaConta::removerConta(std::string nome) {
         throw gcexcp::ContaNaoEncontrada(nome);
     }
 
-    getContas().erase(getContas().find(nome));
+    this->_contas.erase(getContas().find(nome));
 }
 
 void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data, std::string categoria) {
-    if (this->getContas().find(conta) == this->getContas().end()) {
-        throw gcexcp::ContaNaoEncontrada(conta);
-    }
-    if (valor < 0) throw gcexcp::ValorInvalido(valor, conta);
-
     std::shared_ptr<Receita> receita = std::make_shared<Receita>(conta, valor, data, categoria);
     getConta(conta)->adicionarTransacao(receita);
 }
@@ -266,7 +255,7 @@ void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
     if (tipo == "despesa" or tipo == "receita") {
         std::shared_ptr<Carteira> cart_conta = getConta(conta);
 
-        std::cout << "ContaBancaria: " << cart_conta->getNome() << std::endl;
+        std::cout << "Conta: " << cart_conta->getNome() << std::endl;
 
         int i = 0;
         for (auto const&it : getConta(conta)->getTransacoes()) {
