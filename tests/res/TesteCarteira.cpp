@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include "Carteira.hpp"
 #include "Receita.hpp"
+#include "Despesa.hpp"
 #include "GerenciaContaExcp.hpp"
 
 TEST_CASE("Teste Construtor Carteira - Exceção Saldo Negativo"){
@@ -34,7 +35,15 @@ TEST_CASE("Teste setSaldoAtual - Exceção Saldo Negativo") {
 TEST_CASE("Teste adicionarTransacao - Caso Base Receita") {
     Carteira novaCarteira("nome", 1000);
     Receita novaReceita("Conta", 100, "data", "receita");
-    std::shared_ptr<Transacao> Receita = std::make_shared<Transacao>(novaReceita);
-    novaCarteira.adicionarTransacao(Receita);
+    std::shared_ptr<Transacao> receita = std::make_shared<Transacao>(novaReceita);
+    novaCarteira.adicionarTransacao(receita);
     CHECK(novaCarteira.getSaldoAtual() == 1100);
+}
+
+TEST_CASE("Teste adicionarTransacao - Caso Base Despesa") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(100, "data", "despesa", "conta");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
+    novaCarteira.adicionarTransacao(despesa);
+    CHECK(novaCarteira.getSaldoAtual() == 900);
 }
