@@ -47,3 +47,11 @@ TEST_CASE("Teste adicionarTransacao - Caso Base Despesa") {
     novaCarteira.adicionarTransacao(despesa);
     CHECK(novaCarteira.getSaldoAtual() == 900);
 }
+
+TEST_CASE("Teste adicionarTransacao - Excecao Despesa Superior ao Saldo") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(1100, "data", "despesa", "conta");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), gcexcp::SaldoInsuficiente);
+}
+
