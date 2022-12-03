@@ -11,7 +11,7 @@ TEST_CASE("Teste alterarDestino - Caso Base"){
 }
 
 TEST_CASE("Teste alterarOrigem - Caso Base"){
-    Transferencia novaTransferencia(100, "dd/mm/aaaa", "categoria", "origem", "destino");
+    Transferencia novaTransferencia(100, "11/11/2022", "categoria", "origem", "destino");
     novaTransferencia.alterarOrigem("nova_origem");
     CHECK(novaTransferencia.getOrigem() == "nova_origem");
 }
@@ -39,7 +39,7 @@ TEST_CASE("Teste Construtor de Transferência - Exceção Destino Invalido, Dest
 TEST_CASE("Teste Construtor de Transferência - Exceção Origem Invalida"){
     Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000);
     CHECK_THROWS_AS(Transferencia novaTransferencia(100, "11/11/2022", "categoria", "carteiraC", 
-        "carteiraA"), trfexcp::DestinoInvalido);
+        "carteiraA"), trfexcp::OrigemInvalida);
 }
 
 //Exceção SaldoInsuficiente ainda a ser implementada.
@@ -52,7 +52,7 @@ TEST_CASE("Teste Construtor de Transferência - Exceção Saldo Insuficiente"){
 }
 
 //Exceção ValorInvalido ainda a ser implementada.
-//Tentar transferir um valor invalido invalido. 
+//Tentar transferir um valor invalido. 
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Valor Invalido"){
     Carteira novaCarteiraA("carteiraA", 100), novaCarteiraB("carteiraB", 100);
