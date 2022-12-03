@@ -73,7 +73,7 @@ void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao
     if (getConta(conta)->getSubtipo() == "ContaBancaria") {
         std::shared_ptr<ContaBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
-        conta_bancaria->getCartaoDeCredito(cartao).adicionarDespesa(valor, data, categoria);
+        conta_bancaria->getCartaoDeCredito(cartao)->adicionarDespesa(valor, data, categoria);
     }
     else {
         throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
@@ -222,16 +222,7 @@ void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
         std::shared_ptr<ContaBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
 
-        CartaoDeCredito cartao_de_credito = conta_bancaria->getCartaoDeCredito(cartao);
-
-        std::list<std::shared_ptr<Despesa>> lista_despesas;
-        lista_despesas = cartao_de_credito.getListaDespesas();
-
-        for (std::shared_ptr<Despesa> despesa : lista_despesas) {
-            adicionarDespesa(conta, despesa->getValor(), despesa->getData(),
-                             despesa->getCategoria());
-        }
-        lista_despesas.clear();
+        conta_bancaria->pagarFatura(cartao);
     }
 }
 

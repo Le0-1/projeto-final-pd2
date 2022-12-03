@@ -22,7 +22,9 @@ class ContaBancaria : public Carteira {
 
         std::map<std::string, CartaoDeCredito> &getCartoes();
 
-        CartaoDeCredito &getCartaoDeCredito(std::string nome);
+        CartaoDeCredito *getCartaoDeCredito(std::string nome);
+
+        void pagarFatura(std::string cartao);
 
         void imprimirInfo();
 

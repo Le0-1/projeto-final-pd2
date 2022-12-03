@@ -22,11 +22,25 @@ std::map<std::string, CartaoDeCredito> &ContaBancaria::getCartoes() {
     return this->_cartoes;
 }
 
-CartaoDeCredito &ContaBancaria::getCartaoDeCredito(std::string nome) {
+CartaoDeCredito *ContaBancaria::getCartaoDeCredito(std::string nome) {
     if (getCartoes().find(nome) == getCartoes().end()) {
         throw cdcexcp::CartaoNaoEncontrado(nome);
     }
-    return getCartoes().find(nome)->second;
+    return &getCartoes().find(nome)->second;
+}
+
+void ContaBancaria::pagarFatura(std::string cartao) {
+    CartaoDeCredito *cartaoDeCredito = getCartaoDeCredito(cartao);
+    setSaldoAtual(getSaldoAtual() - cartaoDeCredito->getTotalDespesas());
+
+    std::list<std::shared_ptr<Despesa>>* listDespesa = cartaoDeCredito->getListaDespesas();
+    for (std::shared_ptr<Despesa> despesa : *listDespesa) {
+
+        int id = despesa->getID();
+        getTransacoes().insert(std::pair<int, std::shared_ptr<Transacao>>(id, despesa));
+    }
+
+    listDespesa->clear();
 }
 
 void ContaBancaria::imprimirInfo() {
@@ -51,6 +65,8 @@ void ContaBancaria::imprimirInfo() {
     }
 
     std::cout << "Quantidade de transacoes: " << getTransacoes().size() << std::endl;
+    ultimasTransacoes(3);
+
     std::cout << "Quantidade de cartoes: " << getCartoes().size() << std::endl;
     imprimirCartoes();
 
