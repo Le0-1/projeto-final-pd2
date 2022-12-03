@@ -30,6 +30,7 @@ BUILD_FILES = \
 	$(BUILD_DIR)/TransacaoExcp.o \
 	$(BUILD_DIR)/TransferenciaExcp.o \
 	$(BUILD_DIR)/Utils.o \
+	$(BUILD_DIR)/Barricada.o \
 	$(BUILD_DIR)/main.o
 
 TEST_DEPENDENCIES = \
