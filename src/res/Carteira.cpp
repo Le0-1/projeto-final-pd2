@@ -20,6 +20,10 @@ Carteira::~Carteira() { }
 void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
     double valor = transacao->getValor();
 
+    if(valor < 0) {
+        throw gcexcp::ValorInvalido(valor);
+    }
+
     if (transacao->getSubtipo() == "receita") {
         setSaldoAtual(getSaldoAtual() + valor); 
     }
