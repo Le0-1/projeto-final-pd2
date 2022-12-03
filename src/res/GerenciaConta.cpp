@@ -54,22 +54,18 @@ void GerenciaConta::removerConta(std::string nome) {
         throw gcexcp::ContaNaoEncontrada(nome);
     }
 
-    this->_contas.erase(getContas().find(nome));
+    this->_contas.erase(this->_contas.find(nome));
 }
 
 void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data, std::string categoria) {
+    
     std::shared_ptr<Receita> receita = std::make_shared<Receita>(conta, valor, data, categoria);
     getConta(conta)->adicionarTransacao(receita);
 }
 
 void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::string data, std::string categoria) {
-    if(valor <= getConta(conta)->getSaldoAtual()) {
-        std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, conta);
-        getConta(conta)->adicionarTransacao(despesa);
-    } 
-    else {
-        throw gcexcp::SaldoInsuficiente(getConta(conta)->getSaldoAtual(), valor);
-    }
+    std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, conta);
+    getConta(conta)->adicionarTransacao(despesa);
 }
 
 void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao, double valor, std::string data, std::string categoria) {

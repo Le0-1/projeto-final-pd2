@@ -27,8 +27,17 @@ void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
     if (transacao->getSubtipo() == "receita") {
         setSaldoAtual(getSaldoAtual() + valor); 
     }
+
     else if (transacao->getSubtipo() == "despesa") {
+
+        /*Se o saldo atual for menor que o valor da transacao nao dá para adicionar a despesa*/
+        if (this->getSaldoAtual() < valor) {
+            throw gcexcp::SaldoInsuficiente(this->getSaldoAtual(), valor);
+        }
+
+        else {
         setSaldoAtual(getSaldoAtual() - valor);
+        }
     }
     
     this->_transacoes.insert(std::pair<int, std::shared_ptr<Transacao>>
