@@ -90,6 +90,9 @@ coverage: run_tests
 	gcovr -r . --exclude="third_party/doctest.h"
 	gcovr -r . --exclude="third_party/doctest.h" -b
 
+valgrind:
+	valgrind --leak-check=full ./build/program
+
 html_coverage: run_tests
 	mkdir -p ${COVERAGE_DIR}
 	gcovr -r . --exclude="third_party/doctest.h" --html --html-details -o ${COVERAGE_DIR}/relatorio.html

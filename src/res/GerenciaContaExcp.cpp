@@ -7,6 +7,10 @@ gcexcp::ValorInvalido::ValorInvalido(double valor, std::string nome) {
     this->_nome = nome;
 }
 
+gcexcp::ValorInvalido::ValorInvalido(double valor) {
+    this->_valor = valor;
+}
+
 std::string  gcexcp::ValorInvalido::getNome() {
     return this->_nome;
 }

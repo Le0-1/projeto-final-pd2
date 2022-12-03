@@ -62,8 +62,8 @@ int main(int argc, char const *argv[]) {
                 catch (gcexcp::ValorInvalido& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Carteira: " << e.getNome()
-                                << "\t saldo: " << e.getValor()
-                                << std::endl;
+                    << "\t saldo: " << e.getValor()
+                    << std::endl;
                 }
 
                 catch (gcexcp::ContaJaExiste &e) {
@@ -214,6 +214,12 @@ int main(int argc, char const *argv[]) {
                     << std::endl;
                 }
 
+                catch (gcexcp::ValorInvalido &e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\t Valor: " << e.getValor()
+                    << std::endl;
+                }
+
                 catch (gcexcp::SaldoInsuficiente &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Diferença: " << e.getSaldo() - e.getDespesa()
@@ -277,6 +283,12 @@ int main(int argc, char const *argv[]) {
                 try {
                     gc.adicionarTransferencia(valor_transacao, data, categoria, origem, destino);
                     std::cout << "transferencia adicionada" << std::endl;
+                }
+
+                catch (gcexcp::ContaNaoEncontrada& e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\t Conta: " << e.getNome()
+                    << std::endl;
                 } 
 
                 catch (trfexcp::DataInvalida& e){
@@ -350,6 +362,12 @@ int main(int argc, char const *argv[]) {
                 catch (trsexcp::TransacaoNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t ID da Transacao: " << e.getID()
+                    << std::endl;
+                }
+
+                catch (trsexcp::TipoTransacaoInvalido& e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\t Transacao: " << e.getTipo()
                     << std::endl;
                 }
 

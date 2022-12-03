@@ -14,6 +14,8 @@ namespace gcexcp {
         public:
             ValorInvalido(double valor, std::string nome);
 
+            ValorInvalido(double valor);
+
             const char* what() const throw();
 
             double getValor();
