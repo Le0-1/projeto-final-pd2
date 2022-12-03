@@ -1,9 +1,10 @@
 #include "GerenciaConta.hpp"
 #include "Utils.hpp"
+#include "Barricada.hpp"
 
 #include <iostream>
 #include <string>
-#include <limits>
+
 
 void printMenu();
 
@@ -13,8 +14,9 @@ int main(int argc, char const *argv[]) {
     const int corSeparador = Foreground::f_yellow;
 
     GerenciaConta gc;
+    Barrier::Barricada barricada;
 
-    int input, id_transacao;
+    unsigned input, id_transacao;
     double saldo_inicial, valor_transacao, limite_cartao;
     std::string nome, conta, data, categoria, cartao, destino, origem, CVV,
                 fechamento, numero_cartao, tipo;
@@ -25,7 +27,12 @@ int main(int argc, char const *argv[]) {
     printMenu();
     Utils::printColor(corSeparador, separador);
 
-    while (std::cin >> input) {
+    while (1) {
+
+        std::cin >> input;
+
+        /*Barricada que irá validar o input para ver se ele é menor que 0 ou maior que 16*/
+        barricada.validar_input(input);
 
         Utils::limparConsole();
 
@@ -44,12 +51,8 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> nome >> saldo_inicial;
 
-                while (std::cin.fail()) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque um valor: ";
-                    std::cin >> saldo_inicial;
-                }
+                /*Barricada que verifica o valor do saldo*/
+                barricada.validar_saldo(saldo_inicial);
 
                 try {
                     gc.adicionarCarteira(nome, saldo_inicial);
@@ -80,12 +83,8 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> nome >> saldo_inicial;
 
-                while (std::cin.fail()) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque um valor: ";
-                    std::cin >> saldo_inicial;
-                }
+                /*Barricada que verifica o valor da transacao*/
+                barricada.validar_saldo(saldo_inicial);
 
                 try {
                     gc.adicionarConta(nome, saldo_inicial);
@@ -158,12 +157,8 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> conta >> valor_transacao;
 
-                while (std::cin.fail() || valor_transacao <= 0) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque um valor valido, data, categoria: ";
-                    std::cin >> valor_transacao;
-                }
+                /*Barricada que verifica o valor da transacao*/
+                barricada.validar_transacao(valor_transacao);
 
                 std::cin >> data >> categoria;
 
@@ -203,12 +198,8 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta;
                 std::cin >> valor_transacao;
 
-                while(std::cin.fail() || valor_transacao <= 0) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque uma Despesa: ";
-                    std::cin >> valor_transacao;
-                }
+                /*Barricada que verifica o valor da transacao*/
+                barricada.validar_transacao(valor_transacao);
 
                 std::cin >> data >> categoria;
 
@@ -240,12 +231,8 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> conta >> cartao >> data >> categoria >> valor_transacao;
 
-                while(std::cin.fail() || valor_transacao <= 0) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque uma Despesa: ";
-                    std::cin >> valor_transacao;
-                }
+                /*Barricada que verifica o valor da transacao*/
+                barricada.validar_transacao(valor_transacao);
 
                 try {
                     gc.adicionarDespesaCartao(conta, cartao, valor_transacao, data, categoria);
@@ -282,12 +269,8 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> valor_transacao;
 
-                while(std::cin.fail() || valor_transacao <= 0) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque o valor da Transação: ";
-                    std::cin >> valor_transacao;
-                }
+                /*Barricada que verifica o valor da transacao*/
+                barricada.validar_transacao(valor_transacao);
 
                 std::cin >> data >> categoria >> origem >> destino;
 
@@ -312,6 +295,9 @@ int main(int argc, char const *argv[]) {
                 std::cout << "CONTA, ID" << std::endl;
 
                 std::cin >> conta >> id_transacao;
+
+                /*Barricada que irá verificar a validade do ID passado*/
+                barricada.validar_id(id_transacao);
 
                 try {
                     gc.removerReceita(conta, id_transacao);
@@ -347,6 +333,9 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> conta >> id_transacao;
 
+                /*Barricada que irá verificar a validade do ID passado*/
+                barricada.validar_id(id_transacao);
+
                 try {
                     gc.removerDespesa(conta, id_transacao);
                     std::cout << "Despesa removida" << std::endl;
@@ -374,6 +363,9 @@ int main(int argc, char const *argv[]) {
                 std::cout << "CONTA, CARTAO, ID" << std::endl;
 
                 std::cin >> conta >> cartao >> id_transacao;
+
+                /*Barricada que irá verificar a validade do ID passado*/
+                barricada.validar_id(id_transacao);
 
                 try {
                     gc.removerDespesaCartao(conta, cartao, id_transacao);
@@ -409,6 +401,9 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> id_transacao;
 
+                /*Barricada que irá verificar a validade do ID passado*/
+                barricada.validar_id(id_transacao);
+
                 try {
                     gc.removerTransferencia(id_transacao);
                     std::cout << "Transferencia removida" << std::endl;
@@ -437,12 +432,8 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> conta >> nome >> numero_cartao >> CVV >> fechamento >> limite_cartao;
 
-                while(std::cin.fail() || limite_cartao <= 0) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    std::cout << "Entrada Inválida. Coloque um Limite maior que zero: ";
-                    std::cin >> limite_cartao;
-                }
+                /*Barricada que irá verificar o valor do limite passado*/
+                barricada.validar_limite_cartao(limite_cartao);
 
                 try {
                     gc.adicionarCartao(conta, nome, numero_cartao, CVV, fechamento, limite_cartao);
