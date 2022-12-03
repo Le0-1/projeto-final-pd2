@@ -51,3 +51,11 @@ TEST_CASE("Teste removerDespesa - Caso Base") {
     gerente.removerDespesa("conta", 1);
     CHECK(gerente.getConta("conta")->getSaldoAtual() == 50);
 }
+
+/* TEST_CASE("Teste adicionarCartao - Caso Base") {
+    GerenciaConta gerente;
+    gerente.adicionarConta("conta", 100);
+    gerente.adicionarCartao("conta", "nome", "101010101010101", "000", "10/10/2022", 1000);
+
+} */
+

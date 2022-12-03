@@ -9,18 +9,19 @@ TEST_CASE("Remover Despesa") {
     CHECK(banco1.removerDespesa(2) == true);
 }
 
-TEST_CASE("Teste Construtor Cartão - Exceção Limite Negativo"){
-    CHECK_THROWS_AS(CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", -10), cdcexcp::LimiteInvalido);
+TEST_CASE("Teste Construtor Cartão - Exceção Limite Negativo") {
+    CHECK_THROWS_AS(CartaoDeCredito cartao("nome", "101010101010101", 
+        "001", "10/11/1999", -10), cdcexcp::LimiteInvalido);
 }
 
-TEST_CASE("Teste alterarLimiteCartao - Caso Base"){
-    CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", 1);
+TEST_CASE("Teste alterarLimiteCartao - Caso Base") {
+    CartaoDeCredito cartao("nome", "101010101010101", "001", "10/11/1999", 1);
     cartao.alterarLimiteCartao(1000);
     CHECK(cartao.getLimite() == 1000);
 }
 
-TEST_CASE("Teste alterarLimiteCartao - Exceção Limite negativo"){
-    CartaoDeCredito cartao("nome", "numero", "CVV", "fechamento", 1);
+TEST_CASE("Teste alterarLimiteCartao - Exceção Limite negativo") {
+    CartaoDeCredito cartao("nome", "101010101010101", "001", "10/11/1999", 1);
     CHECK_THROWS_AS(cartao.alterarLimiteCartao(-100), cdcexcp::LimiteInvalido);
 }
 
