@@ -34,8 +34,8 @@ double CartaoDeCredito::getLimite() {
     return this->_limite_cartao;
 }
 
-std::list<std::shared_ptr<Despesa>>& CartaoDeCredito::getListaDespesas() {
-    return this->_despesas;
+std::list<std::shared_ptr<Despesa>>* CartaoDeCredito::getListaDespesas() {
+    return &this->_despesas;
 }
 
 void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
@@ -50,7 +50,7 @@ void CartaoDeCredito::adicionarDespesa(double valor, std::string data, std::stri
 
     if (this->getTotalDespesas() + valor <= this->_limite_cartao) {
         // A "conta" de uma despesa do cartao de credito eh o nome do cartao
-        _despesas.emplace_back(std::make_shared<Despesa>(valor, data, categoria, _nome));
+        _despesas.push_back(std::make_shared<Despesa>(valor, data, categoria, _nome));
     } 
     
     else {
@@ -119,7 +119,7 @@ void CartaoDeCredito::imprimirInfo() {
         Utils::printColor(Foreground::f_red, limite_disp);
     }
 
-    std::cout << "\tQuantidade de despesas: " << getListaDespesas().size() << std::endl;
+    std::cout << "\tQuantidade de despesas: " << getListaDespesas()->size() << std::endl;
 
     Utils::printColor(Foreground::f_cyan, separador);
 }

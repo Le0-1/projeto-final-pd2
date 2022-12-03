@@ -535,7 +535,21 @@ int main(int argc, char const *argv[]) {
                 std::cout << std::endl;
                 break;
 
-            case 15: // Listar constas
+            case 15:
+                Utils::printColor(corSeparador, separador);
+                Utils::printColor(Efeitos::inverse, "-------------- PAGAR FATURA ---------------");
+                std::cout << "CONTA, CARTAO" << std::endl;
+
+                std::cin >> conta >> cartao;
+
+                gc.pagarFatura(conta, cartao);
+                std::cout << "Fatura do cartao de credito paga" << std::endl;
+
+                Utils::printColor(corSeparador, separador);
+                std::cout << std::endl;
+                break;
+
+            case 16: // Listar constas
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "-------------- LISTAR CONTAS --------------");
 
@@ -550,7 +564,7 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(corSeparador, separador);
                 break;
 
-            case 16: // Listar transacoes
+            case 17: // Listar transacoes
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "------------ LISTAR TRANSACOES ------------");
                 std::cout << "CONTA, TIPO (receita ou despesa)" << std::endl;
@@ -600,6 +614,7 @@ void printMenu() {
               << "12 - Remover transferencia\n"
               << "13 - Adicionar cartao credito\n"
               << "14 - Remover cartao de credito\n"
-              << "15 - Listar carteiras\n"
-              << "16 - Listas transacoes\n";
+              << "15 - pagar fatura\n"
+              << "16 - Listar carteiras\n"
+              << "17 - Listas transacoes\n";
 }

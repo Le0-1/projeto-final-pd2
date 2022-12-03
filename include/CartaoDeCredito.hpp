@@ -33,7 +33,7 @@ class CartaoDeCredito {
 
         double getLimite();
 
-        std::list<std::shared_ptr<Despesa>>& getListaDespesas();
+        std::list<std::shared_ptr<Despesa>>* getListaDespesas();
 
         void alterarLimiteCartao(double limite);
 
