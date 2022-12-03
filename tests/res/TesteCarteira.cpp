@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include "Carteira.hpp"
 #include "Receita.hpp"
+#include "Despesa.hpp"
 #include "GerenciaContaExcp.hpp"
 
 TEST_CASE("Teste Construtor Carteira - Exceção Saldo Negativo"){
@@ -29,4 +30,71 @@ TEST_CASE("Teste setSaldoAtual - Caso Base") {
 TEST_CASE("Teste setSaldoAtual - Exceção Saldo Negativo") {
     Carteira novaCarteira("nome", 1);
     CHECK_THROWS_AS(novaCarteira.setSaldoAtual(-10), gcexcp::ValorInvalido);
+}
+
+TEST_CASE("Teste adicionarTransacao - Caso Base Receita") {
+    Carteira novaCarteira("nome", 1000);
+    Receita novaReceita("nome", 100, "data", "receita");
+    std::shared_ptr<Transacao> receita = std::make_shared<Transacao>(novaReceita);
+    novaCarteira.adicionarTransacao(receita);
+    CHECK(novaCarteira.getSaldoAtual() == 1100);
+}
+
+TEST_CASE("Teste adicionarTransacao - Caso Base Despesa") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(100, "data", "despesa", "nome");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
+    novaCarteira.adicionarTransacao(despesa);
+    CHECK(novaCarteira.getSaldoAtual() == 900);
+}
+
+TEST_CASE("Teste adicionarTransacao - Excecao Valor Invalido (Receita)") {
+    Carteira novaCarteira("nome", 1000);
+    Receita novaReceita("nome", -100, "data", "receita");
+    std::shared_ptr<Transacao> receita = std::make_shared<Transacao>(novaReceita);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(receita), gcexcp::ValorInvalido);
+}
+
+TEST_CASE("Teste adicionarTransacao - Excecao Saldo Insuficiente (Despesa)") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(1100, "data", "despesa", "nome");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), gcexcp::SaldoInsuficiente);
+}
+
+TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Receita)") {
+    Carteira novaCarteira("nome", 1000);
+    Receita novaReceita("conta_fantasma", 100, "data", "receita");
+    std::shared_ptr<Transacao> receita = std::make_shared<Transacao>(novaReceita);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(receita), gcexcp::ContaNaoEncontrada);
+}
+
+TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Despesa)") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(100, "data", "despesa", "conta_fantasma");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), gcexcp::ContaNaoEncontrada);
+}
+
+TEST_CASE("Teste removerTransacao - Caso Base (Receita)") {
+    Carteira novaCarteira("nome", 1000);
+    Receita novaReceita("nome", 100, "data", "receita"), novaReceita2("nome", 100, "data", "receita");
+    std::shared_ptr<Transacao> receita = std::make_shared<Transacao>(novaReceita);
+    std::shared_ptr<Transacao> receita2 = std::make_shared<Transacao>(novaReceita2);
+    novaCarteira.adicionarTransacao(receita);
+    novaCarteira.adicionarTransacao(receita2);
+    novaCarteira.removerTransacao(2);
+    CHECK(novaCarteira.getSaldoAtual() == 1100);
+}
+
+TEST_CASE("Teste removerTransacao - Caso Base (Despesa)") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(100, "data", "despesa", "nome"), novaDespesa2(100, "data", "despesa", "nome");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Transacao>(novaDespesa);
+    std::shared_ptr<Transacao> despesa2 = std::make_shared<Transacao>(novaDespesa2);
+    novaCarteira.adicionarTransacao(despesa);
+    novaCarteira.adicionarTransacao(despesa2);
+    novaCarteira.removerTransacao(2);
+    CHECK(novaCarteira.getSaldoAtual() == 900);
+
 }
