@@ -14,7 +14,6 @@ int main(int argc, char const *argv[]) {
     const int corSeparador = Foreground::f_yellow;
 
     GerenciaConta gc;
-    Barrier::Barricada barricada;
 
     unsigned input, id_transacao;
     double saldo_inicial, valor_transacao, limite_cartao;
@@ -32,7 +31,7 @@ int main(int argc, char const *argv[]) {
         std::cin >> input;
 
         /*Barricada que irá validar o input para ver se ele é menor que 0 ou maior que 16*/
-        barricada.validar_input(input);
+        Barricada::validar_input(input);
 
         Utils::limparConsole();
 
@@ -52,7 +51,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> nome >> saldo_inicial;
 
                 /*Barricada que verifica o valor do saldo*/
-                barricada.validar_saldo(saldo_inicial);
+                Barricada::validar_saldo(saldo_inicial);
 
                 try {
                     gc.adicionarCarteira(nome, saldo_inicial);
@@ -84,7 +83,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> nome >> saldo_inicial;
 
                 /*Barricada que verifica o valor da transacao*/
-                barricada.validar_saldo(saldo_inicial);
+                Barricada::validar_saldo(saldo_inicial);
 
                 try {
                     gc.adicionarConta(nome, saldo_inicial);
@@ -158,7 +157,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta >> valor_transacao;
 
                 /*Barricada que verifica o valor da transacao*/
-                barricada.validar_transacao(valor_transacao);
+                Barricada::validar_transacao(valor_transacao);
 
                 std::cin >> data >> categoria;
 
@@ -199,7 +198,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> valor_transacao;
 
                 /*Barricada que verifica o valor da transacao*/
-                barricada.validar_transacao(valor_transacao);
+                Barricada::validar_transacao(valor_transacao);
 
                 std::cin >> data >> categoria;
 
@@ -238,7 +237,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta >> cartao >> data >> categoria >> valor_transacao;
 
                 /*Barricada que verifica o valor da transacao*/
-                barricada.validar_transacao(valor_transacao);
+                Barricada::validar_transacao(valor_transacao);
 
                 try {
                     gc.adicionarDespesaCartao(conta, cartao, valor_transacao, data, categoria);
@@ -276,7 +275,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> valor_transacao;
 
                 /*Barricada que verifica o valor da transacao*/
-                barricada.validar_transacao(valor_transacao);
+                Barricada::validar_transacao(valor_transacao);
 
                 std::cin >> data >> categoria >> origem >> destino;
 
@@ -309,7 +308,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta >> id_transacao;
 
                 /*Barricada que irá verificar a validade do ID passado*/
-                barricada.validar_id(id_transacao);
+                Barricada::validar_id(id_transacao);
 
                 try {
                     gc.removerReceita(conta, id_transacao);
@@ -346,7 +345,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta >> id_transacao;
 
                 /*Barricada que irá verificar a validade do ID passado*/
-                barricada.validar_id(id_transacao);
+                Barricada::validar_id(id_transacao);
 
                 try {
                     gc.removerDespesa(conta, id_transacao);
@@ -383,7 +382,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta >> cartao >> id_transacao;
 
                 /*Barricada que irá verificar a validade do ID passado*/
-                barricada.validar_id(id_transacao);
+                Barricada::validar_id(id_transacao);
 
                 try {
                     gc.removerDespesaCartao(conta, cartao, id_transacao);
@@ -420,7 +419,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> id_transacao;
 
                 /*Barricada que irá verificar a validade do ID passado*/
-                barricada.validar_id(id_transacao);
+                Barricada::validar_id(id_transacao);
 
                 try {
                     gc.removerTransferencia(id_transacao);
@@ -451,7 +450,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta >> nome >> numero_cartao >> CVV >> fechamento >> limite_cartao;
 
                 /*Barricada que irá verificar o valor do limite passado*/
-                barricada.validar_limite_cartao(limite_cartao);
+                Barricada::validar_limite_cartao(limite_cartao);
 
                 try {
                     gc.adicionarCartao(conta, nome, numero_cartao, CVV, fechamento, limite_cartao);

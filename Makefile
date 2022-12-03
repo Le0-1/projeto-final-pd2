@@ -17,6 +17,7 @@ THIRD_DIR = ./third_party
 
 BUILD_FILES = \
 	$(BUILD_DIR)/GerenciaConta.o \
+	$(BUILD_DIR)/Barricada.o \
 	$(BUILD_DIR)/Transferencia.o \
 	$(BUILD_DIR)/Carteira.o \
 	$(BUILD_DIR)/ContaBancaria.o \
@@ -30,7 +31,6 @@ BUILD_FILES = \
 	$(BUILD_DIR)/TransacaoExcp.o \
 	$(BUILD_DIR)/TransferenciaExcp.o \
 	$(BUILD_DIR)/Utils.o \
-	$(BUILD_DIR)/Barricada.o \
 	$(BUILD_DIR)/main.o
 
 TEST_DEPENDENCIES = \

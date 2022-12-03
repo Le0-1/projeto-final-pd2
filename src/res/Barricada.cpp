@@ -1,7 +1,7 @@
 #include "Barricada.hpp"
 #include <limits>
 
-void Barrier::Barricada::validar_saldo(double &saldo) {
+void Barricada::validar_saldo(double &saldo) {
 
     while (std::cin.fail()) {
         std::cin.clear();
@@ -12,7 +12,7 @@ void Barrier::Barricada::validar_saldo(double &saldo) {
 
 }
 
-void Barrier::Barricada::validar_input(unsigned &input) {
+void Barricada::validar_input(unsigned &input) {
 
     /*entre 0 e 16 pq é o numero de opções do menu*/
     while (std::cin.fail() || input < 0 || input > 16) {
@@ -24,7 +24,7 @@ void Barrier::Barricada::validar_input(unsigned &input) {
 
 }
 
-void Barrier::Barricada::validar_transacao(double &valor_transacao) {
+void Barricada::validar_transacao(double &valor_transacao) {
 
     while (std::cin.fail() || valor_transacao <= 0) {
         std::cin.clear();
@@ -34,7 +34,7 @@ void Barrier::Barricada::validar_transacao(double &valor_transacao) {
     }
 }
 
-void Barrier::Barricada::validar_id(unsigned &id) {
+void Barricada::validar_id(unsigned &id) {
 
     while (std::cin.fail() || id < 0) {
         std::cin.clear();
@@ -45,7 +45,7 @@ void Barrier::Barricada::validar_id(unsigned &id) {
 
 }
 
-void Barrier::Barricada::validar_limite_cartao(double &limite_cartao) {
+void Barricada::validar_limite_cartao(double &limite_cartao) {
 
     while (std::cin.fail() || limite_cartao <= 0) {
         std::cin.clear();
