@@ -28,8 +28,6 @@ namespace trfexcp {
             const char* what() const throw();
 
             std::string getNomeConta();
-
-
     };
 }
 

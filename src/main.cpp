@@ -280,6 +280,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> data >> categoria >> origem >> destino;
 
                 try {
+                    Barricada::validar_transferencia(data, origem, destino);
                     gc.adicionarTransferencia(valor_transacao, data, categoria, origem, destino);
                     std::cout << "transferencia adicionada" << std::endl;
                 }
@@ -476,6 +477,7 @@ int main(int argc, char const *argv[]) {
                 Barricada::validar_limite_cartao(limite_cartao);
 
                 try {
+                    Barricada::validar_cartao(numero_cartao, CVV, fechamento);
                     gc.adicionarCartao(conta, nome, numero_cartao, CVV, fechamento, limite_cartao);
                     std::cout << "Cartao de credito criado" << std::endl;
                 }

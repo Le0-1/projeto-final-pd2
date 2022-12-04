@@ -1,5 +1,15 @@
 #include "Barricada.hpp"
-#include <limits>
+
+const std::string Barricada::numero_cc_valido = "^[0-9]{16}$";
+const std::string Barricada::CVV_valido = "^[0-9]{3}$";
+const std::string Barricada::fechamento_valido = "^(([0]?[1-9])|([1-2][0-9])|(3[01]))$";
+const std::string Barricada::data_valida = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|"
+                                       "(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))"
+                                       "(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)"
+                                       "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468]"
+                                       "[048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])"
+                                       "00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?"
+                                       "[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
 
 void Barricada::validar_saldo(double &saldo) {
 
@@ -55,3 +65,34 @@ void Barricada::validar_limite_cartao(double &limite_cartao) {
     }
 }
 
+bool Barricada::validar_cartao(std::string& numero, std::string& CVV,
+                               std::string& fechamento) {
+                                
+    if (std::regex_match(numero, std::regex(numero_cc_valido))) {
+        if (std::regex_match(CVV, std::regex(CVV_valido))) {
+            if(std::regex_match(fechamento, std::regex(fechamento_valido))) {
+                return true;
+            } else {
+                throw cdcexcp::FechamentoInvalido(fechamento);
+            }
+        } else {
+            throw cdcexcp::CVVInvalido(CVV);
+        }
+    } else {
+        throw cdcexcp::NumeroInvalido(numero);
+    }
+    return false;
+}
+
+bool Barricada::validar_transferencia(std::string& data, std::string& origem,
+                                      std::string& destino) {
+
+    if (origem == destino) {
+        throw trfexcp::TransferenciaInvalida(origem);
+    } else if (std::regex_match(data, std::regex(data_valida))) {
+        return true;
+    } else {
+        throw trfexcp::DataInvalida(data);
+    }
+    return false;
+}
