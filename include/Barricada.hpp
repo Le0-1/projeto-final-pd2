@@ -27,6 +27,8 @@ class Barricada {
 
         static void validar_limite_cartao(double &limite);
 
+        static void selecionarData(std::string& data);
+
         static bool validar_cartao(std::string& numero, std::string& CVV,
                                    std::string& fechamento);
         
@@ -34,6 +36,8 @@ class Barricada {
                                           std::string& destino);
                                           
         static bool validar_data(std::string& data);
+
+        
 };
 
 #endif

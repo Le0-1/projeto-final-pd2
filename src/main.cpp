@@ -167,8 +167,8 @@ int main(int argc, char const *argv[]) {
 
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
-
-                std::cin >> data >> categoria;
+                Barricada::selecionarData(data);
+                std::cin >> categoria;
 
                 try {
                     gc.adicionarReceita(conta, valor_transacao, data, categoria);
@@ -212,8 +212,9 @@ int main(int argc, char const *argv[]) {
 
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
+                Barricada::selecionarData(data);
+                std::cin >>  categoria;
 
-                std::cin >> data >> categoria;
 
                 try {
                     gc.adicionarDespesa(conta, valor_transacao, data, categoria);
@@ -254,7 +255,11 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(Efeitos::inverse, "--- ADICIONAR DESPESA CARTAO DE CREDITO ---");
                 std::cout << "CONTA, CARTAO, DATA, CATEGORIA, VALOR" << std::endl;
 
-                std::cin >> conta >> cartao >> data >> categoria >> valor_transacao;
+                std::cin >> conta >> cartao;
+
+                Barricada::selecionarData(data);
+
+                std::cin >> categoria >> valor_transacao;
 
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
@@ -304,7 +309,8 @@ int main(int argc, char const *argv[]) {
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
 
-                std::cin >> data >> categoria >> origem >> destino;
+                Barricada::selecionarData(data);
+                std::cin >> categoria >> origem >> destino;
 
                 try {
                     gc.adicionarTransferencia(valor_transacao, data, categoria, origem, destino);

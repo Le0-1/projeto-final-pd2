@@ -1,5 +1,9 @@
 #include "Barricada.hpp"
 
+#include <iomanip>
+#include <ctime>
+#include <sstream>
+
 const std::string Barricada::numero_cc_valido = "^[0-9]{16}$";
 const std::string Barricada::CVV_valido = "^[0-9]{3}$";
 const std::string Barricada::fechamento_valido = "^(([0]?[1-9])|([1-2][0-9])|(3[01]))$";
@@ -105,4 +109,26 @@ bool Barricada::validar_data(std::string& data) {
         throw trsexcp::DataInvalida(data);
     }
     return false;
+}
+
+void Barricada::selecionarData(std::string &data) {
+    std::cout << "Deseja Colocar a data de Hoje? [s/n]" << std::endl;
+    char resposta;
+    std::cin >> resposta;
+
+    if (resposta == 's' || resposta == 'S') {
+        std::time_t t = std::time(nullptr);
+        std::tm tm = *std::localtime(&t);
+
+        std::ostringstream oss;
+        oss << std::put_time(&tm, "%d/%m/%Y");
+        data = oss.str();
+        std::cout << "A data de hoje é: " << data << std::endl;
+    }
+
+    else {
+        std::cout << "Digite a data desejada: " << std::endl;
+        std::cin >> data;
+    }
+
 }
