@@ -7,6 +7,7 @@
 
 
 void printMenu();
+void printMensagem();
 
 int main(int argc, char const *argv[]) {
 
@@ -41,7 +42,7 @@ int main(int argc, char const *argv[]) {
                 Utils::printColor(corSeparador, separador);
                 printMenu();
                 Utils::printColor(corSeparador, separador);
-                break;
+                continue;
 
             case 1: // Adicionar carteira
                 Utils::printColor(corSeparador, separador);
@@ -73,7 +74,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 2: // Adicionar conta
                 Utils::printColor(corSeparador, separador);
@@ -103,7 +106,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 3: // Remover carteira
                 Utils::printColor(corSeparador, separador);
@@ -126,7 +131,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 4: // Remover conta
                 Utils::printColor(corSeparador, separador);
@@ -147,7 +154,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 5: // Adicionar receita
                 Utils::printColor(corSeparador, separador);
@@ -187,7 +196,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 6: // Adicionar despesa
                 Utils::printColor(corSeparador, separador);
@@ -227,7 +238,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 7: // Adicionar despesa cartao de credito
                 Utils::printColor(corSeparador, separador);
@@ -265,7 +278,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 8: // Adicionar transferencia
                 Utils::printColor(corSeparador, separador);
@@ -314,7 +329,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 9: // Remover receita
                 Utils::printColor(corSeparador, separador);
@@ -351,7 +368,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 10: // Remover despesa
                 Utils::printColor(corSeparador, separador);
@@ -388,7 +407,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 11: // Remover despesa cartao de credito
                 Utils::printColor(corSeparador, separador);
@@ -425,7 +446,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 12: // Remover transferencia
                 Utils::printColor(corSeparador, separador);
@@ -464,7 +487,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 13: // Adicionar cartao de credito
                 Utils::printColor(corSeparador, separador);
@@ -523,7 +548,9 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
+
+                continue;
 
             case 14: // Remover cartao de credito
                 Utils::printColor(corSeparador, separador);
@@ -558,9 +585,11 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                printMensagem();
 
-            case 15:
+                continue;
+
+            case 15: // Pagar fatura
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "-------------- PAGAR FATURA ---------------");
                 std::cout << "CONTA, CARTAO" << std::endl;
@@ -572,7 +601,7 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
-                break;
+                continue;
 
             case 16: // Listar constas
                 Utils::printColor(corSeparador, separador);
@@ -587,7 +616,10 @@ int main(int argc, char const *argv[]) {
                 }
 
                 Utils::printColor(corSeparador, separador);
-                break;
+                std::cout << std::endl;
+                printMensagem();
+
+                continue;
 
             case 17: // Listar transacoes
                 Utils::printColor(corSeparador, separador);
@@ -611,11 +643,16 @@ int main(int argc, char const *argv[]) {
                     std::cout << "\t Tipo: " << e.getTipo()
                     << std::endl;
                 }
-            
+
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
+                printMensagem();
+
+                continue;
+            case 18: // Sair
                 break;
         }
+        break;
     }
 
     Utils::limparConsole();
@@ -642,5 +679,12 @@ void printMenu() {
               << "14 - Remover cartao de credito\n"
               << "15 - pagar fatura\n"
               << "16 - Listar carteiras\n"
-              << "17 - Listas transacoes\n";
+              << "17 - Listas transacoes\n"
+              << "18 - Sair\n";
+}
+
+void printMensagem() {
+    Utils::printColor(Efeitos::underline, "Retornar ao menu ou sair!");
+    std::cout << "0 - Imprimir menu\n"
+              << "18 - Sair\n";
 }
