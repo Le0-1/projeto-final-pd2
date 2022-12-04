@@ -1,6 +1,7 @@
 #ifndef GERENCIA_CONTA_H
 #define GERENCIA_CONTA_H
 
+#include "Barricada.hpp"
 #include "Transferencia.hpp"
 #include "Carteira.hpp"
 #include "ContaBancaria.hpp"

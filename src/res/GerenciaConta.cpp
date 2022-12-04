@@ -13,6 +13,7 @@ std::map<std::string, std::shared_ptr<Carteira>>& GerenciaConta::getContas() {
 }
 
 std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
+
     if (getContas().find(nome) == getContas().end()) {
         throw ctrexcp::ContaNaoEncontrada(nome);
     }
@@ -35,6 +36,7 @@ void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
 }
 
 void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
+
     if (getContas().find(nome) == getContas().end()) {
         std::shared_ptr<ContaBancaria> conta = std::make_shared<ContaBancaria>(nome, saldo_inicial);
         this->_contas.insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));
@@ -80,12 +82,17 @@ void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao
 void GerenciaConta::adicionarTransferencia(double valor, std::string data, std::string categoria,   
                                            std::string origem, std::string destino) {
 
+    Barricada::validar_transferencia(data, origem, destino);
+
     std::shared_ptr<Transferencia> transferencia = std::make_shared<Transferencia>
                                                (valor, data, categoria, origem, destino);
+
     std::shared_ptr<Carteira> conta_origem = getConta(origem);
     std::shared_ptr<Carteira> conta_destino = getConta(destino);
+
     conta_origem->setSaldoAtual(conta_origem->getSaldoAtual() - valor);
     conta_destino->setSaldoAtual(conta_destino->getSaldoAtual() + valor);
+
     conta_origem->adicionarTransacao(transferencia);
     conta_destino->adicionarTransacao(transferencia);
 
@@ -168,6 +175,8 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
 
     if (getConta(conta)->getSubtipo() == "ContaBancaria") {
 
+        Barricada::validar_cartao(numero, CVV, fechamento);
+
         std::shared_ptr<ContaBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
 
@@ -203,7 +212,7 @@ void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
 }
 
 void GerenciaConta::imprimirContas() {
-    if(!(_contas.empty())) {
+    if(!(getContas().empty())) {
         for (auto const& conta : getContas()) {
             conta.second->imprimirInfo();
         }
@@ -214,14 +223,17 @@ void GerenciaConta::imprimirContas() {
 }
 
 void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
+
+    //transforma os caracteres da string em minúsculo
     std::transform(tipo.begin(), tipo.end(), tipo.begin(), ::tolower);
+
     if (tipo == "despesa" or tipo == "receita" or "transferencia") {
         std::shared_ptr<Carteira> cart_conta = getConta(conta);
 
         std::cout << "Conta: " << cart_conta->getNome() << std::endl;
 
         int i = 0;
-        for (auto const&it : getConta(conta)->getTransacoes()) {
+        for (auto const& it : getConta(conta)->getTransacoes()) {
             if (it.second->getSubtipo() == tipo) {
                 std::cout << std::endl; 
                 it.second->imprimirInfo();
