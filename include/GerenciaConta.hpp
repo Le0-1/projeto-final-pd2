@@ -4,7 +4,7 @@
 #include "Barricada.hpp"
 #include "Transferencia.hpp"
 #include "Carteira.hpp"
-#include "ContaBancaria.hpp"
+#include "CarteiraBancaria.hpp"
 #include "Receita.hpp"
 #include "Despesa.hpp"
 #include "Transferencia.hpp"

@@ -1,35 +1,35 @@
-#include "ContaBancaria.hpp"
+#include "CarteiraBancaria.hpp"
 
 #include <iostream>
 
-ContaBancaria::ContaBancaria(std::string nome, double saldo_inicial)
-    : Carteira(nome, saldo_inicial, "ContaBancaria") { }
+CarteiraBancaria::CarteiraBancaria(std::string nome, double saldo_inicial)
+    : Carteira(nome, saldo_inicial, "CarteiraBancaria") { }
 
-void ContaBancaria::adicionarCartao(CartaoDeCredito cartao) {
+void CarteiraBancaria::adicionarCartao(CartaoDeCredito cartao) {
     getCartoes().insert(std::pair<std::string, CartaoDeCredito>(cartao.getNome(), cartao));
 }
 
-ContaBancaria::~ContaBancaria() { }
+CarteiraBancaria::~CarteiraBancaria() { }
 
-void ContaBancaria::removerCartao(std::string nome) {
+void CarteiraBancaria::removerCartao(std::string nome) {
     if (this->_cartoes.find(nome) == this->_cartoes.end()){
         throw cdcexcp::CartaoNaoEncontrado(nome);
     }
     getCartoes().erase(getCartoes().find(nome));
 }
 
-std::map<std::string, CartaoDeCredito> &ContaBancaria::getCartoes() {
+std::map<std::string, CartaoDeCredito> &CarteiraBancaria::getCartoes() {
     return this->_cartoes;
 }
 
-CartaoDeCredito *ContaBancaria::getCartaoDeCredito(std::string nome) {
+CartaoDeCredito *CarteiraBancaria::getCartaoDeCredito(std::string nome) {
     if (getCartoes().find(nome) == getCartoes().end()) {
         throw cdcexcp::CartaoNaoEncontrado(nome);
     }
     return &getCartoes().find(nome)->second;
 }
 
-void ContaBancaria::pagarFatura(std::string cartao) {
+void CarteiraBancaria::pagarFatura(std::string cartao) {
     CartaoDeCredito *cartaoDeCredito = getCartaoDeCredito(cartao);
     double valor_fatura = cartaoDeCredito->getTotalDespesas();
 
@@ -48,7 +48,7 @@ void ContaBancaria::pagarFatura(std::string cartao) {
     listDespesa->clear();
 }
 
-void ContaBancaria::imprimirInfo() {
+void CarteiraBancaria::imprimirInfo() {
     const std::string separador = "___________________________________________";
     Utils::printColor(Foreground::f_yellow, separador);
 
@@ -78,7 +78,7 @@ void ContaBancaria::imprimirInfo() {
     Utils::printColor(Foreground::f_yellow, separador);
 }
 
-void ContaBancaria::imprimirCartoes() {
+void CarteiraBancaria::imprimirCartoes() {
 
     for (auto &it : getCartoes()) {
         std::cout << std::endl;

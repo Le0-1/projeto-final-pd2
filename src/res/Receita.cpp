@@ -20,8 +20,8 @@ void Receita::imprimirInfo() {
 
     std::cout << "\tID: " << getID() << std::endl;
 
-    if (getSubtipo() == "ContaBancaria") {
-        std::cout << "\tConta Bancaria: " << getConta() << std::endl;
+    if (getSubtipo() == "CarteiraBancaria") {
+        std::cout << "\tCarteira Bancaria: " << getConta() << std::endl;
     }
     else if (getSubtipo() == "Carteira") {
         std::cout << "\tCarteira: " << getConta() << std::endl;

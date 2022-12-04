@@ -20,7 +20,7 @@ BUILD_FILES = \
 	$(BUILD_DIR)/Barricada.o \
 	$(BUILD_DIR)/Transferencia.o \
 	$(BUILD_DIR)/Carteira.o \
-	$(BUILD_DIR)/ContaBancaria.o \
+	$(BUILD_DIR)/CarteiraBancaria.o \
 	$(BUILD_DIR)/Receita.o \
 	$(BUILD_DIR)/Despesa.o \
 	$(BUILD_DIR)/Transferencia.o \

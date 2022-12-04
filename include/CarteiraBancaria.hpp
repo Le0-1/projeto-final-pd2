@@ -8,14 +8,14 @@
 #include <string>
 #include <map>
 
-class ContaBancaria : public Carteira {
+class CarteiraBancaria : public Carteira {
     private:
         std::map<std::string, CartaoDeCredito> _cartoes;
 
     public:
-        ContaBancaria(std::string nome, double saldo_inicial);
+        CarteiraBancaria(std::string nome, double saldo_inicial);
 
-        ~ContaBancaria();
+        ~CarteiraBancaria();
 
         void adicionarCartao(CartaoDeCredito cartao);
 

@@ -38,7 +38,7 @@ void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
 void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
 
     if (getContas().find(nome) == getContas().end()) {
-        std::shared_ptr<ContaBancaria> conta = std::make_shared<ContaBancaria>(nome, saldo_inicial);
+        std::shared_ptr<CarteiraBancaria> conta = std::make_shared<CarteiraBancaria>(nome, saldo_inicial);
         this->_contas.insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));
     }
     else {
@@ -69,9 +69,9 @@ void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::strin
 
 void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao, double valor, std::string data, std::string categoria) {
 
-    if (getConta(conta)->getSubtipo() == "ContaBancaria") {
-        std::shared_ptr<ContaBancaria> conta_bancaria;
-        conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
+    if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
+        std::shared_ptr<CarteiraBancaria> conta_bancaria;
+        conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
         conta_bancaria->getCartaoDeCredito(cartao)->adicionarDespesa(valor, data, categoria);
     }
     else {
@@ -130,9 +130,9 @@ void GerenciaConta::removerDespesa(std::string conta, int id) {
 
 void GerenciaConta::removerDespesaCartao(std::string conta, std::string cartao, int id) {
 
-    if (getConta(conta)->getSubtipo() == "ContaBancaria") {
-        std::shared_ptr<ContaBancaria> conta_bancaria;
-        conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
+    if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
+        std::shared_ptr<CarteiraBancaria> conta_bancaria;
+        conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
         conta_bancaria->getCartoes().find(cartao)->second.removerDespesa(id);
     }
 }
@@ -173,12 +173,12 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
                                     std::string numero, std::string CVV,
                                     std::string fechamento, double limite_cartao) {
 
-    if (getConta(conta)->getSubtipo() == "ContaBancaria") {
+    if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
 
         Barricada::validar_cartao(numero, CVV, fechamento);
 
-        std::shared_ptr<ContaBancaria> conta_bancaria;
-        conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
+        std::shared_ptr<CarteiraBancaria> conta_bancaria;
+        conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
 
         CartaoDeCredito cartao_de_credito(nome, numero, CVV, fechamento, limite_cartao);
         conta_bancaria->adicionarCartao(cartao_de_credito);
@@ -190,9 +190,9 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
 
 void GerenciaConta::removerCartao(std::string conta, std::string cartao) {
 
-    if (getConta(conta)->getSubtipo() == "ContaBancaria") {
-        std::shared_ptr<ContaBancaria> conta_bancaria;
-        conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
+    if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
+        std::shared_ptr<CarteiraBancaria> conta_bancaria;
+        conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
 
         conta_bancaria->removerCartao(cartao);
     }
@@ -203,9 +203,9 @@ void GerenciaConta::removerCartao(std::string conta, std::string cartao) {
 
 void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
 
-    if (getConta(conta)->getSubtipo() == "ContaBancaria") {
-        std::shared_ptr<ContaBancaria> conta_bancaria;
-        conta_bancaria = std::dynamic_pointer_cast<ContaBancaria>(getConta(conta));
+    if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
+        std::shared_ptr<CarteiraBancaria> conta_bancaria;
+        conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
 
         conta_bancaria->pagarFatura(cartao);
     }
