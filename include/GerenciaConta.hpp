@@ -59,7 +59,7 @@ class GerenciaConta {
 
         void removerCartao(std::string conta, std::string cartao);
 
-        void pagarFatura(std::string conta, std::string cartao);
+        void pagarFaturaCartao(std::string conta, std::string cartao);
 
         void imprimirContas();
 

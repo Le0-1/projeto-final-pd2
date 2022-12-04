@@ -208,7 +208,7 @@ void GerenciaConta::removerCartao(std::string conta, std::string cartao) {
     }
 }
 
-void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
+void GerenciaConta::pagarFaturaCartao(std::string conta, std::string cartao) {
 
     if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
         std::shared_ptr<CarteiraBancaria> conta_bancaria;

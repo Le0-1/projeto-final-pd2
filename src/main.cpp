@@ -605,7 +605,7 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 15: // Pagar fatura
+            case 15: // Pagar fatura do cartão
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "-------------- PAGAR FATURA ---------------");
                 std::cout << "CONTA, CARTAO" << std::endl;
@@ -613,7 +613,7 @@ int main(int argc, char const *argv[]) {
                 std::cin >> conta >> cartao;
 
                 try {
-                    gc.pagarFatura(conta, cartao);
+                    gc.pagarFaturaCartao(conta, cartao);
                     std::cout << "Fatura do cartao de credito paga" << std::endl;
                 }
                 catch (ctrexcp::ContaNaoEncontrada &e) {
@@ -714,7 +714,7 @@ void printMenu() {
               << "12 - Remover transferencia\n"
               << "13 - Adicionar cartao credito\n"
               << "14 - Remover cartao de credito\n"
-              << "15 - Pagar fatura\n"
+              << "15 - Pagar fatura de um cartão\n"
               << "16 - Listar carteiras\n"
               << "17 - Listas transacoes\n"
               << "18 - Sair\n";
