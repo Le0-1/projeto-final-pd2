@@ -594,9 +594,33 @@ int main(int argc, char const *argv[]) {
 
                 std::cin >> conta >> cartao;
 
-                gc.pagarFatura(conta, cartao);
-                std::cout << "Fatura do cartao de credito paga" << std::endl;
-
+                try {
+                    gc.pagarFatura(conta, cartao);
+                    std::cout << "Fatura do cartao de credito paga" << std::endl;
+                }
+                catch (ctrexcp::ContaNaoEncontrada &e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\t Conta: " << e.getNome()
+                    << std::endl;
+                }
+                catch (cdcexcp::CartaoNaoEncontrado &e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\t Cartao: " << e.getNomeCartao()
+                    << std::endl;
+                }
+                catch (ctrexcp::SaldoInsuficiente &e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\nSaldo na conta de destino R$" << e.getSaldo()
+                    << "\nValor que deve ser debitado R$" << e.getDespesa()
+                    << std::endl;
+                }
+                catch (ctrexcp::ContaNaoPermiteCartao &e) {
+                    // Remover catch quando for possivel pagar fatura a carteira
+                    Utils::printColorNoLine(Foreground::f_red, 
+                            "Nao eh possivel pagar fatura com conta do tipo carteira");
+                    std::cout << std::endl;
+                }
+               
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
                 continue;

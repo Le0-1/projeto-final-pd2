@@ -3,6 +3,7 @@
 
 #include "Carteira.hpp"
 #include "CartaoDeCredito.hpp"
+#include "CarteiraExcp.hpp"
 
 #include <string>
 #include <map>

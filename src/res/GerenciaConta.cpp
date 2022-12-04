@@ -209,6 +209,10 @@ void GerenciaConta::pagarFatura(std::string conta, std::string cartao) {
 
         conta_bancaria->pagarFatura(cartao);
     }
+    else {
+        // TO DO: Ser possivel pagar fatura do cartao com uma carteira
+        throw ctrexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
+    }
 }
 
 void GerenciaConta::imprimirContas() {

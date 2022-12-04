@@ -31,7 +31,12 @@ CartaoDeCredito *ContaBancaria::getCartaoDeCredito(std::string nome) {
 
 void ContaBancaria::pagarFatura(std::string cartao) {
     CartaoDeCredito *cartaoDeCredito = getCartaoDeCredito(cartao);
-    setSaldoAtual(getSaldoAtual() - cartaoDeCredito->getTotalDespesas());
+    double valor_fatura = cartaoDeCredito->getTotalDespesas();
+
+    if (valor_fatura > this->getSaldoAtual()) {
+        throw ctrexcp::SaldoInsuficiente(this->getSaldoAtual(), valor_fatura);
+    }
+    setSaldoAtual(getSaldoAtual() - valor_fatura);
 
     std::list<std::shared_ptr<Despesa>>* listDespesa = cartaoDeCredito->getListaDespesas();
     for (std::shared_ptr<Despesa> despesa : *listDespesa) {
