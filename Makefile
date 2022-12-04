@@ -31,6 +31,7 @@ BUILD_FILES = \
 	$(BUILD_DIR)/TransacaoExcp.o \
 	$(BUILD_DIR)/TransferenciaExcp.o \
 	$(BUILD_DIR)/Utils.o \
+	$(BUILD_DIR)/CarteiraExcp.o \
 	$(BUILD_DIR)/main.o
 
 TEST_DEPENDENCIES = \
@@ -43,6 +44,7 @@ TEST_DEPENDENCIES = \
 	$(BUILD_DIR)/GerenciaContaExcp.o \
 	$(BUILD_DIR)/TransacaoExcp.o \
 	$(BUILD_DIR)/TransferenciaExcp.o \
+	$(BUILD_DIR)/CarteiraExcp.o \
 	$(BUILD_DIR)/Utils.o 
 
 BUILD_TEST_FILES = \
@@ -91,7 +93,7 @@ coverage: run_tests
 	gcovr -r . --exclude="third_party/doctest.h" -b
 
 valgrind:
-	valgrind --leak-check=full ./build/program
+	valgrind --leak-check=full $(BUILD_DIR)/$(NAME)
 
 html_coverage: run_tests
 	mkdir -p ${COVERAGE_DIR}

@@ -9,6 +9,7 @@
 #include "Transferencia.hpp"
 #include "CartaoDeCredito.hpp"
 #include "GerenciaContaExcp.hpp"
+#include "CarteiraExcp.hpp"
 #include "TransacaoExcp.hpp"
 #include "TransferenciaExcp.hpp"
 

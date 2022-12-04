@@ -1,5 +1,6 @@
 #include "GerenciaConta.hpp"
 #include "GerenciaContaExcp.hpp"
+#include "CarteiraExcp.hpp"
 #include "TransacaoExcp.hpp"
 #include <algorithm>
 #include <cctype>
@@ -13,7 +14,7 @@ std::map<std::string, std::shared_ptr<Carteira>>& GerenciaConta::getContas() {
 
 std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
     if (getContas().find(nome) == getContas().end()) {
-        throw gcexcp::ContaNaoEncontrada(nome);
+        throw ctrexcp::ContaNaoEncontrada(nome);
     }
 
     else {
@@ -29,7 +30,7 @@ void GerenciaConta::adicionarCarteira(std::string nome, double saldo_inicial) {
     }
 
     else {
-        throw gcexcp::ContaJaExiste(nome);
+        throw ctrexcp::ContaJaExiste(nome);
     }
 }
 
@@ -39,7 +40,7 @@ void GerenciaConta::adicionarConta(std::string nome, double saldo_inicial) {
         this->_contas.insert(std::pair<std::string, std::shared_ptr<Carteira>>(nome, conta));
     }
     else {
-        throw gcexcp::ContaJaExiste(nome);
+        throw ctrexcp::ContaJaExiste(nome);
     }
 }
 
@@ -47,7 +48,7 @@ void GerenciaConta::removerConta(std::string nome) {
 
     /*A funcao 'find' de um map retorna um ponteiro para map.end se nao encontrar nada*/
     if (this->getContas().find(nome) == this->getContas().end()) {
-        throw gcexcp::ContaNaoEncontrada(nome);
+        throw ctrexcp::ContaNaoEncontrada(nome);
     }
 
     this->_contas.erase(this->_contas.find(nome));
@@ -72,7 +73,7 @@ void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao
         conta_bancaria->getCartaoDeCredito(cartao)->adicionarDespesa(valor, data, categoria);
     }
     else {
-        throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
+        throw ctrexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
     }
 }
 
@@ -88,7 +89,12 @@ void GerenciaConta::adicionarTransferencia(double valor, std::string data, std::
                                   "[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)"
                                   "(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
 
-    if (std::regex_match(data, std::regex(valid_date))) {
+
+    if (origem == destino) {
+        throw trfexcp::TransferenciaInvalida(origem);
+    }
+
+    else if (std::regex_match(data, std::regex(valid_date))) {
 
         std::shared_ptr<Transferencia> transferencia = std::make_shared<Transferencia>
                                                    (valor, data, categoria, origem, destino);
@@ -102,7 +108,8 @@ void GerenciaConta::adicionarTransferencia(double valor, std::string data, std::
         conta_origem->adicionarTransacao(transferencia);
         conta_destino->adicionarTransacao(transferencia);
 
-    } else {
+    } 
+    else {
         throw trfexcp::DataInvalida(data);
     }
 }
@@ -168,7 +175,7 @@ void GerenciaConta::removerTransferencia(std::string conta, int id) {
     // Eh necessario verificar se ha saldo suficiente na conta de destino,
     // caso contrario a conta poderia ficar com saldo negativo
     if (conta_destino->getSaldoAtual() < transferencia->getValor()) {
-        throw gcexcp::SaldoInsuficiente(conta_destino->getSaldoAtual(), transferencia->getValor());
+        throw ctrexcp::SaldoInsuficiente(conta_destino->getSaldoAtual(), transferencia->getValor());
     }
 
     conta_origem->setSaldoAtual(conta_origem->getSaldoAtual() + transferencia->getValor());
@@ -206,7 +213,7 @@ void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
         }
 
     } else {
-        throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
+        throw ctrexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
     }
 }
 
@@ -219,7 +226,7 @@ void GerenciaConta::removerCartao(std::string conta, std::string cartao) {
         conta_bancaria->removerCartao(cartao);
     }
     else {
-        throw gcexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
+        throw ctrexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
     }
 }
 

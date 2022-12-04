@@ -2,6 +2,7 @@
 #include "Carteira.hpp"
 #include "Transferencia.hpp"
 #include "TransferenciaExcp.hpp"
+#include "CarteiraExcp.hpp"
 
 TEST_CASE("Teste alterarDestino - Caso Base"){
     Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000), novaCarteiraC("carteiraC", 1000);
@@ -27,19 +28,19 @@ TEST_CASE("Teste Construtor de Transferência - Exceção Data Invalida"){
 TEST_CASE("Teste Construtor de Transferência - Exceção Destino Invalido"){
     Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000);
     CHECK_THROWS_AS(Transferencia novaTransferencia(100, "11/11/2022", "categoria", "carteiraA", 
-        "carteiraC"), trfexcp::DestinoInvalido);
+        "carteiraC"), ctrexcp::ContaNaoEncontrada);
 }
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Destino Invalido, Destino = Origem"){
     Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000);
     CHECK_THROWS_AS(Transferencia novaTransferencia(100, "11/11/2022", "categoria", "carteiraA", 
-        "carteiraA"), trfexcp::DestinoInvalido);
+        "carteiraA"), trfexcp::TransferenciaInvalida);
 }
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Origem Invalida"){
     Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000);
     CHECK_THROWS_AS(Transferencia novaTransferencia(100, "11/11/2022", "categoria", "carteiraC", 
-        "carteiraA"), trfexcp::OrigemInvalida);
+        "carteiraA"), ctrexcp::ContaNaoEncontrada);
 }
 
 //Exceção SaldoInsuficiente ainda a ser implementada.
@@ -48,7 +49,7 @@ TEST_CASE("Teste Construtor de Transferência - Exceção Origem Invalida"){
 TEST_CASE("Teste Construtor de Transferência - Exceção Saldo Insuficiente"){
     Carteira novaCarteiraA("carteiraA", 100), novaCarteiraB("carteiraB", 100);
     CHECK_THROWS_AS(Transferencia novaTransferencia(2000, "11/11/2022", "categoria", "carteiraA", 
-        "carteiraB"), trfexcp::SaldoInsuficiente);
+        "carteiraB"), ctrexcp::ValorInvalido);
 }
 
 //Exceção ValorInvalido ainda a ser implementada.
@@ -57,6 +58,6 @@ TEST_CASE("Teste Construtor de Transferência - Exceção Saldo Insuficiente"){
 TEST_CASE("Teste Construtor de Transferência - Exceção Valor Invalido"){
     Carteira novaCarteiraA("carteiraA", 100), novaCarteiraB("carteiraB", 100);
     CHECK_THROWS_AS(Transferencia novaTransferencia(-100, "11/11/2022", "categoria", "carteiraA", 
-        "carteiraB"), trfexcp::ValorInvalido);
+        "carteiraB"), ctrexcp::ValorInvalido);
 }
 
