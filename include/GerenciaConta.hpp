@@ -19,14 +19,11 @@
 class GerenciaConta {
     private:
         std::map<std::string, std::shared_ptr<Carteira>> _contas;
-        std::map<int, std::shared_ptr<Transferencia>> _transferencias;
 
     public:
         GerenciaConta();
 
         std::map<std::string, std::shared_ptr<Carteira>>& getContas();
-
-        std::map<int, std::shared_ptr<Transferencia>> &getTransferencias();
 
         std::shared_ptr<Carteira> getConta(std::string nome);
 
@@ -54,7 +51,7 @@ class GerenciaConta {
 
         void removerDespesaCartao(std::string conta, std::string cartao, int id);
 
-        void removerTransferencia(int id);
+        void removerTransferencia(std::string conta, int id);
 
         void adicionarCartao(std::string conta, std::string nome,
             std::string numero, std::string CVV, std::string fechamento, double limite_cartao);

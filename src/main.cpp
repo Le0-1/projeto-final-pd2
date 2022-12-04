@@ -414,15 +414,15 @@ int main(int argc, char const *argv[]) {
             case 12: // Remover transferencia
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "---------- REMOVER TRANSFERENCIA ----------");
-                std::cout << "ID " << std::endl;
+                std::cout << "CONTA, ID" << std::endl;
 
-                std::cin >> id_transacao;
+                std::cin >> conta >> id_transacao;
 
                 /*Barricada que irá verificar a validade do ID passado*/
                 Barricada::validar_id(id_transacao);
 
                 try {
-                    gc.removerTransferencia(id_transacao);
+                    gc.removerTransferencia(conta,id_transacao);
                     std::cout << "Transferencia removida" << std::endl;
                 }
 

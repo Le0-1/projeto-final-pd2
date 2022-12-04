@@ -11,10 +11,6 @@ std::map<std::string, std::shared_ptr<Carteira>>& GerenciaConta::getContas() {
     return this->_contas;
 }
 
-std::map<int, std::shared_ptr<Transferencia>>& GerenciaConta::getTransferencias() {
-    return this->_transferencias;
-}
-
 std::shared_ptr<Carteira> GerenciaConta::getConta(std::string nome) {
     if (getContas().find(nome) == getContas().end()) {
         throw gcexcp::ContaNaoEncontrada(nome);
@@ -97,14 +93,14 @@ void GerenciaConta::adicionarTransferencia(double valor, std::string data, std::
         std::shared_ptr<Transferencia> transferencia = std::make_shared<Transferencia>
                                                    (valor, data, categoria, origem, destino);
 
-        getTransferencias().insert(std::pair<int, std::shared_ptr<Transferencia>>
-                                                   (transferencia->getID(), transferencia));
+        std::shared_ptr<Carteira> conta_origem = getConta(origem);
+        std::shared_ptr<Carteira> conta_destino = getConta(destino);
 
-        double saldo_conta_origem = getConta(origem)->getSaldoAtual();
-        double saldo_conta_destino = getConta(destino)->getSaldoAtual();
+        conta_origem->setSaldoAtual(conta_origem->getSaldoAtual() - valor);
+        conta_destino->setSaldoAtual(conta_destino->getSaldoAtual() + valor);
 
-        getConta(origem)->setSaldoAtual(saldo_conta_origem - valor);
-        getConta(destino)->setSaldoAtual(saldo_conta_destino + valor);
+        conta_origem->adicionarTransacao(transferencia);
+        conta_destino->adicionarTransacao(transferencia);
 
     } else {
         throw trfexcp::DataInvalida(data);
@@ -150,25 +146,36 @@ void GerenciaConta::removerDespesaCartao(std::string conta, std::string cartao, 
     }
 }
 
-void GerenciaConta::removerTransferencia(int id) {
-    if (this->_transferencias.find(id) == this->_transferencias.end()) {
+void GerenciaConta::removerTransferencia(std::string conta, int id) {
+    std::shared_ptr<Carteira> cart = getConta(conta);
+
+    if (cart->getTransacoes().find(id) == cart->getTransacoes().end()) {
         throw trsexcp::TransacaoNaoEncontrada(id);
     }
 
-    std::shared_ptr<Transferencia> tr = this->_transferencias.find(id)->second;
-    std::shared_ptr<Carteira> conta_origem = this->getConta(tr->getOrigem());
-    std::shared_ptr<Carteira> conta_destino = this->getConta(tr->getDestino());
+    std::shared_ptr<Transacao> transacao = cart->getTransacoes().find(id)->second;
+
+    if (transacao->getSubtipo() != "transferencia") {
+        throw trsexcp::TipoTransacaoInvalido(transacao->getSubtipo());
+    }
+
+    std::shared_ptr<Transferencia> transferencia;
+    transferencia = std::dynamic_pointer_cast<Transferencia>(cart->getTransacoes().find(id)->second);
+
+    std::shared_ptr<Carteira> conta_origem = this->getConta(transferencia->getOrigem());
+    std::shared_ptr<Carteira> conta_destino = this->getConta(transferencia->getDestino());
     
     // Eh necessario verificar se ha saldo suficiente na conta de destino,
     // caso contrario a conta poderia ficar com saldo negativo
-    if (conta_destino->getSaldoAtual() < tr->getValor()) {
-        throw gcexcp::SaldoInsuficiente(conta_destino->getSaldoAtual(), tr->getValor());
+    if (conta_destino->getSaldoAtual() < transferencia->getValor()) {
+        throw gcexcp::SaldoInsuficiente(conta_destino->getSaldoAtual(), transferencia->getValor());
     }
 
-    conta_origem->setSaldoAtual(conta_origem->getSaldoAtual() + tr->getValor());
-    conta_destino->setSaldoAtual(conta_origem->getSaldoAtual() - tr->getValor());
+    conta_origem->setSaldoAtual(conta_origem->getSaldoAtual() + transferencia->getValor());
+    conta_destino->setSaldoAtual(conta_destino->getSaldoAtual() - transferencia->getValor());
 
-    getTransferencias().erase(getTransferencias().find(id));
+    conta_origem->getTransacoes().erase(id);
+    conta_destino->getTransacoes().erase(id);
 }
 
 void GerenciaConta::adicionarCartao(std::string conta, std::string nome,
@@ -239,7 +246,7 @@ void GerenciaConta::imprimirContas() {
 
 void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
     std::transform(tipo.begin(), tipo.end(), tipo.begin(), ::tolower);
-    if (tipo == "despesa" or tipo == "receita") {
+    if (tipo == "despesa" or tipo == "receita" or "transferencia") {
         std::shared_ptr<Carteira> cart_conta = getConta(conta);
 
         std::cout << "Conta: " << cart_conta->getNome() << std::endl;
