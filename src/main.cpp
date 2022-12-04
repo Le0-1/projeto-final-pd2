@@ -292,8 +292,8 @@ int main(int argc, char const *argv[]) {
 
                 catch (ctrexcp::ValorInvalido& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
-                    Utils::printColorNoLine(Foreground::f_red, ", transferência deixa saldo negativo");
-                    std::cout << "\t Conta: " << e.getNome()
+                    Utils::printColor(Foreground::f_red, ", transferência deixa saldo negativo");
+                    std::cout << "Conta: " << e.getNome() 
                     << "\t saldo: " << e.getValor()
                     << "\t valor da transferência: " << valor_transacao
                     << std::endl;
@@ -446,10 +446,18 @@ int main(int argc, char const *argv[]) {
                     std::cout << "\t ID: " << e.getID()
                     << std::endl;
                 }
+
                 catch (ctrexcp::SaldoInsuficiente &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\n Saldo na conta de destino R$" << e.getSaldo()
                     << "\n Valor que deve ser debitado R$" << e.getDespesa()
+                    << std::endl;
+                }
+
+                catch (trfexcp::TransferenciaInvalida& e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, ", ID não é de uma transferência");
+                    std::cout << "\t Conta: " << e.getNomeConta()
                     << std::endl;
                 }
 
@@ -590,17 +598,18 @@ int main(int argc, char const *argv[]) {
                     gc.listarTransacao(conta, tipo);
                 }
 
-                catch (trsexcp::TipoTransacaoInvalido &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Tipo: " << e.getTipo()
-                    << std::endl;
-                }
-                
                 catch (ctrexcp::ContaNaoEncontrada &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
                 }
+
+                catch (trsexcp::TipoTransacaoInvalido &e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\t Tipo: " << e.getTipo()
+                    << std::endl;
+                }
+            
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
                 break;
