@@ -625,14 +625,13 @@ int main(int argc, char const *argv[]) {
                 std::cout << std::endl;
                 continue;
 
-            case 16: // Listar constas
+            case 16: // Listar carteiras
                 Utils::printColor(corSeparador, separador);
-                Utils::printColor(Efeitos::inverse, "-------------- LISTAR CONTAS --------------");
+                Utils::printColor(Efeitos::inverse, "------------ LISTAR CARTEIRAS -------------");
 
                 try {
                     gc.imprimirContas();
                 }
-
                 catch (gcexcp::PerfilVazio &e) {
                     Utils::printColor(Foreground::f_red, e.what());
                 }
@@ -653,13 +652,11 @@ int main(int argc, char const *argv[]) {
                 try {
                     gc.listarTransacao(conta, tipo);
                 }
-
                 catch (ctrexcp::ContaNaoEncontrada &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
                 }
-
                 catch (trsexcp::TipoTransacaoInvalido &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Tipo: " << e.getTipo()
@@ -683,7 +680,7 @@ int main(int argc, char const *argv[]) {
 }
 
 void printMenu() {
-    Utils::printColor(Efeitos::inverse, "MENU");
+    Utils::printColor(Efeitos::inverse, "------------------- MENU ------------------");
     std::cout << "0 - Imprimir menu\n"
               << "1 - Adicionar carteira\n"
               << "2 - Adicionar conta\n"
@@ -699,7 +696,7 @@ void printMenu() {
               << "12 - Remover transferencia\n"
               << "13 - Adicionar cartao credito\n"
               << "14 - Remover cartao de credito\n"
-              << "15 - pagar fatura\n"
+              << "15 - Pagar fatura\n"
               << "16 - Listar carteiras\n"
               << "17 - Listas transacoes\n"
               << "18 - Sair\n";
