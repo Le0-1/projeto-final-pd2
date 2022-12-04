@@ -25,3 +25,17 @@ std::string trsexcp::TipoTransacaoInvalido::getTipo() {
 const char* trsexcp::TipoTransacaoInvalido::what() const throw() {
     return "O tipo da transacao é inválida";
 }
+
+// Metodo para DataInvalida
+
+trsexcp::DataInvalida::DataInvalida(std::string data) {
+    this->_data = data;
+}
+
+std::string trsexcp::DataInvalida::getData() {
+    return this->_data;
+}
+
+const char* trsexcp::DataInvalida::what() const throw() {
+    return "Data informada não está no padrão dd-mm-aaaa ou é inválida";
+}

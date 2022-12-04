@@ -1,6 +1,7 @@
 #ifndef BARRICADA_H
 #define BARRICADA_H
 
+#include "TransacaoExcp.hpp"
 #include "CartaoDeCreditoExcp.hpp"
 #include "TransferenciaExcp.hpp"
 
@@ -31,6 +32,8 @@ class Barricada {
         
         static bool validar_transferencia(std::string& data, std::string& origem,
                                           std::string& destino);
+                                          
+        static bool validar_data(std::string& data);
 };
 
 #endif

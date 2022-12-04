@@ -29,6 +29,18 @@ namespace trsexcp {
 
             std::string getTipo();
     };
+
+    class DataInvalida : public std::exception {
+        private:
+            std::string _data;
+
+        public:
+            DataInvalida(std::string data);
+
+            const char* what() const throw();
+
+            std::string getData();
+    };
 }
 
 #endif

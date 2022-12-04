@@ -96,3 +96,13 @@ bool Barricada::validar_transferencia(std::string& data, std::string& origem,
     }
     return false;
 }
+
+bool Barricada::validar_data(std::string& data) {
+
+    if(std::regex_match(data, std::regex(data_valida))) {
+        return true;
+    } else {
+        throw trsexcp::DataInvalida(data);
+    }
+    return false;
+}

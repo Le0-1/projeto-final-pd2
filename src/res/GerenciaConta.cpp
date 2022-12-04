@@ -57,12 +57,17 @@ void GerenciaConta::removerConta(std::string nome) {
 }
 
 void GerenciaConta::adicionarReceita(std::string conta, double valor, std::string data, std::string categoria) {
+
+    Barricada::validar_data(data);
     
     std::shared_ptr<Receita> receita = std::make_shared<Receita>(conta, valor, data, categoria);
     getConta(conta)->adicionarTransacao(receita);
 }
 
 void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::string data, std::string categoria) {
+
+    Barricada::validar_data(data);
+
     std::shared_ptr<Despesa> despesa = std::make_shared<Despesa>(valor, data, categoria, conta);
     getConta(conta)->adicionarTransacao(despesa);
 }
@@ -70,6 +75,8 @@ void GerenciaConta::adicionarDespesa(std::string conta, double valor, std::strin
 void GerenciaConta::adicionarDespesaCartao(std::string conta, std::string cartao, double valor, std::string data, std::string categoria) {
 
     if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
+        Barricada::validar_data(data);
+
         std::shared_ptr<CarteiraBancaria> conta_bancaria;
         conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
         conta_bancaria->getCartaoDeCredito(cartao)->adicionarDespesa(valor, data, categoria);
