@@ -58,14 +58,14 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Carteira criada" << std::endl;
                 }
 
-                catch (gcexcp::ValorInvalido& e) {
+                catch (ctrexcp::ValorInvalido& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Carteira: " << e.getNome()
                     << "\t saldo: " << e.getValor()
                     << std::endl;
                 }
 
-                catch (gcexcp::ContaJaExiste &e) {
+                catch (ctrexcp::ContaJaExiste &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Nome: " << e.getNome()
                     << std::endl;
@@ -89,13 +89,13 @@ int main(int argc, char const *argv[]) {
                     gc.adicionarConta(nome, saldo_inicial);
                     std::cout << "Conta criada" << std::endl;
                 }
-                catch (gcexcp::ValorInvalido& e) {
+                catch (ctrexcp::ValorInvalido& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << "\t saldo: " << e.getValor()
                     << std::endl;
                 }
-                catch (gcexcp::ContaJaExiste &e) {
+                catch (ctrexcp::ContaJaExiste &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Nome: " << e.getNome()
                     << std::endl;
@@ -118,7 +118,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Carteira removida" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Carteira: " << e.getNome()
                     << std::endl;
@@ -139,7 +139,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Conta removida" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
@@ -166,19 +166,19 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Receita adicionada" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
                 }
 
-                catch (gcexcp::ValorInvalido &e) {
+                catch (ctrexcp::ValorInvalido &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Valor: " << e.getValor()
                     << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoPermiteCartao &e) {
+                catch (ctrexcp::ContaNaoPermiteCartao &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNomeConta()
                     << "\t Subtipo: " << e.getSubtipoConta()
@@ -207,19 +207,19 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Despesa adicionada" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
                 }
 
-                catch (gcexcp::ValorInvalido &e) {
+                catch (ctrexcp::ValorInvalido &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Valor: " << e.getValor()
                     << std::endl;
                 }
 
-                catch (gcexcp::SaldoInsuficiente &e) {
+                catch (ctrexcp::SaldoInsuficiente &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Diferença: " << e.getSaldo() - e.getDespesa()
                     << std::endl;
@@ -244,7 +244,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Despesa cartao de credito adicionada" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
@@ -284,7 +284,22 @@ int main(int argc, char const *argv[]) {
                     std::cout << "transferencia adicionada" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (trfexcp::TransferenciaInvalida& e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\t Conta: " << e.getNomeConta()
+                    << std::endl;
+                }
+
+                catch (ctrexcp::ValorInvalido& e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, ", transferência deixa saldo negativo");
+                    std::cout << "\t Conta: " << e.getNome()
+                    << "\t saldo: " << e.getValor()
+                    << "\t valor da transferência: " << valor_transacao
+                    << std::endl;
+                }
+
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
@@ -315,7 +330,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Receita removida" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Carteira: " << e.getNome()
                     << std::endl;
@@ -352,7 +367,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Despesa removida" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Carteira: " << e.getNome()
                     << std::endl;
@@ -389,7 +404,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Despesa cartao removida" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Carteira: " << e.getNome()
                     << std::endl;
@@ -431,7 +446,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "\t ID: " << e.getID()
                     << std::endl;
                 }
-                catch (gcexcp::SaldoInsuficiente &e) {
+                catch (ctrexcp::SaldoInsuficiente &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\n Saldo na conta de destino R$" << e.getSaldo()
                     << "\n Valor que deve ser debitado R$" << e.getDespesa()
@@ -457,7 +472,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Cartao de credito criado" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada& e) {
+                catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
@@ -489,7 +504,7 @@ int main(int argc, char const *argv[]) {
                               
                 }
 
-                catch (gcexcp::ContaNaoPermiteCartao &e) {
+                catch (ctrexcp::ContaNaoPermiteCartao &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNomeConta()
                     << "\t Subtipo: " << e.getSubtipoConta()
@@ -512,7 +527,7 @@ int main(int argc, char const *argv[]) {
                     std::cout << "Cartao de credito removido" << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoEncontrada &e) {
+                catch (ctrexcp::ContaNaoEncontrada &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
@@ -524,7 +539,7 @@ int main(int argc, char const *argv[]) {
                     << std::endl;
                 }
 
-                catch (gcexcp::ContaNaoPermiteCartao &e) {
+                catch (ctrexcp::ContaNaoPermiteCartao &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNomeConta()
                     << "\t Subtipo: " << e.getSubtipoConta()
@@ -581,7 +596,7 @@ int main(int argc, char const *argv[]) {
                     << std::endl;
                 }
                 
-                catch (gcexcp::ContaNaoEncontrada &e) {
+                catch (ctrexcp::ContaNaoEncontrada &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;

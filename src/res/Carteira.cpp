@@ -1,15 +1,15 @@
 #include "Carteira.hpp"
-#include "GerenciaContaExcp.hpp"
+#include "CarteiraExcp.hpp"
 
 Carteira::Carteira(std::string nome, double saldo_inicial) {
-    if (saldo_inicial < 0) throw gcexcp::ValorInvalido(saldo_inicial, nome);
+    if (saldo_inicial < 0) throw ctrexcp::ValorInvalido(saldo_inicial, nome);
     this->_nome = nome;
     this->_saldo_atual = saldo_inicial;
     this->_subtipo = "Carteira";
 }
 
 Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) {
-    if (saldo_inicial < 0) throw gcexcp::ValorInvalido(saldo_inicial, nome);
+    if (saldo_inicial < 0) throw ctrexcp::ValorInvalido(saldo_inicial, nome);
     this->_nome = nome;
     this->_saldo_atual = saldo_inicial;
     this->_subtipo = subtipo;
@@ -21,7 +21,7 @@ void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
     double valor = transacao->getValor();
 
     if(valor < 0) {
-        throw gcexcp::ValorInvalido(valor);
+        throw ctrexcp::ValorInvalido(valor);
     }
 
     if (transacao->getSubtipo() == "receita") {
@@ -32,7 +32,7 @@ void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
 
         /*Se o saldo atual for menor que o valor da transacao nao dá para adicionar a despesa*/
         if (this->getSaldoAtual() < valor) {
-            throw gcexcp::SaldoInsuficiente(this->getSaldoAtual(), valor);
+            throw ctrexcp::SaldoInsuficiente(this->getSaldoAtual(), valor);
         }
 
         else {
@@ -76,7 +76,7 @@ double Carteira::getSaldoAtual() {
 }
 
 void Carteira::setSaldoAtual(double saldo) {
-    if (saldo < 0) throw gcexcp::ValorInvalido(saldo, this->getNome());
+    if (saldo < 0) throw ctrexcp::ValorInvalido(saldo, this->getNome());
     this->_saldo_atual = saldo;
 }
 
