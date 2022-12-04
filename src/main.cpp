@@ -174,23 +174,25 @@ int main(int argc, char const *argv[]) {
                     gc.adicionarReceita(conta, valor_transacao, data, categoria);
                     std::cout << "Receita adicionada" << std::endl;
                 }
-
                 catch (ctrexcp::ContaNaoEncontrada& e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNome()
                     << std::endl;
                 }
-
                 catch (ctrexcp::ValorInvalido &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Valor: " << e.getValor()
                     << std::endl;
                 }
-
                 catch (ctrexcp::ContaNaoPermiteCartao &e) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Conta: " << e.getNomeConta()
                     << "\t Subtipo: " << e.getSubtipoConta()
+                    << std::endl;
+                }
+                catch (trsexcp::DataInvalida &e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\tData: " << e.getData()
                     << std::endl;
                 }
 
@@ -234,6 +236,11 @@ int main(int argc, char const *argv[]) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\t Diferença: " << e.getSaldo() - e.getDespesa()
                     << std::endl;
+                } 
+                catch (trsexcp::DataInvalida &e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\tData: " << e.getData()
+                    << std::endl;
                 }
 
                 Utils::printColor(corSeparador, separador);
@@ -273,6 +280,11 @@ int main(int argc, char const *argv[]) {
                     Utils::printColorNoLine(Foreground::f_red, e.what());
                     std::cout << "\n Limite restante do cartão " << e.getNomeCartao()
                     << " é: " << e.getLimiteCartao() - e.getSomaDespesasAtuais
+                    << std::endl;
+                }
+                catch (trsexcp::DataInvalida &e) {
+                    Utils::printColorNoLine(Foreground::f_red, e.what());
+                    std::cout << "\tData: " << e.getData()
                     << std::endl;
                 }
 
