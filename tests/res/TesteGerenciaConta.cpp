@@ -93,3 +93,11 @@ TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Despesa)") {
     std::shared_ptr<Transacao> despesa = std::make_shared<Despesa>(novaDespesa);
     CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), ctrexcp::ContaNaoEncontrada);
 }
+
+TEST_CASE("Teste adicionarCartao - Caso Base") {
+    CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
+    CartaoDeCredito novoCartao("cartao", "101010101010101", "001", "10/11/1999", 1000);
+    novaCarteiraBancaria.adicionarCartao(novoCartao);
+    CHECK(novaCarteiraBancaria._cartoes().size() != 0);
+}
+
