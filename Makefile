@@ -28,27 +28,30 @@ BUILD_FILES = \
 	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
 	$(BUILD_DIR)/GerenciaContaExcp.o \
 	$(BUILD_DIR)/TransacaoExcp.o \
-	$(BUILD_DIR)/TransferenciaExcp.o \
 	$(BUILD_DIR)/Utils.o \
 	$(BUILD_DIR)/CarteiraExcp.o \
 	$(BUILD_DIR)/main.o
 
 TEST_DEPENDENCIES = \
-	$(BUILD_DIR)/Transacao.o \
-	$(BUILD_DIR)/Carteira.o \
-	$(BUILD_DIR)/Despesa.o \
-	$(BUILD_DIR)/Receita.o \
-	$(BUILD_DIR)/CartaoDeCredito.o \
-	$(BUILD_DIR)/CartaoDeCreditoExcp.o \
-	$(BUILD_DIR)/GerenciaContaExcp.o \
-	$(BUILD_DIR)/TransacaoExcp.o \
-	$(BUILD_DIR)/TransferenciaExcp.o \
-	$(BUILD_DIR)/CarteiraExcp.o \
-	$(BUILD_DIR)/Utils.o 
+    $(BUILD_DIR)/GerenciaConta.o \
+    $(BUILD_DIR)/Barricada.o \
+    $(BUILD_DIR)/Carteira.o \
+    $(BUILD_DIR)/CarteiraBancaria.o \
+    $(BUILD_DIR)/Receita.o \
+    $(BUILD_DIR)/Despesa.o \
+    $(BUILD_DIR)/Transferencia.o \
+    $(BUILD_DIR)/Transacao.o \
+    $(BUILD_DIR)/CartaoDeCredito.o \
+    $(BUILD_DIR)/CartaoDeCreditoExcp.o \
+    $(BUILD_DIR)/GerenciaContaExcp.o \
+    $(BUILD_DIR)/TransacaoExcp.o \
+    $(BUILD_DIR)/Utils.o \
+    $(BUILD_DIR)/CarteiraExcp.o
 
 BUILD_TEST_FILES = \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteira.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteGerenciaConta.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/main_test.o 
 
 all: $(BUILD_DIR)/$(NAME)
@@ -62,7 +65,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)$(RES_DIR)/%.cpp $(INCLUDE_DIR)/%.hpp
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CC) -c $(CFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@
 
-debug: clean var all
+debug: clean_build var all
 
 var:
 	$(eval DEBUG_FLAG = -g)
