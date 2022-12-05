@@ -62,20 +62,6 @@ TEST_CASE("Teste adicionarTransacao - Excecao Saldo Insuficiente (Despesa)") {
     CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), ctrexcp::SaldoInsuficiente);
 }
 
-TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Receita)") {
-    Carteira novaCarteira("nome", 1000);
-    Receita novaReceita("conta_fantasma", 100, "10/11/1999", "receita");
-    std::shared_ptr<Transacao> receita = std::make_shared<Receita>(novaReceita);
-    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(receita), ctrexcp::ContaNaoEncontrada);
-}
-
-TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Despesa)") {
-    Carteira novaCarteira("nome", 1000);
-    Despesa novaDespesa(100, "10/11/1999", "despesa", "conta_fantasma");
-    std::shared_ptr<Transacao> despesa = std::make_shared<Despesa>(novaDespesa);
-    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), ctrexcp::ContaNaoEncontrada);
-}
-
 TEST_CASE("Teste removerTransacao - Caso Base (Receita)") {
     Carteira novaCarteira("nome", 1000);
     Receita novaReceita("nome", 100, "10/11/1999", "receita"), novaReceita2("nome", 100, "10/11/1999", "receita");
