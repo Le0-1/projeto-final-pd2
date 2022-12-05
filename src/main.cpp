@@ -299,7 +299,7 @@ int main(int argc, char const *argv[]) {
                 } 
                 catch (trsexcp::DataInvalida &e) {
                     Utils::printColor(Foreground::f_red, e.what());
-                    Utils::printColor(Foreground::f_red, "DATA: ");
+                    Utils::printColorNoLine(Foreground::f_red, "DATA: ");
                     std::cout << e.getData() << std::endl;
                 }
 

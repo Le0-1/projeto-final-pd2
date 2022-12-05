@@ -73,20 +73,17 @@ void Barricada::validar_limite_cartao(double &limite_cartao) {
 bool Barricada::validar_cartao(std::string& numero, std::string& CVV,
                                std::string& fechamento) {
                                 
-    if (std::regex_match(numero, std::regex(numero_cc_valido))) {
-        if (std::regex_match(CVV, std::regex(CVV_valido))) {
-            if(std::regex_match(fechamento, std::regex(fechamento_valido))) {
-                return true;
-            } else {
-                throw cdcexcp::FechamentoInvalido(fechamento);
-            }
-        } else {
-            throw cdcexcp::CVVInvalido(CVV);
-        }
-    } else {
+    if (!std::regex_match(numero, std::regex(numero_cc_valido))) {
         throw cdcexcp::NumeroInvalido(numero);
     }
-    return false;
+    if (!std::regex_match(CVV, std::regex(CVV_valido))) {
+        throw cdcexcp::CVVInvalido(CVV);
+    }
+    if (!std::regex_match(fechamento, std::regex(fechamento_valido))) {
+        throw cdcexcp::FechamentoInvalido(fechamento);
+    }
+
+    return true;
 }
 
 bool Barricada::validar_transferencia(std::string& data, std::string& origem,
@@ -95,13 +92,11 @@ bool Barricada::validar_transferencia(std::string& data, std::string& origem,
     if (origem == destino) {
         throw trfexcp::TransferenciaInvalida(origem);
     }
-    else if (std::regex_match(data, std::regex(data_valida))) {
-        return true;
+    if (!std::regex_match(data, std::regex(data_valida))) {
+        throw trsexcp::DataInvalida(data);
     }
-    else {
-        throw trfexcp::DataInvalida(data);
-    }
-    return false;
+
+    return true;
 }
 
 bool Barricada::validar_data(std::string& data) {
