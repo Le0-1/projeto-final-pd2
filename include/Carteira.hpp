@@ -4,6 +4,7 @@
 #include "Transacao.hpp"
 #include "Utils.hpp"
 #include "GerenciaContaExcp.hpp"
+#include "CarteiraExcp.hpp"
 
 #include <iomanip>
 #include <iostream>

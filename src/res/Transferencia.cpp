@@ -1,5 +1,4 @@
 #include "Transferencia.hpp"
-#include "Transacao.hpp"
 
 Transferencia::Transferencia(double valor, std::string data,
         std::string categoria, std::string origem, std::string destino)

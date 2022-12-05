@@ -7,13 +7,13 @@
 #include "CarteiraBancaria.hpp"
 #include "Receita.hpp"
 #include "Despesa.hpp"
-#include "Transferencia.hpp"
 #include "CartaoDeCredito.hpp"
 #include "GerenciaContaExcp.hpp"
 #include "CarteiraExcp.hpp"
 #include "TransacaoExcp.hpp"
-#include "TransferenciaExcp.hpp"
 
+#include <algorithm>
+#include <cctype>
 #include <memory>
 #include <map>
 

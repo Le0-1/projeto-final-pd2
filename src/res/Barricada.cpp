@@ -1,5 +1,4 @@
 #include "Barricada.hpp"
-#include "Utils.hpp"
 
 #include <iomanip>
 #include <ctime>

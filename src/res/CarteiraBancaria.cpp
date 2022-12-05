@@ -1,7 +1,5 @@
 #include "CarteiraBancaria.hpp"
 
-#include <iostream>
-
 CarteiraBancaria::CarteiraBancaria(std::string nome, double saldo_inicial)
                                    : Carteira(nome, saldo_inicial, "CarteiraBancaria") { }
 

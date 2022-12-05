@@ -1,10 +1,5 @@
 #include "GerenciaConta.hpp"
-#include "GerenciaContaExcp.hpp"
-#include "CarteiraExcp.hpp"
-#include "TransacaoExcp.hpp"
-#include <algorithm>
-#include <cctype>
-#include <memory>
+
 
 GerenciaConta::GerenciaConta() { }
 

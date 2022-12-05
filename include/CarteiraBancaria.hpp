@@ -7,6 +7,7 @@
 
 #include <string>
 #include <map>
+#include <iostream>
 
 class CarteiraBancaria : public Carteira {
     private:

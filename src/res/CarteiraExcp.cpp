@@ -1,7 +1,6 @@
 #include "CarteiraExcp.hpp"
 
 /*Métodos para ValorInvalido*/
-
 ctrexcp::ValorInvalido::ValorInvalido(double valor, std::string nome) {
     this->_valor = valor;
     this->_nome = nome;

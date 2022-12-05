@@ -1,5 +1,4 @@
 #include "Carteira.hpp"
-#include "CarteiraExcp.hpp"
 
 Carteira::Carteira(std::string nome, double saldo_inicial) {
     if (saldo_inicial < 0) {
