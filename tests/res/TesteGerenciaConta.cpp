@@ -45,7 +45,7 @@ TEST_CASE("Teste removerReceita - Caso Base") {
     gerente.adicionarConta("conta", 100);
     gerente.adicionarReceita("conta", 50, "10/10/2022", "categoria");
     gerente.adicionarReceita("conta", 50, "11/10/2022", "categoria");
-    auto it = gerente.getConta("Conta")->getTransacoes().rbegin();
+    auto it = gerente.getConta("conta")->getTransacoes().rbegin();
     gerente.removerReceita("conta", it->second->getID());
     CHECK(gerente.getConta("conta")->getSaldoAtual() == 150);
 }
@@ -55,7 +55,7 @@ TEST_CASE("Teste removerDespesa - Caso Base") {
     gerente.adicionarConta("conta", 100);
     gerente.adicionarDespesa("conta", 50, "10/10/2022", "categoria");
     gerente.adicionarDespesa("conta", 50, "11/10/2022", "categoria");
-    auto it = gerente.getConta("Conta")->getTransacoes().rbegin();
+    auto it = gerente.getConta("conta")->getTransacoes().rbegin();
     gerente.removerDespesa("conta", it->second->getID());
     CHECK(gerente.getConta("conta")->getSaldoAtual() == 50);
 }
@@ -74,9 +74,22 @@ TEST_CASE("Teste removerTransferencia - Caso Base") {
     gerente.adicionarConta("conta_2", 1000);
     gerente.adicionarTransferencia(100, "10/10/2022", "categoria", "conta", "conta_2");
     gerente.adicionarTransferencia(100, "11/10/2022", "categoria", "conta", "conta_2");
-    auto it = gerente.getConta("Conta")->getTransacoes().rbegin();
+    auto it = gerente.getConta("conta")->getTransacoes().rbegin();
     gerente.removerTransferencia("conta", it->second->getID());
     CHECK(gerente.getConta("conta_2")->getSaldoAtual() == 1100);
 }
 
+TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Receita)") {
+    GerenciaConta gerente;
+    Carteira novaCarteira("nome", 1000);
+    Receita novaReceita("conta_fantasma", 100, "10/11/1999", "receita");
+    std::shared_ptr<Transacao> receita = std::make_shared<Receita>(novaReceita);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(receita), ctrexcp::ContaNaoEncontrada);
+}
 
+TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Despesa)") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(100, "10/11/1999", "despesa", "conta_fantasma");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Despesa>(novaDespesa);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), ctrexcp::ContaNaoEncontrada);
+}
