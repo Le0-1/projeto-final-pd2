@@ -3,7 +3,7 @@
 #include <iostream>
 
 CarteiraBancaria::CarteiraBancaria(std::string nome, double saldo_inicial)
-    : Carteira(nome, saldo_inicial, "CarteiraBancaria") { }
+                                   : Carteira(nome, saldo_inicial, "CarteiraBancaria") { }
 
 void CarteiraBancaria::adicionarCartao(CartaoDeCredito cartao) {
     /*A funcao find do map retorna o 'end' do map se não encontrar nada*/
@@ -29,6 +29,7 @@ std::map<std::string, CartaoDeCredito> &CarteiraBancaria::getCartoes() {
 }
 
 CartaoDeCredito *CarteiraBancaria::getCartaoDeCredito(std::string nome) {
+
     if (getCartoes().find(nome) == getCartoes().end()) {
         throw cdcexcp::CartaoNaoEncontrado(nome);
     }
@@ -36,6 +37,7 @@ CartaoDeCredito *CarteiraBancaria::getCartaoDeCredito(std::string nome) {
 }
 
 void CarteiraBancaria::pagarFatura(std::string cartao) {
+
     CartaoDeCredito *cartaoDeCredito = getCartaoDeCredito(cartao);
     double valor_fatura = cartaoDeCredito->getTotalDespesas();
 
@@ -55,6 +57,7 @@ void CarteiraBancaria::pagarFatura(std::string cartao) {
 }
 
 void CarteiraBancaria::imprimirInfo() {
+    
     const std::string separador = "___________________________________________";
     Utils::printColor(Foreground::f_yellow, separador);
 

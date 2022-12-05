@@ -77,7 +77,7 @@ ctrexcp::SaldoInsuficiente::SaldoInsuficiente(double saldo, double despesa) {
 }
 
 const char* ctrexcp::SaldoInsuficiente::what() const throw() {
-    return "ERRO 🕵️: Saldo insuficiente para realizar a transacao";
+    return "ERRO 🕵️: Saldo insuficiente para realizar a transação";
 }
 
 double ctrexcp::SaldoInsuficiente::getSaldo() {
