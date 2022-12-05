@@ -47,29 +47,30 @@ int main(int argc, char const *argv[]) {
             case 1: // Adicionar carteira
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "-------------- NOVA CARTEIRA --------------");
-                std::cout << "NOME, SALDO INICIAL" << std::endl;
 
-                std::cin >> nome >> saldo_inicial;
+                Utils::printColorNoLine(Efeitos::bold_bright, "NOME CARTEIRA: ");
+                std::cin >> nome;
+                Utils::printColorNoLine(Efeitos::bold_bright, "SALDO INICIAL: ");
+                std::cin >> saldo_inicial;
 
                 /*Barricada que verifica o valor do saldo*/
                 Barricada::validar_saldo(saldo_inicial);
 
                 try {
                     gc.adicionarCarteira(nome, saldo_inicial);
-                    std::cout << "Carteira criada" << std::endl;
+                    Utils::printColor(Foreground::f_green, "CARTEIRA ADICIONADA ✔️");
                 }
 
                 catch (ctrexcp::ValorInvalido& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Carteira: " << e.getNome()
-                    << "\t saldo: " << e.getValor()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "SALDO: "); 
+                    std::cout << e.getValor() << std::endl;
                 }
 
                 catch (ctrexcp::ContaJaExiste &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Nome: " << e.getNome()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: "); 
+                    std::cout << e.getNome() << std::endl;
                 }
 
                 Utils::printColor(corSeparador, separador);
@@ -78,30 +79,31 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 2: // Adicionar conta
+            case 2: // Adicionar carteira bancária
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "--------------- NOVA CONTA ----------------");
-                std::cout << "NOME, SALDO" << std::endl;
 
-                std::cin >> nome >> saldo_inicial;
+                Utils::printColorNoLine(Efeitos::bold_bright, "NOME CARTEIRA: ");
+                std::cin >> nome;
+                Utils::printColorNoLine(Efeitos::bold_bright, "SALDO INICIAL: ");
+                std::cin >> saldo_inicial;
 
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_saldo(saldo_inicial);
 
                 try {
                     gc.adicionarConta(nome, saldo_inicial);
-                    std::cout << "Conta criada" << std::endl;
+                    Utils::printColor(Foreground::f_green, "CARTEIRA BANCÁRIA ADICIONADA ✔️");
                 }
                 catch (ctrexcp::ValorInvalido& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNome()
-                    << "\t saldo: " << e.getValor()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "SALDO: "); 
+                    std::cout << e.getValor() << std::endl;
                 }
                 catch (ctrexcp::ContaJaExiste &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Nome: " << e.getNome()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: "); 
+                    std::cout << e.getNome() << std::endl;
                 }
 
                 Utils::printColor(corSeparador, separador);
@@ -110,138 +112,52 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 3: // Remover carteira
-                Utils::printColor(corSeparador, separador);
-                Utils::printColor(Efeitos::inverse, 
-                                 "------------ REMOVER CARTEIRA -------------");
-                std::cout << "NOME" << std::endl;
-
-                std::cin >> nome;
-
-                try {
-                    gc.removerConta(nome);
-                    std::cout << "Carteira removida" << std::endl;
-                }
-
-                catch (ctrexcp::ContaNaoEncontrada& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Carteira: " << e.getNome()
-                    << std::endl;
-                }
-
-                Utils::printColor(corSeparador, separador);
-                std::cout << std::endl;
-                printMensagem();
-
-                continue;
-
-            case 4: // Remover conta
-                Utils::printColor(corSeparador, separador);
-                Utils::printColor(Efeitos::inverse, "--------------- REMOVER CONTA -------------");
-                std::cout << "NOME" << std::endl;
-                std::cin >> nome;
-
-                try {
-                    gc.removerConta(nome);
-                    std::cout << "Conta removida" << std::endl;
-                }
-
-                catch (ctrexcp::ContaNaoEncontrada& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNome()
-                    << std::endl;
-                }
-
-                Utils::printColor(corSeparador, separador);
-                std::cout << std::endl;
-                printMensagem();
-
-                continue;
-
-            case 5: // Adicionar receita
+            case 3: // Adicionar receita
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "----------- ADICIONAR RECEITA -------------");
-                std::cout << "CONTA, VALOR, DATA, CATEGORIA" << std::endl;
+                // std::cout << "CONTA, VALOR, DATA, CATEGORIA" << std::endl;
 
-                std::cin >> conta >> valor_transacao;
+                //std::cin >> conta >> valor_transacao;
 
-                /*Barricada que verifica o valor da transacao*/
-                Barricada::validar_transacao(valor_transacao);
-                Barricada::selecionarData(data);
-                std::cin >> categoria;
-
-                try {
-                    gc.adicionarReceita(conta, valor_transacao, data, categoria);
-                    std::cout << "Receita adicionada" << std::endl;
-                }
-                catch (ctrexcp::ContaNaoEncontrada& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNome()
-                    << std::endl;
-                }
-                catch (ctrexcp::ValorInvalido &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Valor: " << e.getValor()
-                    << std::endl;
-                }
-                catch (ctrexcp::ContaNaoPermiteCartao &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNomeConta()
-                    << "\t Subtipo: " << e.getSubtipoConta()
-                    << std::endl;
-                }
-                catch (trsexcp::DataInvalida &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\tData: " << e.getData()
-                    << std::endl;
-                }
-
-                Utils::printColor(corSeparador, separador);
-                std::cout << std::endl;
-                printMensagem();
-
-                continue;
-
-            case 6: // Adicionar despesa
-                Utils::printColor(corSeparador, separador);
-                Utils::printColor(Efeitos::inverse, "------------ ADICIONAR DESPESA ------------");
-                std::cout << "CONTA, VALOR, DATA, CATEGORIA" << std::endl;
-
+                Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
                 std::cin >> conta;
+                Utils::printColorNoLine(Efeitos::bold_bright, "VALOR: ");
                 std::cin >> valor_transacao;
 
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
-                Barricada::selecionarData(data);
-                std::cin >>  categoria;
 
+                Barricada::selecionarData(data);
+
+                Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
+                std::cin >> categoria;
 
                 try {
-                    gc.adicionarDespesa(conta, valor_transacao, data, categoria);
-                    std::cout << "Despesa adicionada" << std::endl;
+                    gc.adicionarReceita(conta, valor_transacao, data, categoria);
+                    Utils::printColor(Foreground::f_green, "RECEITA ADICIONADA ✔️");
                 }
-
                 catch (ctrexcp::ContaNaoEncontrada& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNome()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
                 }
-
-                catch (ctrexcp::ValorInvalido &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Valor: " << e.getValor()
-                    << std::endl;
+                catch (ctrexcp::ValorInvalido& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "SALDO: "); 
+                    std::cout << e.getValor() << std::endl;
                 }
-
-                catch (ctrexcp::SaldoInsuficiente &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Diferença: " << e.getSaldo() - e.getDespesa()
-                    << std::endl;
-                } 
+                catch (ctrexcp::ContaNaoPermiteCartao &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNomeConta();
+                    Utils::printColorNoLine(Foreground::f_red, "\t SUBTIPO: ");
+                    std::cout << e.getSubtipoConta() << std::endl;
+                    
+                }
                 catch (trsexcp::DataInvalida &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\tData: " << e.getData()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColor(Foreground::f_red, "DATA: ");
+                    std::cout << e.getData() << std::endl;
                 }
 
                 Utils::printColor(corSeparador, separador);
@@ -250,47 +166,107 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 7: // Adicionar despesa cartao de credito
+            case 4: // Adicionar despesa
                 Utils::printColor(corSeparador, separador);
-                Utils::printColor(Efeitos::inverse, "--- ADICIONAR DESPESA CARTAO DE CREDITO ---");
-                std::cout << "CONTA, CARTAO, DATA, CATEGORIA, VALOR" << std::endl;
+                Utils::printColor(Efeitos::inverse, "------------ ADICIONAR DESPESA ------------");
+                // std::cout << "CONTA, VALOR, DATA, CATEGORIA" << std::endl;
 
-                std::cin >> conta >> cartao;
+                Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
+                std::cin >> conta;
+                Utils::printColorNoLine(Efeitos::bold_bright, "VALOR: ");
+                std::cin >> valor_transacao;
+
+                /*Barricada que verifica o valor da transacao*/
+                Barricada::validar_transacao(valor_transacao);
 
                 Barricada::selecionarData(data);
 
-                std::cin >> categoria >> valor_transacao;
+                Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
+                std::cin >> categoria;
+
+
+                try {
+                    gc.adicionarDespesa(conta, valor_transacao, data, categoria);
+                    Utils::printColor(Foreground::f_green, "DESPESA ADICIONADA ✔️");
+                }
+
+                catch (ctrexcp::ContaNaoEncontrada& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
+                }
+
+                catch (ctrexcp::ValorInvalido& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "SALDO: "); 
+                    std::cout << e.getValor() << std::endl;
+                }
+
+                catch (ctrexcp::SaldoInsuficiente &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "DIFERENÇA: ");
+                    std::cout << e.getSaldo() - e.getDespesa() << std::endl;
+                } 
+                catch (trsexcp::DataInvalida &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "DATA: ");
+                    std::cout << e.getData() << std::endl;
+                }
+
+                Utils::printColor(corSeparador, separador);
+                std::cout << std::endl;
+                printMensagem();
+
+                continue;
+
+            case 5: // Adicionar despesa cartao de credito
+                Utils::printColor(corSeparador, separador);
+                Utils::printColor(Efeitos::inverse, "--- ADICIONAR DESPESA CARTAO DE CREDITO ---");
+                // std::cout << "CONTA, CARTAO, DATA, CATEGORIA, VALOR" << std::endl;
+
+                Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
+                std::cin >> conta;
+                Utils::printColorNoLine(Efeitos::bold_bright, "CARTÃO: ");
+                std::cin >> cartao;
+
+                Barricada::selecionarData(data);
+
+                Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
+                std::cin >> categoria;
+                Utils::printColorNoLine(Efeitos::bold_bright, "VALOR: ");
+                std::cin >> valor_transacao;
 
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
 
                 try {
                     gc.adicionarDespesaCartao(conta, cartao, valor_transacao, data, categoria);
-                    std::cout << "Despesa cartao de credito adicionada" << std::endl;
+                    Utils::printColor(Foreground::f_green, "DESPESA CARTÃO DE CRÉDITO ADICIONADA ✔️");
                 }
 
                 catch (ctrexcp::ContaNaoEncontrada& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNome()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
                 }
 
                 catch (cdcexcp::CartaoNaoEncontrado& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Cartao: " << e.getNomeCartao()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CARTÃO: ");
+                    std::cout << e.getNomeCartao() << std::endl;  
                 }
 
                 catch (cdcexcp::LimiteExcedido& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\n Limite restante do cartão " << e.getNomeCartao()
-                    << " é: " << e.getLimiteCartao() - e.getSomaDespesasAtuais
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "LIMITE RESTANTE DO CARTÃO "); 
+                    std::cout << e.getNomeCartao();
+                    Utils::printColorNoLine(Foreground::f_red, " É: ");
+                    std:: cout << e.getLimiteCartao() - e.getSomaDespesasAtuais << std::endl;
                 }
                 catch (trsexcp::DataInvalida &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\tData: " << e.getData()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColor(Foreground::f_red, "DATA: ");
+                    std::cout << e.getData() << std::endl;
                 }
 
                 Utils::printColor(corSeparador, separador);
@@ -299,49 +275,57 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 8: // Adicionar transferencia
+            case 6: // Adicionar transferencia
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "--------- ADICIONAR TRANSFERENCIA ---------");
-                std::cout << "VALOR, DATA, CATEGORIA, ORIGEM, DESTINO" << std::endl;
+                // std::cout << "VALOR, DATA, CATEGORIA, ORIGEM, DESTINO" << std::endl;
 
+                Utils::printColorNoLine(Efeitos::bold_bright, "VALOR: ");
                 std::cin >> valor_transacao;
 
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
-
                 Barricada::selecionarData(data);
-                std::cin >> categoria >> origem >> destino;
+
+                Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
+                std::cin >> categoria;
+                Utils::printColorNoLine(Efeitos::bold_bright, "ORIGEM: ");
+                std::cin >> origem;
+                Utils::printColorNoLine(Efeitos::bold_bright, "DESTINO: ");
+                std::cin >> destino;
 
                 try {
                     gc.adicionarTransferencia(valor_transacao, data, categoria, origem, destino);
-                    std::cout << "transferencia adicionada" << std::endl;
+                    Utils::printColor(Foreground::f_green, "TRANSFERÊNCIA ADICIONADA ✔️");
                 }
 
                 catch (trfexcp::TransferenciaInvalida& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNomeConta()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA ORIGEM IGUAL AO DESTINO: ");
+                    std::cout << e.getNomeConta() << std::endl;
                 }
 
                 catch (ctrexcp::ValorInvalido& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    Utils::printColor(Foreground::f_red, ", transferência deixa saldo negativo");
-                    std::cout << "Conta: " << e.getNome() 
-                    << "\t saldo: " << e.getValor()
-                    << "\t valor da transferência: " << valor_transacao
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColor(Foreground::f_red, "TRANSFERÊNCIA DEIXA SALDO NO NEGATIVO");
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: "); 
+                    std::cout << e.getNome();
+                    Utils::printColorNoLine(Foreground::f_red, "\tVALOR: "); 
+                    std::cout << e.getValor();
+                    Utils::printColorNoLine(Foreground::f_red, "\tVALOR DA TRANSAÇÃO: "); 
+                    std::cout << valor_transacao << std::endl;
                 }
 
                 catch (ctrexcp::ContaNaoEncontrada& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNome()
-                    << std::endl;
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
                 } 
 
-                catch (trfexcp::DataInvalida& e){
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Data: " << e.getData()
-                    << std::endl;
+                catch (trsexcp::DataInvalida &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColor(Foreground::f_red, "DATA: ");
+                    std::cout << e.getData() << std::endl;
                 }
 
                 Utils::printColor(corSeparador, separador);
@@ -350,7 +334,128 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 9: // Remover receita
+            case 7: // Adicionar cartao de credito
+                Utils::printColor(corSeparador, separador);
+                Utils::printColor(Efeitos::inverse, "------- ADICIONAR CARTAO DE CREDITO -------");
+                //std::cout << "CONTA, NOME, NUMERO, CVV, FECHAMENTO,\nLIMITE CARTAO" << std::endl;
+
+                //std::cin >> conta >> nome >> numero_cartao >> CVV >> fechamento >> limite_cartao;
+
+                Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
+                std::cin >> conta;
+                Utils::printColorNoLine(Efeitos::bold_bright, "NOME CARTÃO: ");
+                std::cin >> nome;
+                Utils::printColorNoLine(Efeitos::bold_bright, "NÚMERO CARTÃO: ");
+                std::cin >> numero_cartao;
+                Utils::printColorNoLine(Efeitos::bold_bright, "CVV CARTÃO: ");
+                std::cin >> CVV;
+                Utils::printColorNoLine(Efeitos::bold_bright, "FECHAMENTO CARTÃO: ");
+                std::cin >> fechamento;
+                Utils::printColorNoLine(Efeitos::bold_bright, "LIMITE CARTÃO: ");
+                std::cin >> limite_cartao;
+
+                /*Barricada que irá verificar o valor do limite passado*/
+                Barricada::validar_limite_cartao(limite_cartao);
+
+                try {
+                    gc.adicionarCartao(conta, nome, numero_cartao, CVV, fechamento, limite_cartao);
+                    Utils::printColor(Foreground::f_green, "CARTÃO DE CRÉDITO CRIADO ✔️");
+                }
+
+                catch (ctrexcp::ContaNaoEncontrada& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
+                }
+
+                catch (cdcexcp::LimiteInvalido& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "LIMITE DIGITADO: "); 
+                    std::cout << e.getLimiteCartao() << std::endl;
+                }
+
+                catch (cdcexcp::NumeroInvalido& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "NÚMERO DIGITADO: "); 
+                    std::cout << e.getNumero() << std::endl;
+                }
+
+                catch (cdcexcp::CVVInvalido& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CVV DIGITADO: "); 
+                    std::cout << e.getCVV() << std::endl;          
+                }
+
+                catch (cdcexcp::FechamentoInvalido& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "FECHAMENTO DIGITADO: "); 
+                    std::cout << e.getFechamento() << std::endl;
+                              
+                }
+
+                catch (ctrexcp::ContaNaoPermiteCartao &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNomeConta();
+                    Utils::printColorNoLine(Foreground::f_red, "\tSUBTIPO: ");
+                    std::cout << e.getSubtipoConta() << std::endl;
+                    
+                }
+
+                Utils::printColor(corSeparador, separador);
+                std::cout << std::endl;
+                printMensagem();
+
+                continue;
+
+            case 8: // Remover carteira
+                Utils::printColor(corSeparador, separador);
+                Utils::printColor(Efeitos::inverse, 
+                                 "------------ REMOVER CARTEIRA -------------");
+                Utils::printColorNoLine(Efeitos::bold_bright, "NOME: ");
+                std::cin >> nome;
+
+                try {
+                    gc.removerConta(nome);
+                    Utils::printColor(Foreground::f_green, "CARTEIRA REMOVIDA ✔️");
+                }
+
+                catch (ctrexcp::ContaNaoEncontrada& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
+                }
+
+                Utils::printColor(corSeparador, separador);
+                std::cout << std::endl;
+                printMensagem();
+
+                continue;
+
+            case 9: // Remover carteira bancária
+                Utils::printColor(corSeparador, separador);
+                Utils::printColor(Efeitos::inverse, "--------------- REMOVER CONTA -------------");
+                Utils::printColorNoLine(Efeitos::bold_bright, "CARTEIRA BANCÁRIA: ");
+                std::cin >> nome;
+
+                try {
+                    gc.removerConta(nome);
+                    Utils::printColor(Foreground::f_green, "CARTEIRA BANCÁRIA REMOVIDA ✔️");
+                }
+
+                catch (ctrexcp::ContaNaoEncontrada& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
+                }
+
+                Utils::printColor(corSeparador, separador);
+                std::cout << std::endl;
+                printMensagem();
+
+                continue;
+
+            case 10: // Remover receita
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "------------- REMOVER RECEITA -------------");
                 std::cout << "CONTA, ID" << std::endl;
@@ -389,7 +494,7 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 10: // Remover despesa
+            case 11: // Remover despesa
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "------------- REMOVER DESPESA -------------");
                 std::cout << "CONTA, ID" << std::endl;
@@ -428,7 +533,7 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 11: // Remover despesa cartao de credito
+            case 12: // Remover despesa cartao de credito
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "---- REMOVER DESPESA CARTAO DE CREDITO ----");
                 std::cout << "CONTA, CARTAO, ID" << std::endl;
@@ -467,7 +572,7 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 12: // Remover transferencia
+            case 13: // Remover transferencia
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "---------- REMOVER TRANSFERENCIA ----------");
                 std::cout << "CONTA, ID" << std::endl;
@@ -508,65 +613,6 @@ int main(int argc, char const *argv[]) {
 
                 continue;
 
-            case 13: // Adicionar cartao de credito
-                Utils::printColor(corSeparador, separador);
-                Utils::printColor(Efeitos::inverse, "------- ADICIONAR CARTAO DE CREDITO -------");
-                std::cout << "CONTA, NOME, NUMERO, CVV, FECHAMENTO,\nLIMITE CARTAO" << std::endl;
-
-                std::cin >> conta >> nome >> numero_cartao >> CVV >> fechamento >> limite_cartao;
-
-                /*Barricada que irá verificar o valor do limite passado*/
-                Barricada::validar_limite_cartao(limite_cartao);
-
-                try {
-                    gc.adicionarCartao(conta, nome, numero_cartao, CVV, fechamento, limite_cartao);
-                    std::cout << "Cartao de credito criado" << std::endl;
-                }
-
-                catch (ctrexcp::ContaNaoEncontrada& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNome()
-                    << std::endl;
-                }
-
-                catch (cdcexcp::LimiteInvalido& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Limite digitado: " << e.getLimiteCartao()
-                    << std::endl;
-                }
-
-                catch (cdcexcp::NumeroInvalido& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Número digitado: " << e.getNumero()
-                    << std::endl;
-                }
-
-                catch (cdcexcp::CVVInvalido& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t CVV digitado: " << e.getCVV()
-                    << std::endl;          
-                              
-                }
-
-                catch (cdcexcp::FechamentoInvalido& e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Fechamento digitado: " << e.getFechamento()
-                    << std::endl;
-                              
-                }
-
-                catch (ctrexcp::ContaNaoPermiteCartao &e) {
-                    Utils::printColorNoLine(Foreground::f_red, e.what());
-                    std::cout << "\t Conta: " << e.getNomeConta()
-                    << "\t Subtipo: " << e.getSubtipoConta()
-                    << std::endl;
-                }
-
-                Utils::printColor(corSeparador, separador);
-                std::cout << std::endl;
-                printMensagem();
-
-                continue;
 
             case 14: // Remover cartao de credito
                 Utils::printColor(corSeparador, separador);
@@ -701,18 +747,18 @@ void printMenu() {
     Utils::printColor(Efeitos::inverse, "------------------- MENU ------------------");
     std::cout << "0 - Imprimir menu\n"
               << "1 - Adicionar carteira\n"
-              << "2 - Adicionar conta\n"
-              << "3 - Remover carteira\n"
-              << "4 - Remover conta\n"
-              << "5 - Adicionar receita\n"
-              << "6 - Adicionar despesa\n"
-              << "7 - Adicionar despesa cartao de credito\n"
-              << "8 - Adicionar transferencia\n"
-              << "9 - Remover receita\n"
-              << "10 - Remover despesa\n"
-              << "11 - Remover despesa cartao de credito\n"
-              << "12 - Remover transferencia\n"
-              << "13 - Adicionar cartao credito\n"
+              << "2 - Adicionar carteira bancária\n"
+              << "3 - Adicionar receita\n"
+              << "4 - Adicionar despesa\n"
+              << "5 - Adicionar despesa cartao de credito\n"
+              << "6 - Adicionar transferencia\n"
+              << "7 - Adicionar cartao de credito\n"
+              << "8 - Remover carteira\n"
+              << "9 - Remover conta\n"
+              << "10 - Remover receita\n"
+              << "11 - Remover despesa\n"
+              << "12 - Remover despesa cartao de credito\n"
+              << "13 - Remover transferencia\n"
               << "14 - Remover cartao de credito\n"
               << "15 - Pagar fatura de um cartão\n"
               << "16 - Listar carteiras\n"

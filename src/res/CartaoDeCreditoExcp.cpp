@@ -13,7 +13,7 @@ cdcexcp::LimiteExcedido::LimiteExcedido(std::string nome_cartao,
 }
 
 const char* cdcexcp::LimiteExcedido::what() const throw() {
-    return "Limite do cartao excedido";
+    return "ERRO 🕵️: Limite do cartao excedido";
 }
 
 std::string cdcexcp::LimiteExcedido::getNomeCartao() {
@@ -51,7 +51,7 @@ double cdcexcp::LimiteInvalido::getLimiteCartao() {
 }
 
 const char* cdcexcp::LimiteInvalido::what() const throw() {
-    return "Limite inválido";
+    return "ERRO 🕵️: Limite inválido";
 }
 
 /*Métodos Exceção CartaoNaoEncontrado*/
@@ -65,7 +65,7 @@ std::string cdcexcp::CartaoNaoEncontrado::getNomeCartao() {
 }
 
 const char* cdcexcp::CartaoNaoEncontrado::what() const throw() {
-    return "Cartão não encontrado";
+    return "ERRO 🕵️: Cartão não encontrado";
 }
 
 /*Métodos Exceção NumeroInvalido*/
@@ -78,7 +78,7 @@ std::string cdcexcp::NumeroInvalido::getNumero() {
 }
 
 const char* cdcexcp::NumeroInvalido::what() const throw() {
-    return "Número do cartão não tem 16 caracteres numéricos exatos";
+    return "ERRO 🕵️: Número do cartão não tem 16 caracteres numéricos exatos";
 }
 
 /*Métodos Exceção CVVInvalido*/
@@ -91,7 +91,7 @@ std::string cdcexcp::CVVInvalido::getCVV() {
 }
 
 const char* cdcexcp::CVVInvalido::what() const throw() {
-    return "CVV do cartão não tem 3 caracteres numéricos exatos";
+    return "ERRO 🕵️: CVV do cartão não tem 3 caracteres numéricos exatos";
 }
 
 /*Métodos Exceção FechamentoInvalido*/
@@ -104,5 +104,5 @@ std::string cdcexcp::FechamentoInvalido::getFechamento() {
 }
 
 const char* cdcexcp::FechamentoInvalido::what() const throw() {
-    return "Fechamento do cartão não está entre os dias 1 e 31";
+    return "ERRO 🕵️: Fechamento do cartão não está entre os dias 1 e 31";
 }

@@ -43,6 +43,8 @@ class Utils {
 
         static void printColorNoLine(int color, std::string texto);
 
+        static void printColorNoLine(int color1, int color2, std::string texto);
+
         static void limparConsole() ;
 };
 

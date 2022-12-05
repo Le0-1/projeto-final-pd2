@@ -20,7 +20,7 @@ double ctrexcp::ValorInvalido::getValor() {
 }
 
 const char* ctrexcp::ValorInvalido::what() const throw() {
-    return "Valor Invalido";
+    return "ERRO 🕵️: Valor Invalido";
 }
 
 /*Métodos para ContaNaoEncontrada*/
@@ -33,7 +33,7 @@ std::string ctrexcp::ContaNaoEncontrada::getNome() {
 }
 
 const char* ctrexcp::ContaNaoEncontrada::what() const throw() {
-    return "Conta não encontrada";
+    return "ERRO 🕵️: Conta não encontrada";
 }
 
 
@@ -44,7 +44,7 @@ ctrexcp::ContaJaExiste::ContaJaExiste(std::string nome) {
 }
 
 const char* ctrexcp::ContaJaExiste::what() const throw() {
-    return "Já existem contas cadastradas com esse nome";
+    return "ERRO 🕵️: Já existem contas cadastradas com esse nome";
 }
 
 std::string ctrexcp::ContaJaExiste::getNome() {
@@ -59,7 +59,7 @@ ctrexcp::ContaNaoPermiteCartao::ContaNaoPermiteCartao(std::string nome, std::str
 }
 
 const char* ctrexcp::ContaNaoPermiteCartao::what() const throw() {
-    return "A conta selecionada nao permite cartao de credito";
+    return "ERRO 🕵️: A conta selecionada nao permite cartao de credito";
 }
 
 std::string ctrexcp::ContaNaoPermiteCartao::getNomeConta() {
@@ -77,7 +77,7 @@ ctrexcp::SaldoInsuficiente::SaldoInsuficiente(double saldo, double despesa) {
 }
 
 const char* ctrexcp::SaldoInsuficiente::what() const throw() {
-    return "Saldo insuficiente para realizar a transacao";
+    return "ERRO 🕵️: Saldo insuficiente para realizar a transacao";
 }
 
 double ctrexcp::SaldoInsuficiente::getSaldo() {
