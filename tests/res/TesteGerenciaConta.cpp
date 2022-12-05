@@ -29,8 +29,7 @@ TEST_CASE("Teste removerConta - Caso Base") {
 TEST_CASE("Teste adicionarReceita - Caso Base") {
     GerenciaConta gerente;
     gerente.adicionarConta("conta", 100);
-    gerente.adicionarDespesa("conta", 50, "10/10/2022", "categoria");
-//ID última Despesa = 1
+    gerente.adicionarReceita("conta", 50, "10/10/2022", "categoria");
     CHECK(gerente.getConta("conta")->getSaldoAtual() == 150);
 }
 
@@ -38,7 +37,6 @@ TEST_CASE("Teste adicionarDespesa - Caso Base") {
     GerenciaConta gerente;
     gerente.adicionarConta("conta", 100);
     gerente.adicionarDespesa("conta", 50, "10/10/2022", "categoria");
-//ID última Despesa = 2
     CHECK(gerente.getConta("conta")->getSaldoAtual() == 50);
 }
 
@@ -47,8 +45,8 @@ TEST_CASE("Teste removerReceita - Caso Base") {
     gerente.adicionarConta("conta", 100);
     gerente.adicionarReceita("conta", 50, "10/10/2022", "categoria");
     gerente.adicionarReceita("conta", 50, "11/10/2022", "categoria");
-    gerente.removerReceita("conta", 2);
-//ID última Receita = 2
+    auto it = gerente.getConta("conta")->getTransacoes().rbegin();
+    gerente.removerReceita("conta", it->second->getID());
     CHECK(gerente.getConta("conta")->getSaldoAtual() == 150);
 }
 
@@ -57,8 +55,8 @@ TEST_CASE("Teste removerDespesa - Caso Base") {
     gerente.adicionarConta("conta", 100);
     gerente.adicionarDespesa("conta", 50, "10/10/2022", "categoria");
     gerente.adicionarDespesa("conta", 50, "11/10/2022", "categoria");
-    gerente.removerDespesa("conta", 4);
-//ID última Despesa = 4
+    auto it = gerente.getConta("conta")->getTransacoes().rbegin();
+    gerente.removerDespesa("conta", it->second->getID());
     CHECK(gerente.getConta("conta")->getSaldoAtual() == 50);
 }
 
@@ -67,8 +65,7 @@ TEST_CASE("Teste adicionarTransferencia - Caso Base") {
     gerente.adicionarConta("conta", 1000);
     gerente.adicionarConta("conta_2", 1000);
     gerente.adicionarTransferencia(100, "10/10/2022", "categoria", "conta", "conta_2");
-//ID última Transferência = 1
-    CHECK(gerente.getConta("conta2")->getSaldoAtual() == 1100);
+    CHECK(gerente.getConta("conta_2")->getSaldoAtual() == 1100);
 }
 
 TEST_CASE("Teste removerTransferencia - Caso Base") {
@@ -77,9 +74,22 @@ TEST_CASE("Teste removerTransferencia - Caso Base") {
     gerente.adicionarConta("conta_2", 1000);
     gerente.adicionarTransferencia(100, "10/10/2022", "categoria", "conta", "conta_2");
     gerente.adicionarTransferencia(100, "11/10/2022", "categoria", "conta", "conta_2");
-    gerente.removerTransferencia("conta", 3);
-//ID última Transferência = 3
+    auto it = gerente.getConta("conta")->getTransacoes().rbegin();
+    gerente.removerTransferencia("conta", it->second->getID());
     CHECK(gerente.getConta("conta_2")->getSaldoAtual() == 1100);
 }
 
+TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Receita)") {
+    GerenciaConta gerente;
+    Carteira novaCarteira("nome", 1000);
+    Receita novaReceita("conta_fantasma", 100, "10/11/1999", "receita");
+    std::shared_ptr<Transacao> receita = std::make_shared<Receita>(novaReceita);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(receita), ctrexcp::ContaNaoEncontrada);
+}
 
+TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Despesa)") {
+    Carteira novaCarteira("nome", 1000);
+    Despesa novaDespesa(100, "10/11/1999", "despesa", "conta_fantasma");
+    std::shared_ptr<Transacao> despesa = std::make_shared<Despesa>(novaDespesa);
+    CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), ctrexcp::ContaNaoEncontrada);
+}
