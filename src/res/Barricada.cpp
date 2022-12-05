@@ -29,8 +29,8 @@ void Barricada::validar_saldo(double &saldo) {
 
 void Barricada::validar_input(unsigned &input) {
 
-    /*entre 0 e 18 pq é o numero de opções do menu*/
-    while (std::cin.fail() || input < 0 || input > 18) {
+    /*entre 0 e 19 pq é o numero de opções do menu*/
+    while (std::cin.fail() || input < 0 || input > 19) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Entrada inválida. Coloque uma opção do menu: ";
