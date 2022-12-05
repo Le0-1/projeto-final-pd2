@@ -49,10 +49,9 @@ void CartaoDeCredito::alterarLimiteCartao(double novo_limite) {
 void CartaoDeCredito::adicionarDespesa(double valor, std::string data, std::string categoria) {
 
     if (this->getTotalDespesas() + valor <= this->_limite_cartao) {
-        // A "conta" de uma despesa do cartao de credito eh o nome do cartao
+        // A "carteira" de uma despesa do cartao de credito eh o nome do cartao
         _despesas.push_back(std::make_shared<Despesa>(valor, data, categoria, _nome));
     } 
-    
     else {
         throw cdcexcp::LimiteExcedido(this->_nome, this->_numero, this->_limite_cartao,
                                       this->getTotalDespesas());
@@ -90,11 +89,17 @@ void CartaoDeCredito::imprimirInfo() {
     const std::string separador = "\t___________________________________";
     Utils::printColor(Foreground::f_cyan, separador);
 
-    std::cout << "\tCartao de credito: " << getNome() << std::endl;
-    std::cout << "\tNumero " << getNumero() << ", CVV " << getCVV() << std::endl;
-    std::cout << "\tFechamento: " << getFechamento() << std::endl;
-    std::cout << "\tLimite total: R$ " << std::fixed << std::setprecision(2) << getLimite() << std::endl;
-    std::cout << "\tLimite disponivel: ";
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTÃO: ");
+    std::cout << getNome() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tNÚMERO: ");
+    std::cout << getNumero() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tCVV: ");
+    std::cout << getCVV() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tFECHAMENTO: ");
+    std::cout << getFechamento() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tLIMITE: ");
+    std::cout << "R$ " << std::fixed << std::setprecision(2) << getLimite() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tLIMITE DISPONÍVEL: ");
 
     double limite_disp_t = getLimite() - getTotalDespesas();
     std::string limite_disp = std::to_string(limite_disp_t);
@@ -107,7 +112,10 @@ void CartaoDeCredito::imprimirInfo() {
         Utils::printColor(Foreground::f_red, limite_disp);
     }
 
-    std::cout << "\tQuantidade de despesas: " << getListaDespesas()->size() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tVALOR PRÓXIMA FATURA: ");
+    std::cout << "R$ " << this->getTotalDespesas() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tDESPESAS REGISTRADAS: ");
+    std::cout << this->_despesas.size() << std::endl;
 
     Utils::printColor(Foreground::f_cyan, separador);
 }

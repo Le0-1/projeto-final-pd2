@@ -18,23 +18,27 @@ void Despesa::imprimirInfo() {
 
     Utils::printColor(Foreground::f_red, separador);
 
-    std::cout << "\tID: " << getID() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tID DA DESPESA: ");
+    std::cout << getID() << std::endl;
 
     if (getSubtipo() == "CarteiraBancaria") {
-        std::cout << "\tCarteira Bancaria: " << getConta() << std::endl;
+        Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTEIRA BANCÁRIA: ");
+        std::cout << getConta() << std::endl;
     }
     else if (getSubtipo() == "Carteira") {
-        std::cout << "\tCarteira: " << getConta() << std::endl;
+        Utils::printColorNoLine(Efeitos::bold_bright, "\tCARTEIRA: ");
+        std::cout << getConta() << std::endl;
     }
     
-    std::cout << "\tValor : ";
-
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tVALOR: ");
     std::string valor = std::to_string(getValor());
     valor  = "R$ " + valor.substr(0, valor.find(".") + 3);
     Utils::printColor(Foreground::f_red, valor);
 
-    std::cout << "\tData: " << getData() << std::endl;
-    std::cout << "\tCategoria: " << getCategoria() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tDATA: ");
+    std::cout << getData() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "\tCATEGORIA: ");
+    std::cout << getCategoria() << std::endl;
 
     Utils::printColor(Foreground::f_red, separador);
 }

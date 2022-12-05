@@ -646,7 +646,7 @@ int main(int argc, char const *argv[]) {
                 }
                 catch (ctrexcp::ContaNaoPermiteCartao &e) {
                     // Remover catch quando for possivel pagar fatura com uma carteira comum
-                    Utils::printColorNoLine(Foreground::f_red, 
+                    Utils::printColor(Foreground::f_red, 
                             "NAO É POSSÍVEL PAGAR FATURA COM CONTA DO TIPO CARTEIRA COMUM");
                     Utils::printColorNoLine(Foreground::f_red, "TIPO DA CONTA: ");
                     std::cout << e.getSubtipoConta() << std::endl;
@@ -654,6 +654,7 @@ int main(int argc, char const *argv[]) {
                
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
+                printMensagem();
 
                 continue;
 

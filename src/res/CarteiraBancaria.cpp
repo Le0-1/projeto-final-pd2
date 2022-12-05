@@ -58,27 +58,31 @@ void CarteiraBancaria::imprimirInfo() {
     const std::string separador = "___________________________________________";
     Utils::printColor(Foreground::f_yellow, separador);
 
-    std::cout << getSubtipo() << ": " << getNome() << std::endl;
-    std::cout << "Saldo atual: ";
-    std::cout << std::fixed << std::setprecision(2);
+    Utils::printColorNoLine(Efeitos::bold_bright, "CARTEIRA BANCÁRIA: ");
+    std::cout << getNome() << std::endl;
 
+    Utils::printColorNoLine(Efeitos::bold_bright, "SALDO ATUAL: ");
+    std::cout << std::fixed << std::setprecision(2);
     std::string saldo = std::to_string(getSaldoAtual());
     saldo = "R$ " + saldo.substr(0, saldo.find(".") + 3);
 
     if (getSaldoAtual() > 0) {
         Utils::printColor(Foreground::f_green, saldo);
-    } 
+    }
     else if (getSaldoAtual() < 0) {
         Utils::printColor(Foreground::f_red, saldo);
-    } 
+    }
     else {
         std::cout << saldo << std::endl;
     }
 
-    std::cout << "Quantidade de transacoes: " << getTransacoes().size() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "QUANTIDADE DE TRANSAÇÕES: ");
+    std::cout << getTransacoes().size() << std::endl;
+
     ultimasTransacoes(3);
 
-    std::cout << "Quantidade de cartoes: " << getCartoes().size() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "QUANTIDADE DE CARTÕES: ");
+    std::cout << getCartoes().size() << std::endl;
     imprimirCartoes();
 
     Utils::printColor(Foreground::f_yellow, separador);

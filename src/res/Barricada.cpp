@@ -29,11 +29,11 @@ void Barricada::validar_saldo(double &saldo) {
 
 void Barricada::validar_input(unsigned &input) {
 
-    /*entre 0 e 16 pq é o numero de opções do menu*/
+    /*entre 0 e 18 pq é o numero de opções do menu*/
     while (std::cin.fail() || input < 0 || input > 18) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Entrada inválida, coloque uma opção do menu: ";
+        std::cout << "Entrada inválida. Coloque uma opção do menu: ";
         std::cin >> input;
     }
 
@@ -44,7 +44,7 @@ void Barricada::validar_transacao(double &valor_transacao) {
     while (std::cin.fail() || valor_transacao <= 0) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        std::cout << "Entrada Inválida. Coloque um valor positivo: ";
+        std::cout << "Entrada inválida. Coloque um valor positivo: ";
         std::cin >> valor_transacao;
     }
 }
@@ -54,7 +54,7 @@ void Barricada::validar_id(unsigned &id) {
     while (std::cin.fail() || id < 0) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Entrada inválida, coloque um ID : ";
+        std::cout << "Entrada inválida. Coloque um ID: ";
         std::cin >> id;
     }
 
@@ -65,7 +65,7 @@ void Barricada::validar_limite_cartao(double &limite_cartao) {
     while (std::cin.fail() || limite_cartao <= 0) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Entrada inválida, coloque um limite positivo : ";
+        std::cout << "Entrada inválida. Coloque um limite positivo: ";
         std::cin >> limite_cartao;
     }
 }
@@ -94,9 +94,11 @@ bool Barricada::validar_transferencia(std::string& data, std::string& origem,
 
     if (origem == destino) {
         throw trfexcp::TransferenciaInvalida(origem);
-    } else if (std::regex_match(data, std::regex(data_valida))) {
+    }
+    else if (std::regex_match(data, std::regex(data_valida))) {
         return true;
-    } else {
+    }
+    else {
         throw trfexcp::DataInvalida(data);
     }
     return false;
@@ -106,7 +108,8 @@ bool Barricada::validar_data(std::string& data) {
 
     if(std::regex_match(data, std::regex(data_valida))) {
         return true;
-    } else {
+    }
+    else {
         throw trsexcp::DataInvalida(data);
     }
     return false;
@@ -125,9 +128,8 @@ void Barricada::selecionarData(std::string &data) {
         oss << std::put_time(&tm, "%d/%m/%Y");
         data = oss.str();
         Utils::printColorNoLine(Efeitos::bold_bright, "A DATA DE HOJE É: ");
-        Utils::printColor(Efeitos::bold_bright, data);
+        std::cout << data << std::endl;
     }
-
     else {
         Utils::printColorNoLine(Efeitos::bold_bright, "DIGITE A DATA DESEJADA: ");
         std::cin >> data;

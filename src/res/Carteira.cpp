@@ -2,14 +2,18 @@
 #include "CarteiraExcp.hpp"
 
 Carteira::Carteira(std::string nome, double saldo_inicial) {
-    if (saldo_inicial < 0) throw ctrexcp::ValorInvalido(saldo_inicial, nome);
+    if (saldo_inicial < 0) {
+        throw ctrexcp::ValorInvalido(saldo_inicial, nome);
+    }
     this->_nome = nome;
     this->_saldo_atual = saldo_inicial;
     this->_subtipo = "Carteira";
 }
 
 Carteira::Carteira(std::string nome, double saldo_inicial, std::string subtipo) {
-    if (saldo_inicial < 0) throw ctrexcp::ValorInvalido(saldo_inicial, nome);
+    if (saldo_inicial < 0) {
+        throw ctrexcp::ValorInvalido(saldo_inicial, nome);
+    }
     this->_nome = nome;
     this->_saldo_atual = saldo_inicial;
     this->_subtipo = subtipo;
@@ -23,20 +27,16 @@ void Carteira::adicionarTransacao(std::shared_ptr<Transacao> transacao) {
     if(valor < 0) {
         throw ctrexcp::ValorInvalido(valor);
     }
-
     if (transacao->getSubtipo() == "receita") {
         setSaldoAtual(getSaldoAtual() + valor); 
     }
-
     else if (transacao->getSubtipo() == "despesa") {
-
         /*Se o saldo atual for menor que o valor da transacao nao dá para adicionar a despesa*/
         if (this->getSaldoAtual() < valor) {
             throw ctrexcp::SaldoInsuficiente(this->getSaldoAtual(), valor);
         }
-
         else {
-        setSaldoAtual(getSaldoAtual() - valor);
+            setSaldoAtual(getSaldoAtual() - valor);
         }
     }
     
@@ -76,7 +76,9 @@ double Carteira::getSaldoAtual() {
 }
 
 void Carteira::setSaldoAtual(double saldo) {
-    if (saldo < 0) throw ctrexcp::ValorInvalido(saldo, this->getNome());
+    if (saldo < 0) {
+        throw ctrexcp::ValorInvalido(saldo, this->getNome());
+    }
     this->_saldo_atual = saldo;
 }
 
@@ -90,14 +92,13 @@ std::string Carteira::getSubtipo() {
 
 void Carteira::imprimirInfo() {
     const std::string separador = "___________________________________________";
-
     Utils::printColor(Foreground::f_yellow, separador);
 
-    std::cout << getSubtipo() <<": " << getNome() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "CARTEIRA: ");
+    std::cout << getNome() << std::endl;
 
-    std::cout << "Saldo atual: ";
+    Utils::printColorNoLine(Efeitos::bold_bright, "SALDO ATUAL: ");
     std::cout << std::fixed << std::setprecision(2);
-
     std::string saldo = std::to_string(getSaldoAtual());
     saldo = "R$ " + saldo.substr(0, saldo.find(".") + 3);
 
@@ -111,7 +112,8 @@ void Carteira::imprimirInfo() {
         std::cout << saldo << std::endl;
     }
 
-    std::cout << "Quantidade de transacoes: " << getTransacoes().size() << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "QUANTIDADE DE TRANSAÇÕES: ");
+    std::cout << getTransacoes().size() << std::endl;
 
     ultimasTransacoes(3);
 
