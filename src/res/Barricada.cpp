@@ -1,4 +1,5 @@
 #include "Barricada.hpp"
+#include "Utils.hpp"
 
 #include <iomanip>
 #include <ctime>
@@ -112,7 +113,7 @@ bool Barricada::validar_data(std::string& data) {
 }
 
 void Barricada::selecionarData(std::string &data) {
-    std::cout << "Deseja Colocar a data de Hoje? [s/n]" << std::endl;
+    Utils::printColorNoLine(Efeitos::bold_bright, "DESEJA COLOCAR A DATA DE HOJE? [s/n]: ");
     char resposta;
     std::cin >> resposta;
 
@@ -123,11 +124,12 @@ void Barricada::selecionarData(std::string &data) {
         std::ostringstream oss;
         oss << std::put_time(&tm, "%d/%m/%Y");
         data = oss.str();
-        std::cout << "A data de hoje é: " << data << std::endl;
+        Utils::printColorNoLine(Efeitos::bold_bright, "A DATA DE HOJE É: ");
+        Utils::printColor(Efeitos::bold_bright, data);
     }
 
     else {
-        std::cout << "Digite a data desejada: " << std::endl;
+        Utils::printColorNoLine(Efeitos::bold_bright, "DIGITE A DATA DESEJADA: ");
         std::cin >> data;
     }
 

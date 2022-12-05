@@ -6,7 +6,7 @@ trfexcp::DataInvalida::DataInvalida(std::string data) {
 }
 
 const char* trfexcp::DataInvalida::what() const throw() {
-    return "Data informada não está no formado dd-mm-aaaa ou é inválida";
+    return "ERRO 🕵️: Data informada não está no formado dd-mm-aaaa ou é inválida";
 }
 
 std::string trfexcp::DataInvalida::getData() {
@@ -19,7 +19,7 @@ trfexcp::TransferenciaInvalida::TransferenciaInvalida(std::string nome) {
 }
 
 const char* trfexcp::TransferenciaInvalida::what() const throw() {
-    return "Não pode realizar transferência para uma mesma conta";
+    return "ERRO 🕵️: Não pode realizar transferência para uma mesma conta";
 }
 
 std::string trfexcp::TransferenciaInvalida::getNomeConta() {

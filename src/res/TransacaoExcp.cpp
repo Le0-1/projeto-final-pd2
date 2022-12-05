@@ -6,7 +6,7 @@ trsexcp::TransacaoNaoEncontrada::TransacaoNaoEncontrada(int id) {
 }
 
 const char* trsexcp::TransacaoNaoEncontrada::what() const throw() {
-    return "Transação não encontrada";
+    return "ERRO 🕵️: Transação não encontrada";
 }
 
 int trsexcp::TransacaoNaoEncontrada::getID() {
@@ -23,7 +23,7 @@ std::string trsexcp::TipoTransacaoInvalido::getTipo() {
 }
 
 const char* trsexcp::TipoTransacaoInvalido::what() const throw() {
-    return "O tipo da transacao é inválida";
+    return "ERRO 🕵️: O tipo da transacao é inválida";
 }
 
 // Metodo para DataInvalida
@@ -37,5 +37,5 @@ std::string trsexcp::DataInvalida::getData() {
 }
 
 const char* trsexcp::DataInvalida::what() const throw() {
-    return "Data informada não está no padrão dd-mm-aaaa ou é inválida";
+    return "ERRO 🕵️: Data informada não está no padrão dd-mm-aaaa ou é inválida";
 }
