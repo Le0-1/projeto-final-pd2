@@ -703,13 +703,48 @@ int main(int argc, char const *argv[]) {
                 printMensagem();
 
                 continue;
-            case 18: // Sair
+
+            case 18: // Listar despesas cartão de crédito
+                Utils::printColor(corSeparador, separador);
+                Utils::printColor(Efeitos::inverse, "---- LISTAR DESPESAS CARTÃO DE CRÉDITO ----");
+
+                Utils::printColorNoLine(Efeitos::bold_bright, "CONTA BANCÁRIA: ");
+                std::cin >> conta;
+                Utils::printColorNoLine(Efeitos::bold_bright, "CARTÃO: ");
+                std::cin >> cartao;
+
+                try {
+                    gc.listarDespesasCartao(conta, cartao);
+                }
+                catch (ctrexcp::ContaNaoEncontrada &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
+                }
+                catch (cdcexcp::CartaoNaoEncontrado &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CARTÃO: ");
+                    std::cout << e.getNomeCartao() << std::endl;
+                }
+                catch (ctrexcp::ContaNaoPermiteCartao &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "TIPO DA CONTA: ");
+                    std::cout << e.getSubtipoConta() << std::endl;
+                }
+               
+                Utils::printColor(corSeparador, separador);
+                std::cout << std::endl;
+                printMensagem();
+
+                continue;
+
+            case 19: // Sair
                 break;
         }
         break;
     }
 
-    Utils::limparConsole();
+    //Utils::limparConsole();
 
     return 0;
 }
@@ -721,24 +756,25 @@ void printMenu() {
               << "2 - Adicionar carteira bancária\n"
               << "3 - Adicionar receita\n"
               << "4 - Adicionar despesa\n"
-              << "5 - Adicionar despesa cartao de credito\n"
-              << "6 - Adicionar transferencia\n"
-              << "7 - Adicionar cartao de credito\n"
+              << "5 - Adicionar despesa cartão de crédito\n"
+              << "6 - Adicionar transferência\n"
+              << "7 - Adicionar cartão de crédito\n"
               << "8 - Remover carteira\n"
-              << "9 - Remover conta\n"
+              << "9 - Remover carteira bancária\n"
               << "10 - Remover receita\n"
               << "11 - Remover despesa\n"
-              << "12 - Remover despesa cartao de credito\n"
-              << "13 - Remover transferencia\n"
-              << "14 - Remover cartao de credito\n"
-              << "15 - Pagar fatura de um cartão\n"
+              << "12 - Remover despesa cartão de crédito\n"
+              << "13 - Remover transferência\n"
+              << "14 - Remover cartão de crédito\n"
+              << "15 - Pagar fatura de um cartão de crédito\n"
               << "16 - Listar carteiras\n"
-              << "17 - Listas transacoes\n"
-              << "18 - Sair\n";
+              << "17 - Listar transações\n"
+              << "18 - Listar despesas cartão de crédito\n"
+              << "19 - Sair\n";
 }
 
 void printMensagem() {
     Utils::printColor(Efeitos::underline, "Retornar ao menu ou sair!");
     std::cout << "0 - Imprimir menu\n"
-              << "18 - Sair\n";
+              << "19 - Sair\n";
 }

@@ -68,23 +68,11 @@ double CartaoDeCredito::getTotalDespesas() {
 }
 
 void CartaoDeCredito::listarDespesas() {
-    std::cout << "--------------------"
-              << "\nCARTAO: " << this->_nome
-              << "\nNUMERO: " << this->_numero
-              << "\nCVV: " << this->_CVV
-              << "\nFECHAMENTO:" << this->_fechamento
-              << "\n--------------------" << std::endl;
+    this->imprimirInfo();
 
     for (auto const& despesa : _despesas) {
-        std::cout << "ID: " << despesa->getID()
-                  << "\nDATA: " << despesa->getData()
-                  << "\nVALOR: R$ " << despesa->getValor()
-                  << "\nCATEGORIA: " << despesa->getCategoria()
-                  << "\n--------------------" << std::endl;
+        despesa->imprimirInfo();
     }
-
-    std::cout << "VALOR PROXIMA FATURA: R$ " << this->getTotalDespesas() << std::endl;
-    std::cout << "DESPESAS REGISTRADAS: " << this->_despesas.size() << std::endl;
 }
 
 bool CartaoDeCredito::removerDespesa(int id) {

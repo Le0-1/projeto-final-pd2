@@ -61,9 +61,12 @@ class GerenciaConta {
 
         void pagarFaturaCartao(std::string conta, std::string cartao);
 
+        void listarDespesasCartao(std::string conta, std::string cartao);
+
         void imprimirContas();
 
         void listarTransacao(std::string conta, std::string tipo);
+
 };
 
 #endif

@@ -222,6 +222,19 @@ void GerenciaConta::pagarFaturaCartao(std::string conta, std::string cartao) {
     }
 }
 
+void GerenciaConta::listarDespesasCartao(std::string conta, std::string cartao) {
+
+    if (getConta(conta)->getSubtipo() == "CarteiraBancaria") {
+        std::shared_ptr<CarteiraBancaria> conta_bancaria;
+        conta_bancaria = std::dynamic_pointer_cast<CarteiraBancaria>(getConta(conta));
+
+        conta_bancaria->getCartaoDeCredito(cartao)->listarDespesas();
+    }
+    else {
+        throw ctrexcp::ContaNaoPermiteCartao(conta, getConta(conta)->getSubtipo());
+    }
+}
+
 void GerenciaConta::imprimirContas() {
     if(!(getContas().empty())) {
         for (auto const& conta : getContas()) {
