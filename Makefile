@@ -2,7 +2,6 @@ CC = g++
 NAME = program
 TEST_NAME = program_tests
 CFLAGS = --std=c++11 -Wall --coverage
-NFLAGS = -lncurses -lmenu -lform
 DEBUG_FLAG =
 
 BUILD_DIR = ./build
@@ -55,13 +54,13 @@ BUILD_TEST_FILES = \
 all: $(BUILD_DIR)/$(NAME)
 
 $(BUILD_DIR)/$(NAME): $(BUILD_FILES)
-	$(CC) $(CFLAGS) $(NFLAGS) $(DEBUG_FLAG) $(BUILD_DIR)/*.o -o $(BUILD_DIR)/$(NAME)
+	$(CC) $(CFLAGS) $(DEBUG_FLAG) $(BUILD_DIR)/*.o -o $(BUILD_DIR)/$(NAME)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)$(RES_DIR)/%.cpp $(INCLUDE_DIR)/%.hpp
-	$(CC) -c $(CFLAGS) $(NFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@
+	$(CC) -c $(CFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CC) -c $(CFLAGS) $(NFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@
+	$(CC) -c $(CFLAGS) $(DEBUG_FLAG) $< -I $(INCLUDE_DIR) -o $@
 
 debug: clean var all
 

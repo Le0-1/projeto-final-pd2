@@ -58,7 +58,6 @@ TEST_CASE("Teste removerDespesa - Caso Base") {
     gerente.adicionarDespesa("conta", 50, "10/10/2022", "categoria");
     gerente.adicionarDespesa("conta", 50, "11/10/2022", "categoria");
     gerente.removerDespesa("conta", 4);
-    gerente.getConta("conta")->ultimasTransacoes(3);
 //ID última Despesa = 4
     CHECK(gerente.getConta("conta")->getSaldoAtual() == 50);
 }
