@@ -1,49 +1,70 @@
 # Finanças Pessoais
 
-## Dependências 
-Esse projeto usa a biblioteca `ncurses-6.2` ou superior para desenvolvimento.
 
-No seu terminal você pode rodar as seguintes operações para instalar.
+## **Ferramentas**
 
-#### Ubundo/Debian
-```
-sudo apt install libncurses5-dev
-```
+Esse projeto utiliza as seguintes linguagem, ferramentas e bibliotecas:
 
-#### Red Hat/CentOS/Fedora
-```
-sudo dnf ncurses-devel
-```
+* Linguagem: [C++11](https://cplusplus.com/doc/)
+* Compilação: [Make](https://www.gnu.org/software/make/)
+* Documentação: [Doxygen](https://doxygen.nl/)
+* Testes Unitários: [Doctest](https://github.com/doctest/doctest)
+* Cobertura: [gcovr](https://gcovr.com/)
 
-#### Arch/Manjaro
-```
-sudo pacman -S ncurses
+## **Compilação**
+
+```bash
+$ make
 ```
 
-Caso nenhuma desses operações seja possivel, você pode baixar diretamente o [código fonte](http://gnu.c3sl.ufpr.br/ftp/ncurses/) da biblioteca e compilar localmente.
+## **Execução**
 
-Leia os arquivos `README` e `INSTALL` para obter detalhes sobre como instalá-lo. Geralmente envolve as seguintes operações.
-
-```
-tar zxvf ncurses<version>.tar.gz
+```bash
+$ make run
 ```
 
-```
-cd ncurses<version>
+## **Compilação Testes**
+
+```bash
+$ make tests
 ```
 
-```
-./configure
+## **Execução Testes**
+
+```bash
+$ make run_tests
 ```
 
-```
-make
+## **Relatório de Cobertura**
+
+Para imprimir o relatório simplificado no próprio Terminal, utilizar:
+```bash
+$ make coverage
 ```
 
-```
-su root
+Para gerar o relatório em HTML, utilizar:
+```bash
+$ make html_coverage
 ```
 
+## **Documentação**
+
+É necessário ter na raiz do projeto um arquivo _Doxyfile_. Um arquivo padrão pode ser gerado pelo comando:
+```bash
+$ doxygen -g
 ```
-make install
+
+Para gerar a documentação, utilizar:
+
+```bash
+$ doxygen Doxyfile
+```
+ou
+```bash
+$ make documentation
+```
+
+## **Remover arquivos auxiliares**
+```bash
+$ make clean
 ```
