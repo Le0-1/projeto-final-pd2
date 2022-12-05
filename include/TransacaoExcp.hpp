@@ -41,6 +41,18 @@ namespace trsexcp {
 
             std::string getData();
     };
+
+    class TransferenciaInvalida : public std::exception {
+        private:
+            std::string _nome_da_conta;
+
+        public:
+            TransferenciaInvalida(std::string);
+
+            const char* what() const throw();
+
+            std::string getNomeConta();
+    };
 }
 
 #endif

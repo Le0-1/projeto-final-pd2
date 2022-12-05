@@ -89,7 +89,7 @@ bool Barricada::validar_transferencia(std::string& data, std::string& origem,
                                       std::string& destino) {
 
     if (origem == destino) {
-        throw trfexcp::TransferenciaInvalida(origem);
+        throw trsexcp::TransferenciaInvalida(origem);
     }
     if (!std::regex_match(data, std::regex(data_valida))) {
         throw trsexcp::DataInvalida(data);

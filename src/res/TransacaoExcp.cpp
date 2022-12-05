@@ -13,7 +13,7 @@ int trsexcp::TransacaoNaoEncontrada::getID() {
     return this->_id;
 }
 
-// Metodo para TipoTransacaoInvalido
+// Metodos para TipoTransacaoInvalido
 trsexcp::TipoTransacaoInvalido::TipoTransacaoInvalido(std::string tipo) {
     this->_tipo = tipo;
 }
@@ -37,4 +37,17 @@ std::string trsexcp::DataInvalida::getData() {
 
 const char* trsexcp::DataInvalida::what() const throw() {
     return "ERRO 🕵️: Data informada não está no padrão dd-mm-aaaa ou é inválida";
+}
+
+// Metodos TransferenciaInvalida
+trsexcp::TransferenciaInvalida::TransferenciaInvalida(std::string nome) {
+    this->_nome_da_conta = nome;
+}
+
+const char* trsexcp::TransferenciaInvalida::what() const throw() {
+    return "ERRO 🕵️: Não é possível realizar uma transferência para uma mesma conta";
+}
+
+std::string trsexcp::TransferenciaInvalida::getNomeConta() {
+    return this->_nome_da_conta;
 }
