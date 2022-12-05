@@ -91,6 +91,19 @@ namespace cdcexcp {
             std::string getFechamento();
     };
 
+    class CartaoJaExiste : public std::exception {
+        private:
+            std::string _nome;
+        
+        public:
+            CartaoJaExiste(std::string nome);
+
+            const char* what() const throw();
+
+            std::string getNome();
+
+    };
+
 }
 
 #endif // !CARTAO_DE_CREDITO_EXCP_H

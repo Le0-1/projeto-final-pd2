@@ -106,3 +106,16 @@ std::string cdcexcp::FechamentoInvalido::getFechamento() {
 const char* cdcexcp::FechamentoInvalido::what() const throw() {
     return "ERRO 🕵️: Fechamento do cartão não está entre os dias 1 e 31";
 }
+
+/*Métodos Exceção CartaoJaExiste*/
+cdcexcp::CartaoJaExiste::CartaoJaExiste(std::string nome){
+    this->_nome = nome;
+}
+
+const char* cdcexcp::CartaoJaExiste::what() const throw() {
+    return "ERRO 🕵️: Cartão já existe";
+}
+
+std::string cdcexcp::CartaoJaExiste::getNome() {
+    return this->_nome;
+}

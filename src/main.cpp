@@ -338,6 +338,12 @@ int main(int argc, char const *argv[]) {
                     Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
                     std::cout << e.getNome() << std::endl;
                 }
+                catch (cdcexcp::CartaoJaExiste& e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CARTAO: ");
+                    std::cout << e.getNome() << std::endl;
+                }
+
                 catch (cdcexcp::LimiteInvalido& e) {
                     Utils::printColor(Foreground::f_red, e.what());
                     Utils::printColorNoLine(Foreground::f_red, "LIMITE: "); 

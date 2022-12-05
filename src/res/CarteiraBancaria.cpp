@@ -6,7 +6,13 @@ CarteiraBancaria::CarteiraBancaria(std::string nome, double saldo_inicial)
     : Carteira(nome, saldo_inicial, "CarteiraBancaria") { }
 
 void CarteiraBancaria::adicionarCartao(CartaoDeCredito cartao) {
-    getCartoes().insert(std::pair<std::string, CartaoDeCredito>(cartao.getNome(), cartao));
+    /*A funcao find do map retorna o 'end' do map se não encontrar nada*/
+    if (this->_cartoes.find(cartao.getNome()) == this->_cartoes.end()) {
+        getCartoes().insert(std::pair<std::string, CartaoDeCredito>(cartao.getNome(), cartao));
+    }
+    else {
+        throw cdcexcp::CartaoJaExiste(cartao.getNome());
+    }
 }
 
 CarteiraBancaria::~CarteiraBancaria() { }
