@@ -43,9 +43,11 @@ TEST_CASE("Teste Construtor de Transferência - Exceção Origem Invalida"){
 //Passar um valor de transferencia superior ao saldo da conta origem.
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Saldo Insuficiente"){
-    Carteira novaCarteiraA("carteiraA", 100), novaCarteiraB("carteiraB", 100);
-    CHECK_THROWS_AS(Transferencia novaTransferencia(2000, "11/11/2022", "categoria", "carteiraA", 
-        "carteiraB"), ctrexcp::ValorInvalido);
+    GerenciaConta gerente;
+    gerente.adicionarCarteira("carteiraA", 100);
+    gerente.adicionarCarteira("carteiraB", 100);
+    CHECK_THROWS_AS(gerente.adicionarTransferencia(2000, "11/11/2022", "categoria", "carteiraA", "carteiraB"),
+        ctrexcp::ValorInvalido);
 }
 
 //Exceção ValorInvalido ainda a ser implementada.
