@@ -22,15 +22,21 @@ TEST_CASE("Teste alterarOrigem - Caso Base"){
 //Passar um destino/origem que não existe, ou passar origem e destino iguais.
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Destino Invalido"){
-    Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000);
-    CHECK_THROWS_AS(Transferencia novaTransferencia(100, "11/11/2022", "categoria", "carteiraA", 
-        "carteiraC"), ctrexcp::ContaNaoEncontrada);
+    GerenciaConta gerente;
+    gerente.adicionarCarteira("carteiraA", 1000);
+    gerente.adicionarCarteira("carteiraB", 1000);
+    
+    CHECK_THROWS_AS(gerente.adicionarTransferencia(100, "11/11/2022", "categoria", "carteiraA", "carteiraC"),
+        ctrexcp::ContaNaoEncontrada);
 }
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Origem Invalida"){
-    Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000);
-    CHECK_THROWS_AS(Transferencia novaTransferencia(100, "11/11/2022", "categoria", "carteiraC", 
-        "carteiraA"), ctrexcp::ContaNaoEncontrada);
+    GerenciaConta gerente;
+    gerente.adicionarCarteira("carteiraA", 1000);
+    gerente.adicionarCarteira("carteiraB", 1000);
+
+    CHECK_THROWS_AS(gerente.adicionarTransferencia(100, "11/11/2022", "categoria", "carteiraC", "carteiraA"),
+        ctrexcp::ContaNaoEncontrada);
 }
 
 //Exceção SaldoInsuficiente ainda a ser implementada.
