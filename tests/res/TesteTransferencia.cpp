@@ -1,7 +1,7 @@
 #include "doctest.h"
 #include "Carteira.hpp"
 #include "Transferencia.hpp"
-#include "TransferenciaExcp.hpp"
+#include "TransacaoExcp.hpp"
 #include "CarteiraExcp.hpp"
 
 TEST_CASE("Teste alterarDestino - Caso Base"){
@@ -19,7 +19,7 @@ TEST_CASE("Teste alterarOrigem - Caso Base"){
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Data Invalida"){
     CHECK_THROWS_AS(Transferencia novaTransferencia(100, "data_invalida", "categoria", 
-        "origem", "destino"), trfexcp::DataInvalida);
+        "origem", "destino"), trsexcp::DataInvalida);
 }
 
 //Exceção DestinoInvalido/Origem Invalida ainda a ser implementada. 
@@ -34,7 +34,7 @@ TEST_CASE("Teste Construtor de Transferência - Exceção Destino Invalido"){
 TEST_CASE("Teste Construtor de Transferência - Exceção Destino Invalido, Destino = Origem"){
     Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000);
     CHECK_THROWS_AS(Transferencia novaTransferencia(100, "11/11/2022", "categoria", "carteiraA", 
-        "carteiraA"), trfexcp::TransferenciaInvalida);
+        "carteiraA"), trsexcp::TransferenciaInvalida);
 }
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Origem Invalida"){

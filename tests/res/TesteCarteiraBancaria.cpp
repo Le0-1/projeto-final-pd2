@@ -26,6 +26,12 @@ TEST_CASE("Teste getCartaoDeCredito - Caso Base") {
     CHECK(novaCarteiraBancaria.getCartaoDeCredito("cartao")->getNome() == "cartao");
 }
 
+TEST_CASE("Teste getCartaoDeCredito - Exceção Cartão Não Encontrado") {
+    CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
+    CartaoDeCredito novoCartao("cartao", "101010101010101", "001", "10/11/1999", 1000);
+    CHECK_THROWS_AS(novaCarteiraBancaria.getCartaoDeCredito("cartao_inexistente"), cdcexcp::CartaoNaoEncontrado);
+}
+
 TEST_CASE("Teste pagarFatura- Caso Base") {
     CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
     CartaoDeCredito novoCartao("cartao", "101010101010101", "001", "10/11/1999", 1000);
@@ -35,4 +41,11 @@ TEST_CASE("Teste pagarFatura- Caso Base") {
     novoCartao.adicionarDespesa(150, "10/11/1999", "padaria");
     novaCarteiraBancaria.pagarFatura("cartao");
     CHECK(novaCarteiraBancaria.getSaldoAtual() == 550);
+}
+
+TEST_CASE("Teste adicionarCartao - Exceção Cartão Já Existente") {
+    CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
+    CartaoDeCredito novoCartao("cartao", "101010101010101", "001", "10/11/1999", 1000);
+    novaCarteiraBancaria.adicionarCartao(novoCartao);
+    CHECK_THROWS_AS(novaCarteiraBancaria.adicionarCartao(novoCartao), cdcexcp::CartaoJaExiste);
 }
