@@ -4,6 +4,7 @@
 #include <ctime>
 #include <sstream>
 
+
 const std::string Barricada::numero_cc_valido = "^[0-9]{16}$";
 const std::string Barricada::CVV_valido = "^[0-9]{3}$";
 const std::string Barricada::fechamento_valido = "^(([0]?[1-9])|([1-2][0-9])|(3[01]))$";
@@ -17,11 +18,19 @@ const std::string Barricada::data_valida = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[0
 
 void Barricada::validar_saldo(double &saldo) {
 
-    while (std::cin.fail() || saldo < 0) {
+    while (std::cin.fail() || saldo < 0 || saldo > PIB_MUNDIAL) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Entrada inválida, coloque um valor positivo: ";
-        std::cin >> saldo;
+
+        if (saldo > PIB_MUNDIAL) {
+            Utils::printColor(Foreground::f_red, "🕵️  VOCÊ DIGITOU UM VALOR MAIOR QUE O PIB MUNDIAL.");
+            Utils::printColorNoLine(Foreground::f_yellow, "DIGITE UM VALOR VÁLIDO: ");
+            std::cin >> saldo;
+        }
+        else {
+            Utils::printColorNoLine(Foreground::f_yellow, "🕵️ ENTRADA INVÁLIDA, COLOQUE UM VALOR POSITIVO: ");
+            std::cin >> saldo;
+        }
     }
 
 }
@@ -32,7 +41,7 @@ void Barricada::validar_input(unsigned &input) {
     while (std::cin.fail() || input < 0 || input > 19) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Entrada inválida. Coloque uma opção do menu: ";
+        Utils::printColorNoLine(Foreground::f_yellow, "🕵️ ENTRADA INVÁLIDA, COLOQUE UMA OPÇÃO DO MENU: ");
         std::cin >> input;
     }
 
@@ -43,8 +52,14 @@ void Barricada::validar_transacao(double &valor_transacao) {
     while (std::cin.fail() || valor_transacao <= 0) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        std::cout << "Entrada inválida. Coloque um valor positivo: ";
-        std::cin >> valor_transacao;
+        if (valor_transacao > PIB_MUNDIAL) {
+            Utils::printColorNoLine(Foreground::f_red, "🕵️ VOCÊ DIGITOU UM VALOR MAIOR QUE O PIB MUNDIAL");
+            std::cin >> valor_transacao;
+        }
+        else {
+            Utils::printColorNoLine(Foreground::f_yellow, "🕵️ ENTRADA INVÁLIDA, COLOQUE UM VALOR MAIOR QUE ZERO: ");
+            std::cin >> valor_transacao;
+        }
     }
 }
 
@@ -53,7 +68,7 @@ void Barricada::validar_id(unsigned &id) {
     while (std::cin.fail() || id < 0) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Entrada inválida. Coloque um ID: ";
+        Utils::printColorNoLine(Foreground::f_yellow, "🕵️ ENTRADA INVÁLIDA, COLOQUE UM VALOR DE ID VÁLIDO: ");
         std::cin >> id;
     }
 
@@ -64,8 +79,14 @@ void Barricada::validar_limite_cartao(double &limite_cartao) {
     while (std::cin.fail() || limite_cartao <= 0) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Entrada inválida. Coloque um limite positivo: ";
-        std::cin >> limite_cartao;
+        if (limite_cartao > PIB_MUNDIAL) {
+            Utils::printColorNoLine(Foreground::f_red, "🕵️ VOCÊ DIGITOU UM VALOR MAIOR QUE O PIB MUNDIAL");
+            std::cin >> limite_cartao;
+        }
+        else {
+            Utils::printColorNoLine(Foreground::f_yellow, "🕵️ ENTRADA INVÁLIDA, COLOQUE UM VALOR MAIOR QUE ZERO: ");
+            std::cin >> limite_cartao;
+        }
     }
 }
 

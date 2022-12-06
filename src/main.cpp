@@ -540,7 +540,7 @@ int main(int argc, char const *argv[]) {
                 continue;
 
             case 13: // Remover transferencia
-                 Utils::printColor(corSeparador, separador);
+                Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "---------- REMOVER TRANSFERENCIA ----------");
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
@@ -678,7 +678,6 @@ int main(int argc, char const *argv[]) {
             case 17: // Listar transacoes
                 Utils::printColor(corSeparador, separador);
                 Utils::printColor(Efeitos::inverse, "------------ LISTAR TRANSACOES ------------");
-                std::cout << "CONTA, TIPO (receita ou despesa)" << std::endl;
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CARTEIRA: ");
                 std::cin >> conta;

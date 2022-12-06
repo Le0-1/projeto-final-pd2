@@ -249,7 +249,8 @@ void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
     if (tipo == "despesa" or tipo == "receita" or "transferencia") {
         std::shared_ptr<Carteira> cart_conta = getConta(conta);
 
-        std::cout << "Conta: " << cart_conta->getNome() << std::endl;
+        Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
+        Utils::printColorNoLine(Efeitos::bold_bright, cart_conta->getNome());
 
         int i = 0;
         for (auto const& it : getConta(conta)->getTransacoes()) {

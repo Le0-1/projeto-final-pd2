@@ -4,10 +4,14 @@
 #include "TransacaoExcp.hpp"
 #include "CartaoDeCreditoExcp.hpp"
 #include "Utils.hpp"
+#include "CarteiraExcp.hpp"
+
+#define PIB_MUNDIAL 96000000000000
 
 #include <iostream>
 #include <limits>
 #include <regex>
+
 
 class Barricada {
     private:
