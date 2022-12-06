@@ -15,10 +15,10 @@
 
 class Barricada {
     private:
-        static const std::string numero_cc_valido;
-        static const std::string CVV_valido;
-        static const std::string fechamento_valido;
-        static const std::string data_valida;
+        static const std::string NUMERO_CC_VALIDO;
+        static const std::string CVV_VALIDO;
+        static const std::string FECHAMENTO_CC_VALIDO;
+        static const std::string DATA_VALIDA;
 
     public:
         static void validar_saldo(double &saldo);

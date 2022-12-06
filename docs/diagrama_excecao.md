@@ -41,9 +41,9 @@ class Barricada {
     +validar_transacao(double& valor_transacao) void
     +validar_id(unsigned& id) void
     +validar_limite_cartao(double& limite) void
-    +validar_cartao(std::string& numero, std::string& CVV, std::string& fechamento) void
-    +validar_transferencia(std::string& data, std::string& origem, std::string& destino) void
-    +validar_data(std::string& data) void
+    +validar_cartao(std::string numero, std::string CVV, std::string fechamento) void
+    +validar_transferencia(std::string data, std::string origem, std::string destino) void
+    +validar_data(std::string data) void
 }
 
 ```

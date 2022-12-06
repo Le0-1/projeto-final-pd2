@@ -94,6 +94,47 @@ TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Despesa)") {
  
 ///////////////
 
+TEST_CASE("Teste PerfilVazio - Caso Base") {
+    GerenciaConta gerente;
+    CHECK_THROWS_AS(gerente.imprimirContas(), gcexcp::PerfilVazio);
+}
 
+TEST_CASE("Teste TipoTransacaoInvalido - Caso Base") {
+    GerenciaConta gerente;
+    CHECK_THROWS_AS(gerente.listarTransacao("conta1", "emprestimo"), 
+                                            trsexcp::TipoTransacaoInvalido);
+}
 
+TEST_CASE("Teste CartaoNaoEncontrado - listarDespesasCartao") {
+    GerenciaConta gerente;
+    gerente.adicionarConta("conta1", 100);
+    CHECK_THROWS_AS(gerente.listarDespesasCartao("conta1", "cartao1"),
+                                                  cdcexcp::CartaoNaoEncontrado);
+}
 
+TEST_CASE("Teste CartaoNaoEncontrado - pagarFaturaCartao") {
+    GerenciaConta gerente;
+    gerente.adicionarConta("conta1", 100);
+    CHECK_THROWS_AS(gerente.pagarFaturaCartao("conta1", "cartao1"),
+                                              cdcexcp::CartaoNaoEncontrado);
+}
+
+TEST_CASE("Teste CartaoNaoEncontrado - removerCartao") {
+    GerenciaConta gerente;
+    gerente.adicionarConta("conta1", 100);
+    CHECK_THROWS_AS(gerente.removerCartao("conta1", "cartao1"),
+                                          cdcexcp::CartaoNaoEncontrado);
+}
+
+TEST_CASE("Teste CartaoNaoEncontrado - adicionarCartao") {
+    GerenciaConta gerente;
+    gerente.adicionarCarteira("conta1", 100);
+    CHECK_THROWS_AS(gerente.adicionarCartao("conta1", "cartao1","1234123412341234",
+                                            "123", "11", 1000), ctrexcp::ContaNaoPermiteCartao);
+}
+
+TEST_CASE("Teste TransacaoNaoEncontrada - removerTransferencia") {
+    GerenciaConta gerente;
+    gerente.adicionarCarteira("conta1", 100);
+    CHECK_THROWS_AS(gerente.removerTransferencia("conta1", 123), trsexcp::TransacaoNaoEncontrada);
+}

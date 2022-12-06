@@ -87,13 +87,14 @@ Transacao <|-- Transferencia
 class Receita {
     -conta: string 
 
-    +alterarConta(string) void
     +imprimirInfo() void
+    +alterarConta(string) void
 }
 
 class Despesa {
     -conta: string
 
+    +imprimirInfo() void
     +alterarConta(string) void
 }
 
@@ -101,9 +102,9 @@ class Transferencia {
     -origem: string
     -destino: string
 
+    +imprimirInfo() void
     +alterarOrigem(string) void
     +alterarDestino(string) void
-    +imprimirInfo() void
 }
 
 ```
