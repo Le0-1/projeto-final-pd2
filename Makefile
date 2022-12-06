@@ -51,7 +51,11 @@ TEST_DEPENDENCIES = \
 BUILD_TEST_FILES = \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteira.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteiraBancaria.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteDespesa.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteGerenciaConta.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteReceita.o \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteTransferencia.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/main_test.o 
 
 all: $(BUILD_DIR)/$(NAME)
