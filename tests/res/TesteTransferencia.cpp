@@ -3,6 +3,7 @@
 #include "Transferencia.hpp"
 #include "TransacaoExcp.hpp"
 #include "CarteiraExcp.hpp"
+#include "GerenciaConta.hpp"
 
 TEST_CASE("Teste alterarDestino - Caso Base"){
     Carteira novaCarteiraA("carteiraA", 1000), novaCarteiraB("carteiraB", 1000), novaCarteiraC("carteiraC", 1000);
@@ -51,8 +52,11 @@ TEST_CASE("Teste Construtor de Transferência - Exceção Saldo Insuficiente"){
 //Tentar transferir um valor invalido. 
 
 TEST_CASE("Teste Construtor de Transferência - Exceção Valor Invalido"){
-    Carteira novaCarteiraA("carteiraA", 100), novaCarteiraB("carteiraB", 100);
-    CHECK_THROWS_AS(Transferencia novaTransferencia(-100, "11/11/2022", "categoria", "carteiraA", 
-        "carteiraB"), ctrexcp::ValorInvalido);
+    GerenciaConta gerente;
+    gerente.adicionarCarteira("carteiraA", 100);
+    gerente.adicionarCarteira("carteiraB", 100);
+
+    CHECK_THROWS_AS(gerente.adicionarTransferencia(-100, "11/11/2022", "categoria", "carteiraA", "carteiraB"),
+        ctrexcp::ValorInvalido);
 }
 
