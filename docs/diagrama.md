@@ -1,4 +1,3 @@
-```mermaid
 classDiagram
 
 class GerenciaConta {
@@ -40,7 +39,7 @@ class Carteira {
     +removerTransacao(int id) void
 }
 
-Carteira <|-- ContaBancaria
+Carteira <|-- CarteiraBancaria
 Carteira *-- Transacao
 
 class CarteiraBancaria {
@@ -48,12 +47,12 @@ class CarteiraBancaria {
 
     +adicianarCartao(CartaoDeCredito cartao) void
     +removerCartao(std::string nome) void 
-    +pagarFatura
+    +pagarFatura(std::string cartao) void
     +imprimirCartoes() void
     +imprimirInfo() void
 }
 
-ContaBancaria *-- CartaoDeCredito
+CarteiraBancaria *-- CartaoDeCredito
 
 class CartaoDeCredito {
     -nome: string
@@ -105,5 +104,3 @@ class Transferencia {
     +alterarDestino(string) void
     +imprimirInfo() void
 }
-
-```
