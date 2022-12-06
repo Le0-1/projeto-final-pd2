@@ -90,8 +90,8 @@ void Barricada::validar_limite_cartao(double &limite_cartao) {
     }
 }
 
-bool Barricada::validar_cartao(std::string& numero, std::string& CVV,
-                               std::string& fechamento) {
+bool Barricada::validar_cartao(std::string numero, std::string CVV,
+                               std::string fechamento) {
                                 
     if (!std::regex_match(numero, std::regex(numero_cc_valido))) {
         throw cdcexcp::NumeroInvalido(numero);
@@ -106,8 +106,8 @@ bool Barricada::validar_cartao(std::string& numero, std::string& CVV,
     return true;
 }
 
-bool Barricada::validar_transferencia(std::string& data, std::string& origem,
-                                      std::string& destino) {
+bool Barricada::validar_transferencia(std::string data, std::string origem,
+                                      std::string destino) {
 
     if (origem == destino) {
         throw trsexcp::TransferenciaInvalida(origem);
@@ -119,7 +119,7 @@ bool Barricada::validar_transferencia(std::string& data, std::string& origem,
     return true;
 }
 
-bool Barricada::validar_data(std::string& data) {
+bool Barricada::validar_data(std::string data) {
 
     if(std::regex_match(data, std::regex(data_valida))) {
         return true;

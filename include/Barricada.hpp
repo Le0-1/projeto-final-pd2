@@ -33,13 +33,13 @@ class Barricada {
 
         static void selecionarData(std::string& data);
 
-        static bool validar_cartao(std::string& numero, std::string& CVV,
-                                   std::string& fechamento);
+        static bool validar_cartao(std::string numero, std::string CVV,
+                                   std::string fechamento);
         
-        static bool validar_transferencia(std::string& data, std::string& origem,
-                                          std::string& destino);
+        static bool validar_transferencia(std::string data, std::string origem,
+                                          std::string destino);
                                           
-        static bool validar_data(std::string& data);
+        static bool validar_data(std::string data);
 
         
 };

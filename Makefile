@@ -49,6 +49,7 @@ TEST_DEPENDENCIES = \
     $(BUILD_DIR)/CarteiraExcp.o
 
 BUILD_TEST_FILES = \
+	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteBarricada.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCartaoDeCredito.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteira.o \
 	$(TEST_DIR)$(BUILD_TEST_DIR)/TesteCarteiraBancaria.o \
