@@ -12,3 +12,7 @@ TEST_CASE("Barricada - CVVInvalido") {
 TEST_CASE("Barricada - FechamentoInvalido") {
     CHECK_THROWS_AS(Barricada::validar_cartao("1234123412341234", "123", "50"), cdcexcp::FechamentoInvalido);
 }
+
+TEST_CASE("Exceção Data Invalida - Caso Base"){
+    CHECK_THROWS_AS(Barricada::validar_data("32/12/2022"), trsexcp::DataInvalida);
+}

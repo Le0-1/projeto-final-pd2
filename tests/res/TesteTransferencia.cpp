@@ -17,11 +17,6 @@ TEST_CASE("Teste alterarOrigem - Caso Base"){
     CHECK(novaTransferencia.getOrigem() == "nova_origem");
 }
 
-TEST_CASE("Teste Construtor de Transferência - Exceção Data Invalida"){
-    CHECK_THROWS_AS(Transferencia novaTransferencia(100, "data_invalida", "categoria", 
-        "origem", "destino"), trsexcp::DataInvalida);
-}
-
 //Exceção DestinoInvalido/Origem Invalida ainda a ser implementada. 
 //Passar um destino/origem que não existe, ou passar origem e destino iguais.
 
