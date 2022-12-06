@@ -263,7 +263,7 @@ void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
 
         if (i == 0) {
             std::cout << std::endl;
-            Utils::printColor(Efeitos::inverse, "nenhuma " + tipo + " encontrada");
+            Utils::printColor(Foreground::f_yellow, "Nenhuma " + tipo + " encontrada");
         }
     }
     else {
