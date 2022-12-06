@@ -49,3 +49,28 @@ TEST_CASE("Teste adicionarCartao - Exceção Cartão Já Existente") {
     novaCarteiraBancaria.adicionarCartao(novoCartao);
     CHECK_THROWS_AS(novaCarteiraBancaria.adicionarCartao(novoCartao), cdcexcp::CartaoJaExiste);
 }
+
+TEST_CASE("Teste adicionarCartao - Exceção Número Invalido") {
+    CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
+    CartaoDeCredito cartao("nome", "0", "001", "10/11/1999", 100);
+    CHECK_THROWS_AS(novaCarteiraBancaria.adicionarCartao(cartao), cdcexcp::NumeroInvalido);
+}
+
+TEST_CASE("Teste adicionarCartao - Exceção CVV Invalido") {
+    CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
+    CartaoDeCredito cartao("nome", "101010101010101", "00001", "10/11/1999", 100);
+    CHECK_THROWS_AS(novaCarteiraBancaria.adicionarCartao(cartao), cdcexcp::CVVInvalido);
+}
+
+TEST_CASE("Teste adicionarCartao - Exceção Fechamento Invalido") {
+    CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
+    CartaoDeCredito cartao("nome", "101010101010101", "001", "40/12/1999", 100);
+    CHECK_THROWS_AS(novaCarteiraBancaria.adicionarCartao(cartao), cdcexcp::FechamentoInvalido);
+}
+
+TEST_CASE("Teste adicionarCartao - Caso Base") {
+    CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
+    CartaoDeCredito novoCartao("cartao", "101010101010101", "001", "10/11/1999", 1000);
+    novaCarteiraBancaria.adicionarCartao(novoCartao);
+    CHECK(novaCarteiraBancaria.getCartoes().size() != 0);
+}
