@@ -78,8 +78,8 @@ TEST_CASE("Teste removerTransferencia - Caso Base") {
     gerente.removerTransferencia("conta", it->second->getID());
     CHECK(gerente.getConta("conta_2")->getSaldoAtual() == 1100);
 }
-///////////////////
-/*     TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Receita)") {
+
+    TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Receita)") {
     GerenciaConta gerente;
     Carteira novaCarteira("nome", 1000);
     Receita novaReceita("conta_fantasma", 100, "10/11/1999", "receita");
@@ -92,10 +92,8 @@ TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Despesa)") {
     Despesa novaDespesa(100, "10/11/1999", "despesa", "conta_fantasma");
     std::shared_ptr<Transacao> despesa = std::make_shared<Despesa>(novaDespesa);
     CHECK_THROWS_AS(novaCarteira.adicionarTransacao(despesa), ctrexcp::ContaNaoEncontrada);
-} */
- 
-///////////////
-
+} 
+  
 
 
 
