@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
 
 class GerenciaConta {
@@ -104,3 +105,5 @@ class Transferencia {
     +alterarDestino(string) void
     +imprimirInfo() void
 }
+
+```

@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
 
 class CartaoDeCreditoExcp {
@@ -44,3 +45,5 @@ class Barricada {
     +validar_transferencia(std::string& data, std::string& origem, std::string& destino) void
     +validar_data(std::string& data) void
 }
+
+```
