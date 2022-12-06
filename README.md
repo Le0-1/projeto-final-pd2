@@ -61,7 +61,7 @@ $ doxygen Doxyfile
 ```
 ou
 ```bash
-$ make documentation
+$ make doc
 ```
 
 ## **Remover arquivos auxiliares**

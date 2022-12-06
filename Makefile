@@ -102,13 +102,18 @@ coverage: run_tests
 valgrind:
 	valgrind --leak-check=full $(BUILD_DIR)/$(NAME)
 
-html_coverage: run_tests
-	mkdir -p ${COVERAGE_DIR}
-	gcovr -r . --exclude="third_party/doctest.h" --html --html-details -o ${COVERAGE_DIR}/relatorio.html
-	gcovr -r . --exclude="third_party/doctest.h" --exclude="src/res/Utils.cpp" --exclude="src/res/GerenciaContaExcp.cpp" --exclude="src/res/CarteiraExcp.cpp" --exclude="src/res/TransacaoExcp.cpp" --exclude="src/res/CartaoDeCreditoExcp.cpp" --html --html-details -o ${COVERAGE_DIR}/relatorio.html
-
 doc: clean_doc doc
 	doxygen Doxyfile
+
+html_coverage: run_tests
+	mkdir -p ${COVERAGE_DIR}
+	gcovr -r .	--exclude="third_party/doctest.h" \
+            	--exclude="src/res/GerenciaContaExcp.cpp" \
+            	--exclude="src/res/CarteiraExcp.cpp" \
+            	--exclude="src/res/TransacaoExcp.cpp" \
+            	--exclude="src/res/CartaoDeCreditoExcp.cpp" \
+            	--exclude="src/main.cpp" \
+            	--html --html-details -o ${COVERAGE_DIR}/relatorio.html
 
 clean_doc:
 	rm -rf $(DOC_DIR)/html
