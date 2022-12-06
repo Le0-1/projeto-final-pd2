@@ -572,6 +572,11 @@ int main(int argc, char const *argv[]) {
                     Utils::printColorNoLine(Foreground::f_red, "TIPO DA TRANSAÇÃO: ");
                     std::cout << e.getTipo() << std::endl;
                 }
+                catch (ctrexcp::ContaNaoEncontrada &e) {
+                    Utils::printColor(Foreground::f_red, e.what());
+                    Utils::printColorNoLine(Foreground::f_red, "CONTA: ");
+                    std::cout << e.getNome() << std::endl;
+                }
 
                 Utils::printColor(corSeparador, separador);
                 std::cout << std::endl;
