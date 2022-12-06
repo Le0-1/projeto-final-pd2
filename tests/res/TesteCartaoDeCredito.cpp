@@ -37,19 +37,3 @@ TEST_CASE("Teste adicionarDespesa - Exceção Limite Excedido") {
     CartaoDeCredito banco1("b1", "1234556781", "001", "10", 10);
     CHECK_THROWS_AS(banco1.adicionarDespesa(11, "10/11/1999", "padaria"), cdcexcp::LimiteExcedido);
 }
-
-TEST_CASE("Teste Construtor Cartão - Exceção Número Invalido") {
-    CHECK_THROWS_AS(CartaoDeCredito cartao("nome", "0", 
-        "001", "10/11/1999", 100), cdcexcp::NumeroInvalido);
-}
-
-TEST_CASE("Teste Construtor Cartão - Exceção CVV Invalido") {
-    CHECK_THROWS_AS(CartaoDeCredito cartao("nome", "101010101010101", 
-        "001001", "10/11/1999", 100), cdcexcp::CVVInvalido);
-}
-
-TEST_CASE("Teste Construtor Cartão - Exceção Fechamento Invalido") {
-    CHECK_THROWS_AS(CartaoDeCredito cartao("nome", "101010101010101", 
-        "001", "40/12/1999", 100), cdcexcp::FechamentoInvalido);
-}
-

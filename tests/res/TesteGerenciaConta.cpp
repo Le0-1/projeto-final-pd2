@@ -95,10 +95,6 @@ TEST_CASE("Teste adicionarTransacao - Excecao Conta Nao Encontrada (Despesa)") {
 }
  */
 
-TEST_CASE("Teste adicionarCartao - Caso Base") {
-    CarteiraBancaria novaCarteiraBancaria("carteira_bancaria", 1000);
-    CartaoDeCredito novoCartao("cartao", "101010101010101", "001", "10/11/1999", 1000);
-    novaCarteiraBancaria.adicionarCartao(novoCartao);
-    CHECK(novaCarteiraBancaria.getCartoes().size() != 0);
-}
+
+
 
