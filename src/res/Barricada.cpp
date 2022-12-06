@@ -129,25 +129,3 @@ bool Barricada::validar_data(std::string data) {
     }
     return false;
 }
-
-void Barricada::selecionarData(std::string &data) {
-    Utils::printColorNoLine(Efeitos::bold_bright, "DESEJA COLOCAR A DATA DE HOJE? [s/n]: ");
-    char resposta;
-    std::cin >> resposta;
-
-    if (resposta == 's' || resposta == 'S') {
-        std::time_t t = std::time(nullptr);
-        std::tm tm = *std::localtime(&t);
-
-        std::ostringstream oss;
-        oss << std::put_time(&tm, "%d/%m/%Y");
-        data = oss.str();
-        Utils::printColorNoLine(Efeitos::bold_bright, "A DATA DE HOJE É: ");
-        std::cout << data << std::endl;
-    }
-    else {
-        Utils::printColorNoLine(Efeitos::bold_bright, "DIGITE A DATA DESEJADA: ");
-        std::cin >> data;
-    }
-
-}

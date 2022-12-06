@@ -122,7 +122,7 @@ int main(int argc, char const *argv[]) {
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
 
-                Barricada::selecionarData(data);
+                Utils::selecionarData(data);
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
                 std::cin >> categoria;
@@ -165,7 +165,7 @@ int main(int argc, char const *argv[]) {
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
 
-                Barricada::selecionarData(data);
+                Utils::selecionarData(data);
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
                 std::cin >> categoria;
@@ -214,7 +214,7 @@ int main(int argc, char const *argv[]) {
                 Utils::printColorNoLine(Efeitos::bold_bright, "CARTÃO: ");
                 std::cin >> cartao;
 
-                Barricada::selecionarData(data);
+                Utils::selecionarData(data);
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
                 std::cin >> categoria;
@@ -264,7 +264,7 @@ int main(int argc, char const *argv[]) {
 
                 /*Barricada que verifica o valor da transacao*/
                 Barricada::validar_transacao(valor_transacao);
-                Barricada::selecionarData(data);
+                Utils::selecionarData(data);
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CATEGORIA: ");
                 std::cin >> categoria;
@@ -681,7 +681,7 @@ int main(int argc, char const *argv[]) {
 
                 Utils::printColorNoLine(Efeitos::bold_bright, "CARTEIRA: ");
                 std::cin >> conta;
-                Utils::printColorNoLine(Efeitos::bold_bright, "TIPO (despesa ou receita): ");
+                Utils::printColorNoLine(Efeitos::bold_bright, "TIPO (despesa, receita ou transferencia: ");
                 std::cin >> tipo;
 
                 try {

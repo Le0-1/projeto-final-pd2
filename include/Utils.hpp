@@ -2,6 +2,9 @@
 #define UTILS_H
 
 #include <iostream>
+#include <iomanip>
+#include <ctime>
+#include <sstream>
 
 enum Foreground {
     f_black = 30,
@@ -45,7 +48,9 @@ class Utils {
 
         static void printColorNoLine(int color1, int color2, std::string texto);
 
-        static void limparConsole() ;
+        static void limparConsole();
+
+        static void selecionarData(std::string& data);
 };
 
 #endif

@@ -246,7 +246,7 @@ void GerenciaConta::listarTransacao(std::string conta, std::string tipo) {
     //transforma os caracteres da string em minúsculo
     std::transform(tipo.begin(), tipo.end(), tipo.begin(), ::tolower);
 
-    if (tipo == "despesa" or tipo == "receita" or "transferencia") {
+    if (tipo == "despesa" || tipo == "receita" || tipo == "transferencia") {
         std::shared_ptr<Carteira> cart_conta = getConta(conta);
 
         Utils::printColorNoLine(Efeitos::bold_bright, "CONTA: ");
