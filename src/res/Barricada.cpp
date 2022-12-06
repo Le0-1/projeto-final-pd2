@@ -50,11 +50,12 @@ void Barricada::validar_input(unsigned &input) {
 
 void Barricada::validar_transacao(double &valor_transacao) {
 
-    while (std::cin.fail() || valor_transacao <= 0) {
+    while (std::cin.fail() || valor_transacao <= 0 || valor_transacao > PIB_MUNDIAL) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
         if (valor_transacao > PIB_MUNDIAL) {
-            Utils::printColorNoLine(Foreground::f_red, "🕵️ VOCÊ DIGITOU UM VALOR MAIOR QUE O PIB MUNDIAL");
+            Utils::printColor(Foreground::f_red, "🕵️  VOCÊ DIGITOU UM VALOR MAIOR QUE O PIB MUNDIAL.");
+            Utils::printColorNoLine(Foreground::f_yellow, "DIGITE UM VALOR VÁLIDO: ");
             std::cin >> valor_transacao;
         }
         else {
