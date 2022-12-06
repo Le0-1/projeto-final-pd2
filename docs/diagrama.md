@@ -3,23 +3,27 @@ classDiagram
 
 class GerenciaConta {
     -contas: map~string, shared_ptr~Carteira~~
-    -transferencias: map~int, Transferencia~
 
     +adicionarCarteira(string, double) void
     +adicionarConta(string, double) void
+
     +removerConta(string) void
+
     +adicionarReceita(string, double, string,string) void
     +adicionarDespesa(string, double, string, string) void
     +adicionarDespesaCartao(string, string, double, string, string) void
     +adicionarTransferencia(double, string, string, string, string) void
+
     +removerReceita(string, int) void
     +removerDespesa(string, int) void
     +removerDespesaCartao(string, string, int) void
     +removerTransferencia(int) void
+
     +adicionarCartao(string, string, string, string, string, double) void
     +removerCartao(string, string) void
-    +pagarFatura(string, string) void
+    +pagarFaturaCartao(string, string) void
     +imprimirContas() void
+    +listarTransacao() void
 }
 
 GerenciaConta *-- Carteira
@@ -27,10 +31,11 @@ GerenciaConta *-- Carteira
 class Carteira {
     -nome: string
     -saldo_atual: double
-    -transacoes: map~int, Transacao~
+    -transacoes: map~int, shared_ptr~Transacao~~
     -subtipo: string
 
-    +ultimasTransacoes(unsigned int quantidade) map
+    +imprimirInfo() void
+    +ultimasTransacoes(unsigned int quantidade) void
     +adicionarTransacao(Transacao transacao) void
     +removerTransacao(int id) void
 }
@@ -38,12 +43,14 @@ class Carteira {
 Carteira <|-- ContaBancaria
 Carteira *-- Transacao
 
-class ContaBancaria {
+class CarteiraBancaria {
     -cartoes: map~string, CartaoDeCredito~
 
     +adicianarCartao(CartaoDeCredito cartao) void
     +removerCartao(std::string nome) void 
+    +pagarFatura
     +imprimirCartoes() void
+    +imprimirInfo() void
 }
 
 ContaBancaria *-- CartaoDeCredito
@@ -54,13 +61,13 @@ class CartaoDeCredito {
     -CVV: string
     -fechamento: string
     -limite_cartao: double
-    -despesas : list
+    -despesas : list~shared_ptr~Despesa~~
 
     +alterarLimiteCartao(double limite) void
     +adicionarDespesa(double, string, string) void
     +listarDespesas() void
     +removerDespesa(int id) bool
-    
+    +imprimirInfo() void
 }
 
 class Transacao {
@@ -69,6 +76,8 @@ class Transacao {
     -valor: double
     -data: string
     -categoria: string
+
+    +imprimirInfo() virtual void
 }
 
 Transacao <|-- Receita
@@ -79,10 +88,11 @@ class Receita {
     -conta: string 
 
     +alterarConta(string) void
+    +imprimirInfo() void
 }
 
 class Despesa {
-    -banco: string
+    -conta: string
 
     +alterarConta(string) void
 }
@@ -93,6 +103,7 @@ class Transferencia {
 
     +alterarOrigem(string) void
     +alterarDestino(string) void
+    +imprimirInfo() void
 }
 
 ```
