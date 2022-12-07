@@ -1,45 +1,55 @@
-| Classe: `Conta`||
-| :------------------------ | ----------------- |
-| **Responsabilidades**     | **Colaborações**  |
-| saldoInicial              | `Transação`       |
-| saldoAtual                | `ContaBancaria`   |
-| nome                      | `Carteira`        |
-
-| Classe: `ContaBancaria`||
-| :--------------------- | ---------------------|
-| **Responsabilidades:** | **Colaborações:**    |
-| cartoesCredito         | `cartao`             |
+| Classe: `GerenciaCarteiras`||
+| :------------------------ | -------------------- |
+| **Responsabilidades**     | **Colaborações**     |
+| carteiras                 | `Carteira`          |
+|
 
 | Classe: `Carteira`||
-| :--------------------- | ---------------------|
+| :------------------------ | -------------------- |
+| **Responsabilidades**     | **Colaborações**     |
+| nome                      | `Transação`          |
+| saldoAtual                | `CarteiraBancaria`   |
+|                           |                      |
+
+| Classe: `CarteiraBancaria`||
+| :--------------------- | -------------------- |
 | **Responsabilidades:** | **Colaborações:**    |
-|                        |                      |
+| cartoesCredito         | `CartaoDeCredito`    |
 
 | Classe: `Transacao`||
-| :--------------------- | ---------------------|
+| :--------------------- | -------------------- |
 | **Responsabilidades:** | **Colaborações:**    |
+| ID                     |  `Carteira`          |
 | data                   |                      |
 | valor                  |                      |
-| descricao              |                      |
+| categoria              |                      |
+| imprimirInfo           |                      |
 
 | Classe: `Despesas`||
 | :--------------------- | -------------------- |
 | **Responsabilidades:** | **Colaborações:**    |
-| origem                 | `ContaBancaria`      |
-| valor                  |                      |
-| totalAPagar            |                      |
-| despesaCartaoCredito   |                      |
-| vencimento             |                      |
+| carteira               | `Transacao`          |
+|                        | `CartaoDeCredito`    |
+
+| Classe: `Receita`||
+| :--------------------- | -------------------- |
+| **Responsabilidades:** | **Colaborações:**    |
+| carteira               | `Transacao`          |
 
 | Classe: `Transferencia`||
 | :--------------------- | -------------------- |
 | **Responsabilidades:** | **Colaborações:**    |
-| origem                 | `ContaBancaria`      |
+| origem                 | `Transacao`          |
 | destino                |                      |
 
-| Classe: `Orcamento`||
-| :--------------------- | ----------------- |
-| **Responsabilidades:** | **Colaborações:** |
-| valor                  |                   |
-| fluxo                  |                   |
-| periodo                |                   |
+| Classe: `CartaoDeCredito`||
+| :--------------------- | -------------------- |
+| **Responsabilidades:** | **Colaborações:**    |
+| nome                   | `CarteiraBancaria`   |
+| numero                 |                      |
+| CVV                    |                      |
+| fechmento              |                      |
+| limite                 |                      |
+| despesas               |                      |
+
+
